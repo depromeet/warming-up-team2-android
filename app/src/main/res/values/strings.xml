@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ChildcareDiary</string>
+    <string name="app_name">BOO BOO</string>
+    <string name="title_home">홈</string>
+    <string name="title_account_book">가계부</string>
 </resources>
