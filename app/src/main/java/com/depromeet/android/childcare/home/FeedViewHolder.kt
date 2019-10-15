@@ -2,6 +2,7 @@ package com.depromeet.android.childcare.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ItemFeedBinding
@@ -17,12 +18,15 @@ class FeedViewHolder(
     private val binding = ItemFeedBinding.bind(itemView).apply {
         this.navigator = this@FeedViewHolder.navigator
     }
-    private var feed: Record? = null
 
     fun bind(feed: Record) {
-        binding.run {
-            this@FeedViewHolder.feed = feed
-            this.feed = feed
+        try {
+            binding.run {
+                setVariable(BR.feed, feed)
+                executePendingBindings()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
