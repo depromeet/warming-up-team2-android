@@ -5,13 +5,17 @@
 
     <data>
         <variable
-            name="feed"
+            name="bookDetail"
             type="com.depromeet.android.childcare.model.Record" />
+
+        <variable
+            name="navigator"
+            type="com.depromeet.android.childcare.bookdetail.BookDetailNavigator" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_feed"
+        android:id="@+id/cl_book_detail"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -19,7 +23,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_feed_option"
+            android:id="@+id/btn_book_detail_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -31,94 +35,94 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_feed_image"
+            android:id="@+id/iv_book_detail_image"
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:scaleType="centerCrop"
-            app:image_from_url="@{feed.imgUrl}"
+            app:image_from_url="@{bookDetail.imgUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_feed_option"
+            app:layout_constraintTop_toBottomOf="@+id/btn_book_detail_option"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_tag"
+            android:id="@+id/tv_book_detail_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{feed.category}"
+            android:text="@{bookDetail.category}"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_book_detail_image" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_title"
+            android:id="@+id/tv_book_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{feed.title}"
+            android:text="@{bookDetail.title}"
             android:gravity="center_vertical"
             app:layout_constraintHorizontal_bias="0"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_feed_tag"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image" />
+            app:layout_constraintStart_toEndOf="@+id/tv_book_detail_tag"
+            app:layout_constraintTop_toBottomOf="@+id/iv_book_detail_image" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_payment"
+            android:id="@+id/tv_book_detail_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(feed.paymentMethod)}"
+            android:text="@{String.valueOf(bookDetail.paymentMethod)}"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintEnd_toStartOf="@+id/tv_feed_amount"
+            app:layout_constraintEnd_toStartOf="@+id/tv_book_detail_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+            app:layout_constraintTop_toBottomOf="@+id/iv_book_detail_image"  />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_amount"
+            android:id="@+id/tv_book_detail_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(feed.amount)}"
+            android:text="@{String.valueOf(bookDetail.amount)}"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+            app:layout_constraintTop_toBottomOf="@+id/iv_book_detail_image"  />
 
         <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_feed_content"
+            android:id="@+id/barrier_book_detail_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tv_feed_tag,tv_feed_title,tv_feed_amount"/>
+            app:constraint_referenced_ids="tv_book_detail_tag,tv_book_detail_title,tv_book_detail_amount"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_content"
+            android:id="@+id/tv_book_detail_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{feed.content}"
+            android:text="@{bookDetail.content}"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barrier_feed_content"  />
+            app:layout_constraintTop_toBottomOf="@+id/barrier_book_detail_content"  />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_feed_date"
+            android:id="@+id/tv_book_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{feed.date}"
+            android:text="@{bookDetail.date}"
             android:gravity="center_vertical"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_feed_content" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_book_detail_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
