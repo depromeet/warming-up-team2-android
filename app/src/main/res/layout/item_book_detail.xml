@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
+            android:onClick="@{() -> navigator.showOptionDialog(bookDetail.id)}"
             android:text="..."
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"

@@ -9,10 +9,13 @@ import com.studyfirstproject.base.BaseViewHolder
 
 class BookDetailViewHolder(
     parent: ViewGroup?,
-    navigator: BookDetailNavigator
+    navigator: BookDetailNavigator,
+    deviceWidth: Int
 ): BaseViewHolder<ItemBookDetailBinding, Record>(R.layout.item_book_detail, parent, BR.bookDetail) {
 
     init {
         binding.navigator = navigator
+        itemView.layoutParams.width = (deviceWidth * 0.8).toInt()
+        itemView.requestLayout()
     }
 }
