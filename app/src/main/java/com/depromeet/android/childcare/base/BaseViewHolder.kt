@@ -14,7 +14,10 @@ abstract class BaseViewHolder<out B : ViewDataBinding, T>(
 ) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent?.context).inflate(layoutResId, parent, false)
 ) {
-    private val binding: B = DataBindingUtil.bind(itemView)!!
+    private val _binding: B = DataBindingUtil.bind(itemView)!!
+
+    val binding
+        get() = _binding
 
     fun bind(item: T) {
         try {
