@@ -17,8 +17,6 @@ class HomeViewModel(
 
     init {
         feedRepository.getAllFeeds({
-            toastProvider.makeToast("값 가져오기 성공")
-            Log.e("viewmodel === ", it.toString())
             feeds.value = it
         }, {
             toastProvider.makeToast("값 가져오는 중에 에러남")

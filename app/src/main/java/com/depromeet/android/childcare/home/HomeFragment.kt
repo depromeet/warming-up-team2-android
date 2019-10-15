@@ -26,12 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
         return binding.root
     }
 
-    override fun editFeed(feedId: Int) {
-        // start activity with feedId
+    override fun showOptionDialog(feedId: Int) {
+        showToast("show dialog with id $feedId")
     }
-
-    override fun deleteFeed(feedId: Int) {
-        // show dialog with feedId
-    }
-
 }
