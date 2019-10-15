@@ -1,6 +1,5 @@
 package com.depromeet.android.childcare.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.depromeet.android.childcare.data.FeedDataSource
