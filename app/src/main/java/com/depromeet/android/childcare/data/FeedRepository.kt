@@ -33,8 +33,6 @@ class FeedRepository: FeedDataSource {
         success: (MutableList<Record>) -> Unit,
         failed: () -> Unit
     ) {
-
-        Thread.sleep(2000)
         success(list)
     }
 }
