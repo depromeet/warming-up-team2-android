@@ -1,32 +1,20 @@
 package com.depromeet.android.childcare.home
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.RecyclerView
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ItemFeedBinding
 import com.depromeet.android.childcare.model.Record
+import com.studyfirstproject.base.BaseViewHolder
 
 class FeedViewHolder(
     parent: ViewGroup?,
     private val navigator: FeedNavigator
-): RecyclerView.ViewHolder(
-    LayoutInflater.from(parent?.context).inflate(R.layout.item_feed, parent, false)
-) {
+): BaseViewHolder<ItemFeedBinding, Record>(R.layout.item_feed, parent, BR.feed) {
 
-    private val binding = ItemFeedBinding.bind(itemView).apply {
-        this.navigator = this@FeedViewHolder.navigator
-    }
-
-    fun bind(feed: Record) {
-        try {
-            binding.run {
-                setVariable(BR.feed, feed)
-                executePendingBindings()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+    init {
+        binding.apply {
+            this.navigator = this@FeedViewHolder.navigator
         }
     }
 }

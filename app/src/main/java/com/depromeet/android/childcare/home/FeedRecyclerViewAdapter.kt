@@ -1,28 +1,21 @@
 package com.depromeet.android.childcare.home
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.library.baseAdapters.BR
+import com.depromeet.android.childcare.R
+import com.depromeet.android.childcare.databinding.ItemFeedBinding
 import com.depromeet.android.childcare.model.Record
+import com.studyfirstproject.base.BaseRecyclerView
+import com.studyfirstproject.base.BaseViewHolder
 
 class FeedRecyclerViewAdapter(
     private val feedNavigator: FeedNavigator
-): RecyclerView.Adapter<FeedViewHolder>() {
-    private val feedList = mutableListOf<Record>()
+): BaseRecyclerView<ItemFeedBinding, Record>(R.layout.fragment_home, BR.viewModel) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FeedViewHolder(parent, feedNavigator)
-
-    override fun getItemCount(): Int = feedList.size
-
-    fun getItem(position: Int) = feedList[position]
-
-    fun setItems(data: List<Record>) {
-        feedList.clear()
-        feedList.addAll(data)
-        notifyDataSetChanged()
-    }
-
-    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<ItemFeedBinding, Record> {
+        return FeedViewHolder(parent, feedNavigator)
     }
 }
