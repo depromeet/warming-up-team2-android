@@ -9,12 +9,10 @@ import com.studyfirstproject.base.BaseViewHolder
 
 class FeedViewHolder(
     parent: ViewGroup?,
-    private val navigator: FeedNavigator
+    navigator: FeedNavigator
 ): BaseViewHolder<ItemFeedBinding, Record>(R.layout.item_feed, parent, BR.feed) {
 
     init {
-        binding.apply {
-            this.navigator = this@FeedViewHolder.navigator
-        }
+        binding.navigator = navigator
     }
 }

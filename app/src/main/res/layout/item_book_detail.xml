@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="feed"
+            type="com.depromeet.android.childcare.model.Record" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feed"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_feed_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:text="..."
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_feed_image"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            app:image_from_url="@{feed.imgUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_feed_option"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{feed.category}"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{feed.title}"
+            android:gravity="center_vertical"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_feed_tag"
+            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(feed.paymentMethod)}"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_feed_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(feed.amount)}"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_feed_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_feed_tag,tv_feed_title,tv_feed_amount"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{feed.content}"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barrier_feed_content"  />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feed_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{feed.date}"
+            android:gravity="center_vertical"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_feed_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
