@@ -33,7 +33,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:bind_book_details="@{viewModel.bookDetails}"
-            app:book_detail_navigator="@{viewModel.navigator}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ib_tab"
