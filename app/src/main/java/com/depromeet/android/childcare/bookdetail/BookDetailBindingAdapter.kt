@@ -5,6 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.depromeet.android.childcare.model.Record
 
 @BindingAdapter("bind_book_details")
-fun RecyclerView.setFeedItems(items : List<Record>) {
-    (adapter as BookDetailListAdapter).setItems(items)
+fun RecyclerView.setBookDetailsItems(items : List<Record>) {
+    (adapter as BookDetailListAdapter).setWrapperItems(items)
 }

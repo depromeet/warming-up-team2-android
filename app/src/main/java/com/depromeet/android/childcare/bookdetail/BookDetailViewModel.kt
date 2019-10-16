@@ -27,6 +27,6 @@ class BookDetailViewModel(
     }
 
     fun goBack() {
-        navigator.finishDetailView()
+        navigator.backToBookList()
     }
 }

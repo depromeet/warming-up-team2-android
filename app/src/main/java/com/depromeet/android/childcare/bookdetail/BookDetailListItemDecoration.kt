@@ -2,10 +2,8 @@ package com.depromeet.android.childcare.bookdetail
 
 import android.graphics.Rect
 import android.util.DisplayMetrics
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class BookDetailListItemDecoration : RecyclerView.ItemDecoration()  {

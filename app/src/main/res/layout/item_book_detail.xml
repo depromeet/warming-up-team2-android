@@ -5,12 +5,8 @@
 
     <data>
         <variable
-            name="bookDetail"
-            type="com.depromeet.android.childcare.model.Record" />
-
-        <variable
-            name="navigator"
-            type="com.depromeet.android.childcare.bookdetail.BookDetailNavigator" />
+            name="viewModel"
+            type="com.depromeet.android.childcare.bookdetail.BookDetailItemViewModel" />
 
     </data>
 
@@ -25,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:onClick="@{() -> navigator.showOptionDialog(bookDetail.id)}"
+            android:onClick="@{() -> viewModel.onOptionClick()}"
             android:text="..."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
@@ -38,7 +34,7 @@
             android:layout_height="324dp"
             android:scaleType="centerCrop"
             android:layout_marginTop="10dp"
-            app:image_from_url="@{bookDetail.imgUrl}"
+            app:image_from_url="@{viewModel.bookDetail.imgUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_book_detail_option"
@@ -48,7 +44,7 @@
             android:id="@+id/tv_book_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{bookDetail.title}"
+            android:text="@{viewModel.bookDetail.title}"
             android:textSize="16sp"
             android:textColor="#191919"
             android:letterSpacing="-0.03"
@@ -64,7 +60,7 @@
             android:id="@+id/tv_book_detail_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(bookDetail.paymentMethod)}"
+            android:text="@{String.valueOf(viewModel.bookDetail.paymentMethod)}"
             android:textSize="8sp"
             android:textColor="#191919"
             android:lineSpacingExtra="3sp"
@@ -80,7 +76,7 @@
             android:id="@+id/tv_book_detail_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(bookDetail.amount)}"
+            android:text="@{String.valueOf(viewModel.bookDetail.amount)}"
             android:textSize="16sp"
             android:textColor="#191919"
             android:letterSpacing="-0.03"
@@ -103,7 +99,7 @@
             android:id="@+id/tv_book_detail_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{bookDetail.content}"
+            android:text="@{viewModel.bookDetail.content}"
             android:textSize="10sp"
             android:textColor="#191919"
             android:letterSpacing="-0.03"
@@ -119,7 +115,7 @@
             android:id="@+id/tv_book_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{bookDetail.date}"
+            android:text="@{viewModel.bookDetail.date}"
             android:textSize="10sp"
             android:textColor="#191919"
             android:lineSpacingExtra="4sp"
