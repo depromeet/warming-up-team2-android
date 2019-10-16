@@ -2,9 +2,11 @@ package com.depromeet.android.childcare.bookdetail
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityBookDetailBinding
 import com.studyfirstproject.base.BaseActivity
@@ -20,16 +22,28 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val position = intent.getIntExtra("detail_position(temp_name)", 1)
         windowManager.defaultDisplay.getRealMetrics(displayMetrics)
-        initView()
+        initView(position)
     }
 
-    private fun initView() {
+    private fun initView(position: Int) {
         binding.apply {
             viewModel = bookDetailViewModel
             rvBookDetail.adapter = BookDetailListAdapter(this@BookDetailActivity, displayMetrics.widthPixels)
+            rvBookDetail.addItemDecoration(BookDetailListItemDecoration())
             snapHelper.attachToRecyclerView(rvBookDetail)
-            (rvBookDetail.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, (displayMetrics.widthPixels * 0.12).toInt())
+            transitionToPosition(position, rvBookDetail)
+        }
+    }
+
+    private fun transitionToPosition(position: Int, view: RecyclerView) {
+        if (position != 0) {
+            val padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4.5f, displayMetrics).toInt()
+            (view.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                position,
+                (displayMetrics.widthPixels * 0.12).toInt() - padding
+            )
         }
     }
 
