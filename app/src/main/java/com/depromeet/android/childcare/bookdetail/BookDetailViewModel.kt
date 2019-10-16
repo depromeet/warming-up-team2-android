@@ -25,4 +25,8 @@ class BookDetailViewModel(
             toastProvider.makeToast("값 가져오는 중에 에러남")
         })
     }
+
+    fun goBack() {
+        navigator.finishDetailView()
+    }
 }

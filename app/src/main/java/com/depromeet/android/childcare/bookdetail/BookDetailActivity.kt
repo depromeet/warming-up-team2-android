@@ -35,4 +35,9 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
     override fun showOptionDialog(feedId: Int) {
         Toast.makeText(this, "option click in bookdetail with id $feedId", Toast.LENGTH_SHORT).show()
     }
+
+    override fun finishDetailView() {
+        // Todo: finish 시 데이터 변경이 일어났을 경우 어떻게 데이터를 전달할지 정해야 함
+        finish()
+    }
 }
