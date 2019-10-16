@@ -15,7 +15,7 @@ class BookDetailViewHolder(
 
     init {
         binding.navigator = navigator
-        itemView.layoutParams.width = (deviceWidth * 0.8).toInt()
+        itemView.layoutParams.width = (deviceWidth * 0.76).toInt()
         itemView.requestLayout()
     }
 }

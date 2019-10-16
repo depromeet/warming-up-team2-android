@@ -11,6 +11,7 @@ import com.studyfirstproject.base.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
+
 class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.activity_book_detail), BookDetailNavigator {
 
     private val bookDetailViewModel: BookDetailViewModel by viewModel { parametersOf(this) }
@@ -27,8 +28,8 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
         binding.apply {
             viewModel = bookDetailViewModel
             rvBookDetail.adapter = BookDetailListAdapter(this@BookDetailActivity, displayMetrics.widthPixels)
-            rvBookDetail.layoutManager = LinearLayoutManager(this@BookDetailActivity, LinearLayoutManager.HORIZONTAL, false)
             snapHelper.attachToRecyclerView(rvBookDetail)
+            (rvBookDetail.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, (displayMetrics.widthPixels * 0.12).toInt())
         }
     }
 
@@ -38,6 +39,8 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
 
     override fun finishDetailView() {
         // Todo: finish 시 데이터 변경이 일어났을 경우 어떻게 데이터를 전달할지 정해야 함
-        finish()
+        if (!isFinishing) {
+            finish()
+        }
     }
 }
