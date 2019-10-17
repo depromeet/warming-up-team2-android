@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.depromeet.android.childcare.EXTRA_BOOK_POSITION
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityBookDetailBinding
 import com.studyfirstproject.base.BaseActivity
@@ -23,7 +24,7 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        position = intent.getIntExtra("detail_position(temp_name)", 0)
+        position = intent.getIntExtra(EXTRA_BOOK_POSITION, 0)
         windowManager.defaultDisplay.getRealMetrics(displayMetrics)
         initView()
     }
