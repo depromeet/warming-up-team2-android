@@ -20,7 +20,7 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
     private val snapHelper: PagerSnapHelper = PagerSnapHelper()
     private val navigator = BookDetailNavigatorImpl(this)
 
-    private val bookDetailViewModel: BookDetailViewModel by viewModel { parametersOf(navigator) }
+    private val bookDetailViewModel: BookDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
