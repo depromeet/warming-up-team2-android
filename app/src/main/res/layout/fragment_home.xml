@@ -21,7 +21,6 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:bind_feeds="@{viewModel.feeds}"
-            app:feed_navigator="@{viewModel.feedNavigator}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

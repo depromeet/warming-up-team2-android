@@ -9,7 +9,6 @@ import com.depromeet.android.childcare.util.ToastProvider
 
 class BookDetailViewModel(
     feedRepository: FeedDataSource,
-    val navigator: BookDetailNavigator,
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
@@ -24,9 +23,5 @@ class BookDetailViewModel(
         }, {
             toastProvider.makeToast("값 가져오는 중에 에러남")
         })
-    }
-
-    fun goBack() {
-        navigator.backToBookList()
     }
 }

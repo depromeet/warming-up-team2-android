@@ -12,13 +12,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.depromeet.android.childcare.GlideApp
 import com.depromeet.android.childcare.model.Record
 
-@BindingAdapter("bind_feeds", "feed_navigator")
-fun RecyclerView.setFeedItems(items : List<Record>, feedNavigator: FeedNavigator) {
-    adapter as? FeedRecyclerViewAdapter ?: FeedRecyclerViewAdapter(feedNavigator).apply {
-        adapter = this
-    }.apply {
-        setItems(items)
-    }
+@BindingAdapter("bind_feeds")
+fun RecyclerView.setFeedItems(items : List<Record>) {
+    (adapter as FeedRecyclerViewAdapter).setItems(items)
 }
 
 @BindingAdapter("image_from_url")

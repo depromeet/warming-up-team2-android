@@ -13,8 +13,8 @@ import org.koin.dsl.module
 
 val homeModule = module {
 
-    viewModel { (navigator: FeedNavigator) -> HomeViewModel(get(), navigator, get()) }
-    viewModel { (navigator: BookDetailNavigator) -> BookDetailViewModel(get(), navigator, get()) }
+    viewModel { HomeViewModel(get(), get()) }
+    viewModel { BookDetailViewModel(get(), get()) }
 
     single<ToastProvider> { ToastProviderImpl(get()) }
     single<FeedDataSource> { FeedRepository() }

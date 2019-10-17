@@ -9,7 +9,6 @@ import com.depromeet.android.childcare.util.ToastProvider
 
 class HomeViewModel(
     feedRepository: FeedDataSource,
-    val feedNavigator: FeedNavigator,
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 

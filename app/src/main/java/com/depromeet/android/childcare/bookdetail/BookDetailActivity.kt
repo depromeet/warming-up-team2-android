@@ -39,6 +39,10 @@ class BookDetailActivity : BaseActivity<ActivityBookDetailBinding>(R.layout.acti
             val offset = ((displayMetrics.widthPixels * 0.12) -
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4.5f, displayMetrics)).toInt()
             (rvBookDetail.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, offset)
+
+            btnBookDetailBack.setOnClickListener {
+                this@BookDetailActivity.isFinishing
+            }
         }
     }
 }

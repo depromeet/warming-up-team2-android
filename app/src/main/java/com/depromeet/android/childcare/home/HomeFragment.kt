@@ -14,7 +14,7 @@ import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), FeedNavigator {
 
-    private val homeViewModel: HomeViewModel by viewModel { parametersOf(this) }
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +23,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding.viewModel = homeViewModel
+
+        binding.rvFeedList.adapter = FeedRecyclerViewAdapter(this)
+
         return binding.root
     }
 
