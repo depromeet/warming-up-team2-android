@@ -21,5 +21,5 @@ abstract class BaseFragment<B : ViewDataBinding>(
         return binding.root
     }
 
-    fun showToast(msg: String) = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+    protected fun showToast(msg: String) = Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
 }
