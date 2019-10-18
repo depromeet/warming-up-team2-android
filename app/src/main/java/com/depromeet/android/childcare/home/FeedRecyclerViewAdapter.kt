@@ -10,7 +10,7 @@ import com.studyfirstproject.base.BaseViewHolder
 
 class FeedRecyclerViewAdapter(
     private val feedNavigator: FeedNavigator
-): BaseRecyclerView<ItemFeedBinding, Record>(R.layout.fragment_home, BR.viewModel) {
+): BaseRecyclerView<ItemFeedBinding, Record>(R.layout.fragment_home, BR.feed) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

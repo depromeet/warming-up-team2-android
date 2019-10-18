@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.bookdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,19 +7,19 @@ import com.depromeet.android.childcare.data.FeedDataSource
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.util.ToastProvider
 
-class HomeViewModel(
+class BookDetailViewModel(
     feedRepository: FeedDataSource,
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
-    private val _feeds = MutableLiveData<List<Record>>()
+    private val _bookDetails = MutableLiveData<List<Record>>()
 
-    val feeds : LiveData<List<Record>>
-        get() = _feeds
+    val bookDetails : LiveData<List<Record>>
+        get() = _bookDetails
 
     init {
         feedRepository.getAllFeeds({
-            _feeds.value = it
+            _bookDetails.value = it
         }, {
             toastProvider.makeToast("값 가져오는 중에 에러남")
         })
