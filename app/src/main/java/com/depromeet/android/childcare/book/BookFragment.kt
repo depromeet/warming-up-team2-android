@@ -5,6 +5,7 @@ import android.view.View
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.book.adapter.BookRecyclerViewAdapter
@@ -23,6 +24,9 @@ class BookFragment : BaseFragment<FragmentBookBinding>(R.layout.fragment_book) {
     }
 
     private fun initView() {
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.rvBookSummary)
+
         with(binding) {
             viewModel = bookViewModel
             rvBook.adapter = recordAdapter
