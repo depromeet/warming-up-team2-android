@@ -1,9 +1,6 @@
 package com.depromeet.android.childcare.data
 
-import com.depromeet.android.childcare.model.PaymentType
-import com.depromeet.android.childcare.model.Record
-import com.depromeet.android.childcare.model.Summary
-import com.depromeet.android.childcare.model.User
+import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.network.ServiceApi
 
 class BookRepository(private val service: ServiceApi) : BookDataSource {
@@ -16,7 +13,7 @@ class BookRepository(private val service: ServiceApi) : BookDataSource {
                 Record(
                     i,
                     User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만"),
-                    "PAYMENT",
+                    RecordType.PAYMENT,
                     "2019-$i-4",
                     "라꾸라꾸 유모차",
                     5355534,

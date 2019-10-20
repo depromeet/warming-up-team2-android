@@ -6,4 +6,6 @@
     <string name="format_summary_day" formatted="false">%d년 %d월</string>
     <string name="format_summary_total" formatted="false">이달에 총 %s원 지출했어요!</string>
     <string name="format_summary_term">%d월 %d일 - %d월 %d일</string>
+
+    <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
 </resources>

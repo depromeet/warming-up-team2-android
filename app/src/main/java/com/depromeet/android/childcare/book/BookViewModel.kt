@@ -4,11 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.model.Summary
+import com.depromeet.android.childcare.util.ResourcesProvider
 
-class BookViewModel(private val repository: BookDataSource) : ViewModel() {
+class BookViewModel(
+    private val resourcesProvider: ResourcesProvider,
+    private val repository: BookDataSource
+) : ViewModel() {
     private val _records = MutableLiveData<List<Record>>()
     private val _summaries = MutableLiveData<List<Summary>>()
     private val _errorMsg = MutableLiveData<String>()
@@ -53,6 +58,7 @@ class BookViewModel(private val repository: BookDataSource) : ViewModel() {
     private fun getSummaries() {
         repository.getSummaries(
             success = {
+                onDataNotAvailable("야호", "야호")
                 _summaries.value = it
             }, failed = { msg, reason ->
                 onDataNotAvailable(msg, reason)
@@ -62,6 +68,6 @@ class BookViewModel(private val repository: BookDataSource) : ViewModel() {
 
     private fun onDataNotAvailable(msg: String, reason: String?) {
         Log.e(msg, reason ?: "No error msg")
-        _errorMsg.value = "오류가 발생했습니다. 다시 시도해주세요."
+        _errorMsg.value = resourcesProvider.getString(R.string.msg_network_err)
     }
 }
