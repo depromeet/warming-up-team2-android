@@ -32,10 +32,10 @@ class BookFragment : BaseFragment<FragmentBookBinding>(R.layout.fragment_book) {
             rvBook.adapter = recordAdapter
             rvBookSummary.adapter = summaryAdapter
             rvBookSummary.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-            bookViewModel.errorMsg.observe(this@BookFragment, Observer { t ->
-                showToast(t)
-            })
         }
+
+        bookViewModel.errorMsg.observe(this@BookFragment, Observer { t ->
+            showToast(t)
+        })
     }
 }

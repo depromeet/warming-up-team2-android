@@ -58,7 +58,6 @@ class BookViewModel(
     private fun getSummaries() {
         repository.getSummaries(
             success = {
-                onDataNotAvailable("야호", "야호")
                 _summaries.value = it
             }, failed = { msg, reason ->
                 onDataNotAvailable(msg, reason)
