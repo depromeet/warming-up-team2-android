@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.book.BookViewModel" />
     </data>
 
     <LinearLayout
@@ -10,9 +14,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_book_summary"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="fragment home" />
+            android:layout_margin="16dp"
+            android:clipToPadding="false"
+            app:bind_item="@{viewModel.summaries}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

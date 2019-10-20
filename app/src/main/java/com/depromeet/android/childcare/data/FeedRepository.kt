@@ -2,9 +2,10 @@ package com.depromeet.android.childcare.data
 
 import com.depromeet.android.childcare.model.PaymentType
 import com.depromeet.android.childcare.model.Record
+import com.depromeet.android.childcare.model.RecordType
 import com.depromeet.android.childcare.model.User
 
-class FeedRepository: FeedDataSource {
+class FeedRepository : FeedDataSource {
 
     val list = mutableListOf<Record>()
 
@@ -13,7 +14,7 @@ class FeedRepository: FeedDataSource {
             Record(
                 i,
                 User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만"),
-                "PAYMENT",
+                RecordType.PAYMENT,
                 "1566931645000",
                 "라꾸라꾸 유모차",
                 5355534,
