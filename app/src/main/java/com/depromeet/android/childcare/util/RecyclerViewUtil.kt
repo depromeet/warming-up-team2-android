@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.ext
+package com.depromeet.android.childcare.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

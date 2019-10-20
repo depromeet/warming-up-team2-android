@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.depromeet.android.childcare.ext.StringExtKt" />
+        <import type="com.depromeet.android.childcare.util.StringUtilKt" />
 
         <variable
             name="item"
@@ -37,7 +37,7 @@
                 android:id="@+id/tv_summary_expenses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/format_summary_total(StringExtKt.insertComma(item.total))}"
+                android:text="@{@string/format_summary_total(StringUtilKt.insertComma(item.total))}"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
