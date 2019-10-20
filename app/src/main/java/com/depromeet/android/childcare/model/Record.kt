@@ -3,7 +3,7 @@ package com.depromeet.android.childcare.model
 data class Record(
     val id: Int,
     val writer: User,
-    var type: String,
+    var type: RecordType,
     var date: String,
     var title: String,
     var amount: Int,
