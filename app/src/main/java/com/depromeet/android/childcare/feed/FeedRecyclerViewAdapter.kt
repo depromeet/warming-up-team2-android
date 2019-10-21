@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.feed
 
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
@@ -10,7 +10,7 @@ import com.studyfirstproject.base.BaseViewHolder
 
 class FeedRecyclerViewAdapter(
     private val feedNavigator: FeedNavigator
-): BaseRecyclerView<ItemFeedBinding, Record>(R.layout.fragment_home, BR.feed) {
+): BaseRecyclerView<ItemFeedBinding, Record>(R.layout.fragment_feed, BR.feed) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

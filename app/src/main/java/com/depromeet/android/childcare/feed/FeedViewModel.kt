@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.feed
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.depromeet.android.childcare.data.FeedDataSource
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.util.ToastProvider
 
-class HomeViewModel(
+class FeedViewModel(
     feedRepository: FeedDataSource,
     private val toastProvider: ToastProvider
 ) : ViewModel() {

@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.feed
 
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
