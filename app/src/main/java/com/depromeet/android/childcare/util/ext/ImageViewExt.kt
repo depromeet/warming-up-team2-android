@@ -27,3 +27,8 @@ fun AppCompatImageView.bindImageFromResId(@DrawableRes resId: Int) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 }
+
+@BindingAdapter("bind_clip_to_out_line")
+fun AppCompatImageView.bindClipToOutline(isClipToOutLine: Boolean) {
+    clipToOutline = isClipToOutLine
+}
