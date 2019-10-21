@@ -15,20 +15,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_feed"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_feed_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:onClick="@{() -> navigator.showOptionDialog(feed.id)}"
-            android:text="..."
+            android:src="@drawable/btn_more_24dp"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
