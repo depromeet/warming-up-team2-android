@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="30dp"
-        android:paddingStart="17dp"
-        android:paddingEnd="17dp">
+        android:paddingStart="@dimen/space_large"
+        android:paddingEnd="@dimen/space_large">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/iv_change_feed"
