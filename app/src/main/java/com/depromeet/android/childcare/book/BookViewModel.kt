@@ -18,7 +18,7 @@ class BookViewModel(
     private val _summaries = MutableLiveData<List<Summary>>()
     private val _errorMsg = MutableLiveData<String>()
 
-    val record: LiveData<List<Record>>
+    val records: LiveData<List<Record>>
         get() = _records
 
     val summaries: LiveData<List<Summary>>
