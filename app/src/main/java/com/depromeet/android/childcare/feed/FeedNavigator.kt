@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.feed
 
 interface FeedNavigator {
     fun showOptionDialog(feedId: Int)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="feed"
+            type="com.depromeet.android.childcare.model.Record" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            android:padding="4dp"
+            android:src="@color/colorDarkGray"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_radius_10dp"
+            app:image_from_url="@{feed.imgUrl}"
+            app:bind_clip_to_out_line="@{true}"/>
+
+    </FrameLayout>
+
+</layout>

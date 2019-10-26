@@ -1,9 +1,7 @@
 package com.depromeet.android.childcare
 
 import android.app.Application
-import com.depromeet.android.childcare.di.apiModule
-import com.depromeet.android.childcare.di.bookModule
-import com.depromeet.android.childcare.di.homeModule
+import com.depromeet.android.childcare.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +14,7 @@ class MainApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
-            modules(listOf(apiModule, homeModule, bookModule))
+            modules(listOf(appModule, apiModule, feedModule, bookModule, bookDetailModule))
         }
     }
 }

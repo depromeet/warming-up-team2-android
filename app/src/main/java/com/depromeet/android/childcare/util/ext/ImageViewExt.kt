@@ -1,21 +1,12 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.util.ext
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.depromeet.android.childcare.GlideApp
-import com.depromeet.android.childcare.model.Record
-
-@BindingAdapter("bind_feeds")
-fun RecyclerView.setFeedItems(items : List<Record>) {
-    (adapter as FeedRecyclerViewAdapter).setItems(items)
-}
 
 @BindingAdapter("image_from_url")
 fun AppCompatImageView.bindImageFromUrl(imageUrl: String?) {
@@ -35,4 +26,9 @@ fun AppCompatImageView.bindImageFromResId(@DrawableRes resId: Int) {
         .placeholder(ColorDrawable(Color.GRAY))
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
+}
+
+@BindingAdapter("bind_clip_to_out_line")
+fun AppCompatImageView.bindClipToOutline(isClipToOutLine: Boolean) {
+    clipToOutline = isClipToOutLine
 }

@@ -1,20 +1,18 @@
-package com.depromeet.android.childcare.home
+package com.depromeet.android.childcare.feed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
-import com.depromeet.android.childcare.databinding.FragmentHomeBinding
+import com.depromeet.android.childcare.databinding.FragmentFeedBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), FeedNavigator {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), FeedNavigator {
 
-    private val homeViewModel: HomeViewModel by viewModel()
+    private val feedViewModel: FeedViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,9 +20,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = homeViewModel
-
-        binding.rvFeedList.adapter = FeedRecyclerViewAdapter(this)
+        binding.apply {
+            viewModel = feedViewModel
+            rvFeedList.adapter =
+                FeedRecyclerViewAdapter(this@FeedFragment)
+        }
 
         return binding.root
     }

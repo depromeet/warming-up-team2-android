@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".feed.FeedFragment">
+
+    <data>
+
+        <import type="com.depromeet.android.childcare.feed.FeedType"/>
+
+        <import
+            alias="R"
+            type="com.depromeet.android.childcare.R"/>
+
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.feed.FeedViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:paddingStart="@dimen/space_large"
+        android:paddingEnd="@dimen/space_large">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/iv_change_feed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_feed_change_summary"
+            android:background="@android:color/white"
+            android:onClick="@{() -> viewModel.changeFeedType()}"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_feed_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:bind_feed_items="@{viewModel.feeds}"
+            app:bind_feed_type="@{viewModel.feedType}"
+            app:layout_constraintTop_toBottomOf="@+id/iv_change_feed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_feed"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
