@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.graphics.Color" />
-
         <import type="com.depromeet.android.childcare.util.StringUtilKt" />
 
         <variable
