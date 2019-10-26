@@ -5,6 +5,13 @@
     tools:context=".feed.FeedFragment">
 
     <data>
+
+        <import type="com.depromeet.android.childcare.feed.FeedType"/>
+
+        <import
+            alias="R"
+            type="com.depromeet.android.childcare.R"/>
+
         <variable
             name="viewModel"
             type="com.depromeet.android.childcare.feed.FeedViewModel"/>
@@ -24,6 +31,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/btn_feed_change_summary"
             android:background="@android:color/white"
+            android:onClick="@{() -> viewModel.changeFeedType()}"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,8 +45,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="2dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:bind_item="@{viewModel.feeds}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:bind_feed_items="@{viewModel.feeds}"
+            app:bind_feed_type="@{viewModel.feedType}"
             app:layout_constraintTop_toBottomOf="@+id/iv_change_feed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

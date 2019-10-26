@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.databinding.FragmentFeedBinding
-import com.depromeet.android.childcare.feed.feeddetail.FeedDetailItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -23,8 +22,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         super.onCreateView(inflater, container, savedInstanceState)
         binding.apply {
             viewModel = feedViewModel
-            rvFeedList.adapter = FeedRecyclerViewAdapter(this@FeedFragment)
-            rvFeedList.addItemDecoration(FeedDetailItemDecoration())
+            rvFeedList.adapter =
+                FeedRecyclerViewAdapter(this@FeedFragment)
         }
 
         return binding.root
