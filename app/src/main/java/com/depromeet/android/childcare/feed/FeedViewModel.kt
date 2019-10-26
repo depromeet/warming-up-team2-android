@@ -3,29 +3,29 @@ package com.depromeet.android.childcare.feed
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.depromeet.android.childcare.data.FeedDataSource
+import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.util.ToastProvider
 
 class FeedViewModel(
-    feedRepository: FeedDataSource,
+    bookRepository: BookDataSource,
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
     private val _feeds = MutableLiveData<List<Record>>()
     private val _feedType = MutableLiveData<FeedType>(FeedType.DETAIL)
 
-    val feeds : LiveData<List<Record>>
+    val feeds: LiveData<List<Record>>
         get() = _feeds
 
-    val feedType : LiveData<FeedType>
+    val feedType: LiveData<FeedType>
         get() = _feedType
 
     init {
-        feedRepository.getAllFeeds({
+        bookRepository.getAllRecords({
             _feeds.value = it
-        }, {
-            toastProvider.makeToast("값 가져오는 중에 에러남")
+        }, { msg, reason ->
+            toastProvider.makeToast(reason.toString())
         })
     }
 

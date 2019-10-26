@@ -1,7 +1,7 @@
 package com.depromeet.android.childcare.di
 
-import com.depromeet.android.childcare.data.FeedDataSource
-import com.depromeet.android.childcare.data.FeedRepository
+import com.depromeet.android.childcare.data.BookDataSource
+import com.depromeet.android.childcare.data.BookRepository
 import com.depromeet.android.childcare.util.ResourcesProvider
 import com.depromeet.android.childcare.util.ResourcesProviderImpl
 import com.depromeet.android.childcare.util.ToastProvider
@@ -12,7 +12,7 @@ val appModule = module {
 
     single<ToastProvider> { ToastProviderImpl(get()) }
 
-    single<FeedDataSource> { FeedRepository() }
-
     single<ResourcesProvider> { ResourcesProviderImpl(get()) }
+
+    single<BookDataSource> { BookRepository(get()) }
 }
