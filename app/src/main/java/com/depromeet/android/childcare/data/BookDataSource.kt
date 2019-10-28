@@ -10,7 +10,14 @@ interface BookDataSource {
         failed: (String, String?) -> Unit
     )
 
-    fun getRecordsByCategory(
+    fun getRecordsByMonth(
+        month: Int,
+        success: (List<Record>) -> Unit,
+        failed: (String, String?) -> Unit
+    )
+
+    fun getRecordsByMonthAndCategory(
+        month: Int,
         category: String,
         success: (List<Record>) -> Unit,
         failed: (String, String?) -> Unit

@@ -33,12 +33,17 @@ class BookRepository(private val service: ServiceApi) : BookDataSource {
         recordTestValue.run(success)
     }
 
-    override fun getRecordsByCategory(
+    override fun getRecordsByMonth(month: Int, success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
+        recordTestValue.filter { it.date.contains("-$month-") }.run(success)
+    }
+
+    override fun getRecordsByMonthAndCategory(
+        month: Int,
         category: String,
         success: (List<Record>) -> Unit,
         failed: (String, String?) -> Unit
     ) {
-        recordTestValue.filter { it.category == category }.run(success)
+        recordTestValue.filter { it.category == category && it.date.contains("-$month-") }.run(success)
     }
 
     override fun getSummaries(success: (List<Summary>) -> Unit, failed: (String, String?) -> Unit) {
