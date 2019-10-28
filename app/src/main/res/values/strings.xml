@@ -12,7 +12,17 @@
 
     <string name="book_filter">태그별로 보기</string>
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
-    
+    <string name="add_item_where">어느곳에 지출하셨나요?</string>
+    <string name="add_item_amount">얼마를 지출하셨나요></string>
+    <string name="add_item_category">카테고리 (선택)</string>
+    <string name="add_item_method">결제수 (선택)</string>
+    <string name="add_item_msg_none">미선택시 미등록으로 분류됩니다</string>
+
+    <string name="category_none">미등록</string>
+    <string name="category_baby_care">육아용품</string>
+    <string name="category_eating">식비</string>
+    <string name="category_playing">유흥</string>
+
     <!-- feed -->
     <string name="format_feed_amount" formatted="false">%s 원</string>
 </resources>
