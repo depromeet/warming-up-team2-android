@@ -1,5 +1,7 @@
 package com.depromeet.android.childcare.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityMainBinding
@@ -20,6 +22,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         binding.tabMain.apply {
             setupWithViewPager(binding.viewpagerMain)
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
 }
