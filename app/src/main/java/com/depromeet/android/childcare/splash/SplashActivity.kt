@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivitySplashBinding
+import com.depromeet.android.childcare.login.LoginActivity
 import com.depromeet.android.childcare.main.MainActivity
 import com.studyfirstproject.base.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
@@ -46,7 +48,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun goLoginActivity() {
-
+        LoginActivity.start(this)
+        finish()
     }
 
     private fun goMainActivity() {

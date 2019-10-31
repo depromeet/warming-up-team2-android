@@ -12,6 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_sdk_api_key" />
+
+        <activity android:name=".login.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -23,12 +30,10 @@
         </activity>
         <activity
             android:name=".bookdetail.BookDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".main.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

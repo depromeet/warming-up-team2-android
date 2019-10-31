@@ -17,7 +17,8 @@ class SplashViewModel: ViewModel() {
 
     init {
         // Todo 로그인 되어 있는지 체크
-        openType = SplashActivity.OPEN_MAIN
+//        openType = SplashActivity.OPEN_MAIN
+        openType = SplashActivity.OPEN_LOGIN
     }
 
     fun onAnimationEnded() {
