@@ -59,4 +59,6 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:3.1.0"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 }
