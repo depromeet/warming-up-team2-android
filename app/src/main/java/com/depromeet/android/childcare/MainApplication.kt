@@ -14,7 +14,14 @@ class MainApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
-            modules(listOf(appModule, apiModule, feedModule, bookModule, bookDetailModule))
+            modules(listOf(
+                appModule,
+                apiModule,
+                splashModule,
+                feedModule,
+                bookModule,
+                bookDetailModule)
+            )
         }
     }
 }
