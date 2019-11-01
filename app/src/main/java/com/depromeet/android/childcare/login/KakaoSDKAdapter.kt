@@ -31,7 +31,7 @@ class KakaoSDKAdapter(val application: Application): KakaoAdapter() {
             override fun isSaveFormData(): Boolean {
                 return true
             }
-        };
+        }
     }
 
     override fun getApplicationConfig(): IApplicationConfig {

@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_fileName="lottie_mypage_connect.json"
-            app:lottie_imageAssetsFolder="images"/>
+            app:lottie_loop="false"
+            app:lottie_fileName="lottie_splash.json"
+            app:lottie_imageAssetsFolder="images/splash"/>
 
     </FrameLayout>
 </layout>

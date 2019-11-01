@@ -18,5 +18,5 @@ val appModule = module {
 
     single<BookDataSource> { BookRepository(get()) }
 
-    single<AuthDataSource> { AuthRepository(get()) }
+    single<AuthDataSource> { AuthRepository(get(), get()) }
 }

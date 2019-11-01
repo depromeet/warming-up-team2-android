@@ -34,11 +34,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         })
 
         binding.lottieViewSplash.addAnimatorListener(object: Animator.AnimatorListener{
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(animation: Animator?) {}
+
+            override fun onAnimationEnd(animation: Animator?) {
                 splashViewModel.onAnimationEnded()
             }
-
-            override fun onAnimationEnd(animation: Animator?) {}
 
             override fun onAnimationCancel(animation: Animator?) {}
 

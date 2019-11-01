@@ -7,4 +7,5 @@
     <color name="colorDarkGray">#676767</color>
     
     <color name="colorTransparentWhite">#88FFFFFF</color>
+    <color name="colorLoginTint">#00aef2</color>
 </resources>

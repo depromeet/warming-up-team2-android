@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.depromeet.android.childcare.Event
+import com.depromeet.android.childcare.data.AuthDataSource
 
-class SplashViewModel: ViewModel() {
+class SplashViewModel(
+    authRepository: AuthDataSource
+): ViewModel() {
 
     private val _openAppEvent = MutableLiveData<Event<String>>()
     val openAppEvent: LiveData<Event<String>>
@@ -16,9 +19,13 @@ class SplashViewModel: ViewModel() {
     private var openType = SplashActivity.NOT_OPEN
 
     init {
-        // Todo 로그인 되어 있는지 체크
-//        openType = SplashActivity.OPEN_MAIN
-        openType = SplashActivity.OPEN_LOGIN
+        authRepository.getAccessToken()?.let {
+            openType = SplashActivity.OPEN_MAIN
+        } ?: run {
+            openType = SplashActivity.OPEN_LOGIN
+        }
+
+        onSplashFinished()
     }
 
     fun onAnimationEnded() {
