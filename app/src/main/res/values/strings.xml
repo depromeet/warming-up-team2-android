@@ -8,7 +8,7 @@
     <string name="format_summary_term">%d.%d.%d - %d.%d.%d</string>
     <string name="format_summary_day">%d월 %d일</string>
     <string name="format_book_info">%s / %s</string>
-    <string name="format_book_amount">-%s원</string>
+    <string name="format_book_amount">%s원</string>
 
     <string name="book_filter">태그별로 보기</string>
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
