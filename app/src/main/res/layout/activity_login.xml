@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".login.LoginActivity">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.login.LoginViewModel" />
+
+        <import
+            alias="LoginVisibleType"
+            type="com.depromeet.android.childcare.login.LoginViewModel.VisibleType"/>
+
+        <import
+            alias="View"
+            type="android.view.View"/>
+    </data>
+
+    <FrameLayout
+        android:id="@+id/fl_login_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_login"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.visibleType == LoginVisibleType.LOGIN ? View.VISIBLE : View.GONE}"
+            android:background="@color/colorTransparentWhite">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_login"
+                android:layout_marginTop="231dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.kakao.usermgmt.LoginButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_icon"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:visibility="@{viewModel.visibleType == LoginVisibleType.CONNECT ? View.VISIBLE : View.GONE}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_login_connect_character"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/img_connect_character"
+                android:layout_marginTop="56dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login_connect_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/login_connect_title"
+                android:layout_marginTop="80dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/iv_login_connect_character"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_login_connect_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_login_connect_character,tv_login_connect_title"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_my_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6sp"
+                android:layout_marginTop="63dp"
+                android:text="@string/login_connect_my_code"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/space_large"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_login_connect_title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_spouse_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6sp"
+                android:text="@string/login_connect_spouse_code"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/space_large"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_my_code"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_login_connect_code"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="tv_my_code,tv_spouse_code"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_my_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@{viewModel.myCode}"
+                android:textStyle="bold"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="@dimen/space_large"
+                android:backgroundTint="@color/colorGray"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier_login_connect_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_login_connect_title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_spouse_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_connect_spouse_hint"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="@dimen/space_large"
+                android:backgroundTint="@color/colorLoginTint"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier_login_connect_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_my_code"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_connect_later"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_login_connect_later"
+                android:text="@string/login_connect_later"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:textStyle="bold"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="@dimen/space_x_small"
+                android:onClick="@{() -> viewModel.onConnectLaterClick()}"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_connect_now"
+                app:layout_constraintTop_toBottomOf="@+id/et_spouse_code"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_connect_now"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_login_connect"
+                android:text="@string/login_connect_now"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:textStyle="bold"
+                android:layout_marginTop="29dp"
+                android:onClick="@{() -> viewModel.onConnectClick()}"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/btn_connect_later"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_spouse_code"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

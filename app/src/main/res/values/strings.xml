@@ -12,7 +12,15 @@
 
     <string name="book_filter">태그별로 보기</string>
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
-    
+
     <!-- feed -->
     <string name="format_feed_amount" formatted="false">%s 원</string>
+
+    <!--  login  -->
+    <string name="login_connect_title" formatted="false"><b>배우자의 코드</b>를 입력하고\n함께 가계부를 써봐요!</string>
+    <string name="login_connect_my_code">내 코드</string>
+    <string name="login_connect_spouse_code">배우자 코드(선택)</string>
+    <string name="login_connect_spouse_hint">코드를 입력해주세요</string>
+    <string name="login_connect_later">나중에 할래요</string>
+    <string name="login_connect_now">시작하기</string>
 </resources>
