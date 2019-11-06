@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".mypage.MyPageFragment">
+
+    <data>
+
+        <import type="com.depromeet.android.childcare.R"/>
+        <import type="com.depromeet.android.childcare.util.StringUtilKt" />
+
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.mypage.MyPageViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/space_large"/>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/space_large"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_spouse_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="#191919"
+            android:letterSpacing="-0.03"
+            android:layout_marginTop="40dp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/gl_start"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:bind_all_text="@{@string/mypage_spouse_title(viewModel.spouseName)}"
+            app:bind_bold_text="@{viewModel.spouseName}"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_view_my_page"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_fileName="lottie_mypage.json"
+            app:lottie_imageAssetsFolder="images/mypage"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="@+id/tv_spouse_explain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_spouse_explain"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_spouse_explain"
+            app:bind_move_animation="@{R.anim.mypage_lottie_move}"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_mypage_spouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_spouse_explain,lottie_view_my_page"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_avg_consumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="#191919"
+            android:letterSpacing="-0.03"
+            android:textAlignment="textEnd"
+            android:layout_marginTop="48dp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/gl_start"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintTop_toBottomOf="@+id/barrier_mypage_spouse"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:bind_all_text="@{@string/mypage_avg_consumption(StringUtilKt.insertComma(viewModel.avgConsumption))}"
+            app:bind_bold_text="@{@string/mypage_amount(StringUtilKt.insertComma(viewModel.avgConsumption))}"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_avg_consumption_benchmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#aaaaaa"
+            android:text="@string/mypage_6month_benchmark"
+            android:layout_marginStart="5dp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintStart_toEndOf="@+id/tv_avg_consumption"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintTop_toTopOf="@+id/tv_avg_consumption"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_avg_consumption"/>
+
+        <FrameLayout
+            android:id="@+id/fl_avg_chart_content"
+            android:layout_width="0dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="@dimen/space_median"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/gl_start"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintTop_toBottomOf="@+id/tv_avg_consumption"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.depromeet.android.childcare.mypage.AvgBarChartView
+                android:id="@+id/bar_chart_avg_consumption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bind_month="@{viewModel.monthList}"
+                app:bind_bar_data="@{viewModel.monthAvgConsumptionList}"/>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

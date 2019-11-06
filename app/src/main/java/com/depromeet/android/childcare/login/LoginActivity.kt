@@ -33,11 +33,15 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>(R.layout.activity_login)
         loginViewModel.openMainEvent.observe(this@LoginActivity, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 if (it) {
-                    MainActivity.start(this@LoginActivity)
-                    this@LoginActivity.finish()
+                    goMainActivity()
                 }
             }
         })
+    }
+
+    private fun goMainActivity() {
+        startActivity(MainActivity.getStartIntent(this))
+        finish()
     }
 
     override fun onDestroy() {
@@ -54,8 +58,9 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>(R.layout.activity_login)
     }
 
     companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, LoginActivity::class.java))
+
+        fun getStartIntent(context: Context): Intent {
+            return Intent(context, LoginActivity::class.java)
         }
     }
 }

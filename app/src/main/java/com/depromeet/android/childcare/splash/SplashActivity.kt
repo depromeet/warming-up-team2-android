@@ -48,12 +48,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun goLoginActivity() {
-        LoginActivity.start(this)
+        startActivity(LoginActivity.getStartIntent(this))
         finish()
     }
 
     private fun goMainActivity() {
-        MainActivity.start(this)
+        startActivity(MainActivity.getStartIntent(this))
         finish()
     }
 }
