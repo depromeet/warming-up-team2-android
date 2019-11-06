@@ -7,6 +7,7 @@ import java.text.DecimalFormat
 
 // 숫자에 3자리 단위로 comma 삽입
 fun insertComma(num: Int): String = DecimalFormat("#,###").format(num)
+fun insertComma(num: Float): String = DecimalFormat("#,###").format(num)
 
 fun getBoldText(text: String, name: String): SpannableStringBuilder {
     val str = SpannableStringBuilder(text)

@@ -3,22 +3,20 @@ package com.depromeet.android.childcare.mypage
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 
-class AvgBarChartView @JvmOverloads constructor(
+class AvgLineChartView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-): BarChart(context, attrs, defStyleAttr) {
+): LineChart(context, attrs, defStyleAttr) {
 
     init {
         description.isEnabled = false
         setBackgroundColor(Color.argb(0, 250, 250, 250))
         setDrawGridBackground(false)
-        setDrawBarShadow(false)
         setTouchEnabled(false)
         setScaleEnabled(false)
         isDragEnabled = false
-        isHighlightFullBarEnabled = false
 
         with(legend) {
             isEnabled = false
@@ -41,7 +39,7 @@ class AvgBarChartView @JvmOverloads constructor(
         with(xAxis) {
             position = XAxis.XAxisPosition.BOTTOM
             granularity = 1f
-            textColor = Color.BLACK
+            textColor = Color.TRANSPARENT
             setDrawGridLines(false)
             setDrawAxisLine(false)
         }

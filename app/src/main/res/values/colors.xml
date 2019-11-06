@@ -8,4 +8,6 @@
     
     <color name="colorTransparentWhite">#88FFFFFF</color>
     <color name="colorSky">#00aef2</color>
+    <color name="colorBlue">#0070f2</color>
+    <color name="colorChartGray">#d3d3d3</color>
 </resources>

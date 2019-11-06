@@ -3,12 +3,12 @@ package com.depromeet.android.childcare.mypage
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.XAxis
 
-class AvgBarChartView @JvmOverloads constructor(
+class CategoryChartView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-): BarChart(context, attrs, defStyleAttr) {
+): HorizontalBarChart(context, attrs, defStyleAttr) {
 
     init {
         description.isEnabled = false
@@ -44,6 +44,11 @@ class AvgBarChartView @JvmOverloads constructor(
             textColor = Color.BLACK
             setDrawGridLines(false)
             setDrawAxisLine(false)
+        }
+
+        CategoryChartViewRenderer(this, this.animator, this.viewPortHandler).apply {
+            mRadius = 10f
+            this@CategoryChartView.renderer = this
         }
     }
 }
