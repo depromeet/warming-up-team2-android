@@ -1,16 +1,16 @@
 package com.depromeet.android.childcare.data
 
+import android.util.Log
 import com.depromeet.android.childcare.model.*
+import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
 
 class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
-
     private var myInfo: User? = null
     private var spouseInfo: User? = null
-
     private val recordTestValue = mutableListOf<Record>()
     private val summaryTestValue = mutableListOf<Summary>()
     private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
@@ -20,7 +20,7 @@ class BookRepository(
             recordTestValue.add(
                 Record(
                     i,
-                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만"),
+                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만", "A123456"),
                     RecordType.PAYMENT,
                     "2019-$i-4",
                     "라꾸라꾸 유모차",
@@ -51,23 +51,27 @@ class BookRepository(
                 }
 
                 response?.let {
-                    if(response.code() != 200) {
+                    if (response.code() != 200) {
                         failed(it.message())
                         return@retrofitCallback
                     }
 
-                    it.body()?.let {connectResponse ->
+                    it.body()?.let { connectResponse ->
 
                         // 현재 myinfo 는 딱히 다른데서 안쓰므로 미리 저장해도 될 듯 싶다.
-                        myInfo = User(connectResponse.data.me.id,
+                        myInfo = User(
+                            connectResponse.data.me.id,
                             connectResponse.data.me.profileImageUrl,
                             connectResponse.data.me.name,
-                            connectResponse.data.me.connectionCode)
+                            connectResponse.data.me.connectionCode
+                        )
 
-                        spouseInfo = User(connectResponse.data.spouse.id,
+                        spouseInfo = User(
+                            connectResponse.data.spouse.id,
                             connectResponse.data.spouse.profileImageUrl,
                             connectResponse.data.spouse.name,
-                            connectResponse.data.spouse.connectionCode)
+                            connectResponse.data.spouse.connectionCode
+                        )
                     }
 
                     // 저장에 실패해도 다시 불러오면 되므로 여기서 success
@@ -95,16 +99,18 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if(response.code() != 200) {
+                if (response.code() != 200) {
                     failed(it.message())
                     return@retrofitCallback
                 }
 
                 it.body()?.let { myInfoResponse ->
-                    myInfo = User(myInfoResponse.data.id,
+                    myInfo = User(
+                        myInfoResponse.data.id,
                         myInfoResponse.data.profileImageUrl,
                         myInfoResponse.data.name,
-                        myInfoResponse.data.connectionCode)
+                        myInfoResponse.data.connectionCode
+                    )
                     // Todo: 나중에 추가 필요
                     spouseInfo = null
                     success(myInfo!!, spouseInfo)
