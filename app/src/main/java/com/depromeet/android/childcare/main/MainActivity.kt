@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
+    private var myPageFragment: MyPageFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +29,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         binding.ivMypage.setOnClickListener {
             fl_mypage_content.visibility = View.VISIBLE
+            myPageFragment = MyPageFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fl_mypage_content, MyPageFragment.newInstance())
+                .replace(R.id.fl_mypage_content, myPageFragment!!)
                 .commit()
         }
     }
@@ -38,6 +40,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onBackPressed() {
         if (fl_mypage_content.visibility == View.VISIBLE) {
             fl_mypage_content.visibility = View.GONE
+            myPageFragment?.let {
+                supportFragmentManager
+                    .beginTransaction()
+                    .remove(it)
+                    .commit()
+            }
         } else {
             super.onBackPressed()
         }

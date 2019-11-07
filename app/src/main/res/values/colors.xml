@@ -5,9 +5,10 @@
     <color name="colorAccent">#fe5b22</color>
     <color name="colorGray">#c5c5c5</color>
     <color name="colorDarkGray">#676767</color>
-    
+
     <color name="colorTransparentWhite">#88FFFFFF</color>
     <color name="colorSky">#00aef2</color>
     <color name="colorBlue">#0070f2</color>
     <color name="colorChartGray">#d3d3d3</color>
+    <color name="colorOrange">#ff7443</color>
 </resources>

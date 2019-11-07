@@ -15,6 +15,8 @@ class MyPageFragment: BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_p
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = myPageViewModel
+
+        binding.tvCategoryChartLabel
     }
 
     companion object {

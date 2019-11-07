@@ -9,9 +9,13 @@ class MyPageViewModel(
     private val bookRepository: BookDataSource
 ) : ViewModel() {
 
-    private val _spouseName = MutableLiveData<String>("여해주")
+    private val _spouseName = MutableLiveData<String>()
     val spouseName: LiveData<String>
         get() = _spouseName
+
+    private val _myCode = MutableLiveData<String>()
+    val myCode: LiveData<String>
+        get() = _myCode
 
     private val _monthAvgConsumptionList = MutableLiveData<List<Float>>()
     val monthAvgConsumptionList: LiveData<List<Float>>
@@ -37,8 +41,15 @@ class MyPageViewModel(
     val mostCategoryName: LiveData<String>
         get() = _mostCategoryName
 
+    private val _mostCategoryAmount = MutableLiveData<Float>()
+    val mostCategoryAmount: LiveData<Float>
+        get() = _mostCategoryAmount
+
 
     init {
+        _spouseName.value = "여해주"
+        _myCode.value = "A123456"
+
         _monthAvgConsumptionList.value = mutableListOf(
             1000000f,
             1200000f,
@@ -59,6 +70,11 @@ class MyPageViewModel(
             1300000f
         )
         _mostCategoryName.value = "육아용품"
+        _mostCategoryAmount.value = 983333.333f
+
+    }
+
+    fun onConnectClick() {
 
     }
 }

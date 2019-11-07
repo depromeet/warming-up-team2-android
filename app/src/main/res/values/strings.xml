@@ -26,13 +26,14 @@
     
     <!--  my page  -->
     <string name="mypage_spouse_title">"<b>"%s"</b>"님과\n계정연동 중입니다</string>
-    <string name="mypage_spouse_connect_title">계정연동을 해주세요</string>
+    <string name="mypage_spouse_connect_title">계정연동을 해주세요!</string>
     <string name="mypage_spouse_mycode">내 코드</string>
     <string name="mypage_spouse_connect_code">배우자 코드</string>
     <string name="mypage_spouse_connect_hint">코드를 입력해주세요</string>
     <string name="mypage_spouse_connect">연동</string>
-    <string name="mypage_avg_consumption">한달 평균 소비\n%s원</string>
+    <string name="mypage_avg_consumption">한달 평균 소비</string>
     <string name="mypage_amount">%s원</string>
+    <string name="mypage_category_amount">-%s 원</string>
     <string name="mypage_6month_benchmark">(6개월 기준)</string>
-    <string name="mypage_most_consumption_category">제일 많은 소비\n<b>%s</b></string>
+    <string name="mypage_most_consumption_category">제일 많은 소비</string>
 </resources>
