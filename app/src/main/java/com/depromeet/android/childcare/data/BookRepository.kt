@@ -1,8 +1,6 @@
 package com.depromeet.android.childcare.data
 
-import android.util.Log
 import com.depromeet.android.childcare.model.*
-import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
 
@@ -15,13 +13,14 @@ class BookRepository(
 
     private val recordTestValue = mutableListOf<Record>()
     private val summaryTestValue = mutableListOf<Summary>()
+    private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
 
     init {
         for (i in 5..10) {
             recordTestValue.add(
                 Record(
                     i,
-                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만", "A123456"),
+                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만"),
                     RecordType.PAYMENT,
                     "2019-$i-4",
                     "라꾸라꾸 유모차",
@@ -136,5 +135,9 @@ class BookRepository(
 
     override fun getSummaries(success: (List<Summary>) -> Unit, failed: (String, String?) -> Unit) {
         summaryTestValue.run(success)
+    }
+
+    override fun getCategories(success: (List<String>) -> Unit, failed: (String, String?) -> Unit) {
+        categoryTextValue.run(success)
     }
 }

@@ -17,6 +17,7 @@ interface BookDataSource {
         failed: (String?) -> Unit
     )
 
+
     fun getAllRecords(
         success: (List<Record>) -> Unit,
         failed: (String, String?) -> Unit
@@ -37,6 +38,11 @@ interface BookDataSource {
 
     fun getSummaries(
         success: (List<Summary>) -> Unit,
+        failed: (String, String?) -> Unit
+    )
+
+    fun getCategories(
+        success: (List<String>) -> Unit,
         failed: (String, String?) -> Unit
     )
 }

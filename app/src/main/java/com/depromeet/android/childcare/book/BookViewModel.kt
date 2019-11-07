@@ -16,7 +16,9 @@ class BookViewModel(
 ) : ViewModel() {
     private val _records = MutableLiveData<List<Record>>()
     private val _summaries = MutableLiveData<List<Summary>>()
+    private val _categories = MutableLiveData<List<String>>()
     private val _errorMsg = MutableLiveData<String>()
+    private val _selectedMonth = MutableLiveData(0)
 
     val records: LiveData<List<Record>>
         get() = _records
@@ -24,15 +26,21 @@ class BookViewModel(
     val summaries: LiveData<List<Summary>>
         get() = _summaries
 
+    val category: LiveData<List<String>>
+        get() = _categories
+
     val errorMsg: LiveData<String>
         get() = _errorMsg
+
+    val selectedMonth: LiveData<Int>
+        get() = _selectedMonth
 
     init {
         _records.value = mutableListOf()
         _summaries.value = mutableListOf()
 
-        getAllRecords()
         getSummaries()
+        getRecordsByMonth(summaries.value!![0].month)
     }
 
     private fun getAllRecords() {
@@ -45,8 +53,23 @@ class BookViewModel(
         )
     }
 
-    private fun getRecordsByCategory(category: String) {
-        repository.getRecordsByCategory(category,
+    fun getRecordsByMonth(month: Int) {
+        _selectedMonth.value = month
+
+        repository.getRecordsByMonth(
+            _selectedMonth.value!!,
+            success = {
+                _records.value = it
+            }, failed = { msg, reason ->
+                onDataNotAvailable(msg, reason)
+            }
+        )
+    }
+
+    private fun getRecordsByMonthAndCategory(category: String) {
+        repository.getRecordsByMonthAndCategory(
+            _selectedMonth.value!!,
+            category,
             success = {
                 _records.value = it
             }, failed = { msg, reason ->

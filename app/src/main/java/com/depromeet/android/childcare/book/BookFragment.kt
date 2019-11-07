@@ -2,6 +2,7 @@ package com.depromeet.android.childcare.book
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ class BookFragment : BaseFragment<FragmentBookBinding>(R.layout.fragment_book) {
     private val bookViewModel: BookViewModel by viewModel()
     private val summaryAdapter = SummaryRecyclerViewAdapter(R.layout.item_summary, BR.item)
     private val recordAdapter = BookRecyclerViewAdapter(R.layout.item_book, BR.item)
+    private lateinit var spinnerAdapter: ArrayAdapter<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initView()
@@ -37,13 +39,19 @@ class BookFragment : BaseFragment<FragmentBookBinding>(R.layout.fragment_book) {
             rvBookSummary.layoutManager = layoutManager
             rvBookSummary.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val position = layoutManager.findFirstVisibleItemPosition()
+                    val position = layoutManager.findFirstVisibleItemPosition() + 1
+                    val month = summaryAdapter.getItem(position).month
+                    bookViewModel.getRecordsByMonth(month)
                 }
             })
         }
 
         bookViewModel.errorMsg.observe(this@BookFragment, Observer { t ->
             showToast(t)
+        })
+
+        bookViewModel.selectedMonth.observe(this@BookFragment, Observer {
+            recordAdapter.notifyDataSetChanged()
         })
     }
 }

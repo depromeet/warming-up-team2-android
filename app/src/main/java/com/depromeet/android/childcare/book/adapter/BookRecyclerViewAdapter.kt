@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import com.depromeet.android.childcare.databinding.ItemBookBinding
 import com.depromeet.android.childcare.model.Record
 import com.studyfirstproject.base.BaseRecyclerView
+import com.studyfirstproject.base.BaseViewHolder
 
 class BookRecyclerViewAdapter(
     @LayoutRes layoutResId: Int,
