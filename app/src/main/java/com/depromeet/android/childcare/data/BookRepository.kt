@@ -1,9 +1,18 @@
 package com.depromeet.android.childcare.data
 
+import android.util.Log
 import com.depromeet.android.childcare.model.*
+import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
+import com.depromeet.android.childcare.network.retrofitCallback
 
-class BookRepository(private val service: ServiceApi) : BookDataSource {
+class BookRepository(
+    private val service: ServiceApi
+) : BookDataSource {
+
+    private var myInfo: User? = null
+    private var spouseInfo: User? = null
+
     private val recordTestValue = mutableListOf<Record>()
     private val summaryTestValue = mutableListOf<Summary>()
 
@@ -12,7 +21,7 @@ class BookRepository(private val service: ServiceApi) : BookDataSource {
             recordTestValue.add(
                 Record(
                     i,
-                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만"),
+                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만", "A123456"),
                     RecordType.PAYMENT,
                     "2019-$i-4",
                     "라꾸라꾸 유모차",
@@ -27,6 +36,85 @@ class BookRepository(private val service: ServiceApi) : BookDataSource {
         for (i in 5..10) {
             summaryTestValue.add(Summary(2019, i, 10000 * i, 1, 7))
         }
+    }
+
+    override fun connectSpouse(
+        myCode: String,
+        success: () -> Unit,
+        failed: (String?) -> Unit
+    ) {
+        service.connectCouple(ConnectCoupleRequest(myCode)).enqueue(
+            retrofitCallback { response, throwable ->
+                // Todo: 나중에 헤더보고 에러처리는 필수
+                throwable?.let {
+                    failed(it.message)
+                    Log.e("Error!!: ", "sfasdfsaf // " + throwable.message)
+                }
+
+                response?.let {
+                    if(response.code() != 200) {
+                        failed(it.message())
+                        return@retrofitCallback
+                    }
+
+                    it.body()?.let {connectResponse ->
+
+                        // 현재 myinfo 는 딱히 다른데서 안쓰므로 미리 저장해도 될 듯 싶다.
+                        myInfo = User(connectResponse.data.me.id,
+                            connectResponse.data.me.profileImageUrl,
+                            connectResponse.data.me.name,
+                            connectResponse.data.me.connectionCode)
+
+                        spouseInfo = User(connectResponse.data.spouse.id,
+                            connectResponse.data.spouse.profileImageUrl,
+                            connectResponse.data.spouse.name,
+                            connectResponse.data.spouse.connectionCode)
+                    }
+
+                    // 저장에 실패해도 다시 불러오면 되므로 여기서 success
+                    success()
+                    return@retrofitCallback
+                }
+                failed("Unkown Error")
+            })
+    }
+
+    override fun getMyInfo(
+        success: (User, User?) -> Unit,
+        failed: (String?) -> Unit
+    ) {
+
+        // 이미 저장되어 있다면 있는걸 리턴
+        if (myInfo != null && spouseInfo != null) {
+            success(myInfo!!, spouseInfo)
+            return
+        }
+
+        service.getMyInfo().enqueue(retrofitCallback { response, throwable ->
+            throwable?.let {
+                failed(throwable.message)
+            }
+
+            response?.let { it ->
+                if(response.code() != 200) {
+                    failed(it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let { myInfoResponse ->
+                    myInfo = User(myInfoResponse.data.id,
+                        myInfoResponse.data.profileImageUrl,
+                        myInfoResponse.data.name,
+                        myInfoResponse.data.connectionCode)
+                    // Todo: 나중에 추가 필요
+                    spouseInfo = null
+                    success(myInfo!!, spouseInfo)
+                    return@retrofitCallback
+                }
+            }
+
+            failed("Unkown Error")
+        })
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {

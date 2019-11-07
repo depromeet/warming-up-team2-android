@@ -2,6 +2,7 @@ package com.depromeet.android.childcare.di
 
 import com.depromeet.android.childcare.BASE_URL
 import com.depromeet.android.childcare.TIME_OUT_SEC
+import com.depromeet.android.childcare.network.AuthInterceptor
 import com.depromeet.android.childcare.network.ServiceApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,6 +25,7 @@ val apiModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .addInterceptor(get<AuthInterceptor>())
             .connectTimeout(TIME_OUT_SEC, TimeUnit.SECONDS)
             .build()
     }
@@ -32,5 +34,9 @@ val apiModule = module {
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+    }
+
+    single {
+        AuthInterceptor(get())
     }
 }

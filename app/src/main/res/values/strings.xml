@@ -8,29 +8,32 @@
     <string name="format_summary_term">%d.%d.%d - %d.%d.%d</string>
     <string name="format_summary_day">%d월 %d일</string>
     <string name="format_book_info">%s / %s</string>
-    <string name="format_book_amount">%s원</string>
+    <string name="format_book_amount">-%s원</string>
 
     <string name="book_filter">태그별로 보기</string>
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
-    <string name="add_item_title">내역 작성</string>
-    <string name="add_item_where">어느곳에 지출하셨나요?</string>
-    <string name="add_item_amount">얼마를 지출하셨나요?</string>
-    <string name="add_item_date">날짜 (선택)</string>
-    <string name="add_item_category">카테고리 (선택)</string>
-    <string name="add_item_method">결제수단 (선택)</string>
-    <string name="add_item_msg_none">미선택시 미등록으로 분류됩니다</string>
-    <string name="add_item_hint_where">내역</string>
-    <string name="add_item_where_end">에 지출</string>
-    <string name="add_item_hint_amount">미선택시 미등록으로 분류됩니다</string>
-    <string name="add_item_card">카드</string>
-    <string name="add_item_cash">현금</string>
-    <string name="add_item_next">다음</string>
-
-    <string name="category_none">미등록</string>
-    <string name="category_baby_care">육아용품</string>
-    <string name="category_eating">식비</string>
-    <string name="category_playing">유흥</string>
 
     <!-- feed -->
-    <string name="format_feed_amount" formatted="false">%s 원</string>
+    <string name="format_feed_amount">%s 원</string>
+
+    <!--  login  -->
+    <string name="login_connect_title"><b>배우자의 코드</b>를 입력하고\n함께 가계부를 써봐요!</string>
+    <string name="login_connect_my_code">내 코드</string>
+    <string name="login_connect_spouse_code">배우자 코드(선택)</string>
+    <string name="login_connect_spouse_hint">코드를 입력해주세요</string>
+    <string name="login_connect_later">나중에 할래요</string>
+    <string name="login_connect_now">시작하기</string>
+    
+    <!--  my page  -->
+    <string name="mypage_spouse_title">"<b>"%s"</b>"님과\n계정연동 중입니다</string>
+    <string name="mypage_spouse_connect_title">계정연동을 해주세요!</string>
+    <string name="mypage_spouse_mycode">내 코드</string>
+    <string name="mypage_spouse_connect_code">배우자 코드</string>
+    <string name="mypage_spouse_connect_hint">코드를 입력해주세요</string>
+    <string name="mypage_spouse_connect">연동</string>
+    <string name="mypage_avg_consumption">한달 평균 소비</string>
+    <string name="mypage_amount">%s원</string>
+    <string name="mypage_category_amount">-%s 원</string>
+    <string name="mypage_6month_benchmark">(6개월 기준)</string>
+    <string name="mypage_most_consumption_category">제일 많은 소비</string>
 </resources>

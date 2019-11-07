@@ -1,5 +1,7 @@
 package com.depromeet.android.childcare.di
 
+import com.depromeet.android.childcare.data.AuthDataSource
+import com.depromeet.android.childcare.data.AuthRepository
 import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.data.BookRepository
 import com.depromeet.android.childcare.util.ResourcesProvider
@@ -14,5 +16,7 @@ val appModule = module {
 
     single<ResourcesProvider> { ResourcesProviderImpl(get()) }
 
-    single<BookDataSource> { BookRepository(get()) }
+    single<BookDataSource> { BookRepository(get())}
+
+    single<AuthDataSource> { AuthRepository(get(), get()) }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:fromXDelta="80"
+    android:toXDelta="-300"
+    android:fillAfter="true"
+    android:duration="5000"
+    android:repeatCount="infinite">
+</translate>
