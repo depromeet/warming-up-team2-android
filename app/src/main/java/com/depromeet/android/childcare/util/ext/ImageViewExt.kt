@@ -2,14 +2,14 @@ package com.depromeet.android.childcare.util.ext
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.depromeet.android.childcare.GlideApp
 
 @BindingAdapter("image_from_url")
-fun AppCompatImageView.bindImageFromUrl(imageUrl: String?) {
+fun ImageView.bindImageFromUrl(imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         GlideApp.with(this.context)
             .load(imageUrl)
@@ -20,7 +20,7 @@ fun AppCompatImageView.bindImageFromUrl(imageUrl: String?) {
 }
 
 @BindingAdapter("image_from_resId")
-fun AppCompatImageView.bindImageFromResId(@DrawableRes resId: Int) {
+fun ImageView.bindImageFromResId(@DrawableRes resId: Int) {
     GlideApp.with(this.context)
         .load(resId)
         .placeholder(ColorDrawable(Color.GRAY))
@@ -29,6 +29,6 @@ fun AppCompatImageView.bindImageFromResId(@DrawableRes resId: Int) {
 }
 
 @BindingAdapter("bind_clip_to_out_line")
-fun AppCompatImageView.bindClipToOutline(isClipToOutLine: Boolean) {
+fun ImageView.bindClipToOutline(isClipToOutLine: Boolean) {
     clipToOutline = isClipToOutLine
 }

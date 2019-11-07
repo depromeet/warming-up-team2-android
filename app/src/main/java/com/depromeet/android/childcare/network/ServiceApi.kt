@@ -3,6 +3,7 @@ package com.depromeet.android.childcare.network
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.LoginRequest
 import com.depromeet.android.childcare.model.response.ConnectCoupleResponse
+import com.depromeet.android.childcare.model.response.GetExpendituresResponse
 import com.depromeet.android.childcare.model.response.LoginResponse
 import com.depromeet.android.childcare.model.response.MyInfoResponse
 import retrofit2.Call
@@ -24,4 +25,7 @@ interface ServiceApi {
 
     @GET("api/members/me")
     fun getMyInfo(): Call<MyInfoResponse>
+
+    @GET("api/expenditures")
+    fun getExpendituresAll(): Call<GetExpendituresResponse>
 }

@@ -12,12 +12,11 @@ class FeedViewModel(
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
-    private val _feeds = MutableLiveData<List<Record>>()
-    private val _feedType = MutableLiveData<FeedType>(FeedType.DETAIL)
-
+    private val _feeds = MutableLiveData<List<Record>>(listOf())
     val feeds: LiveData<List<Record>>
         get() = _feeds
 
+    private val _feedType = MutableLiveData<FeedType>(FeedType.DETAIL)
     val feedType: LiveData<FeedType>
         get() = _feedType
 

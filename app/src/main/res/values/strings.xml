@@ -30,6 +30,7 @@
     <string name="add_item_next">다음</string>
 
     <!-- feed -->
+    <string name="feed_no_data">아직 기록된 추억이 없군요 :-(\n가계부에서 작성해보세요!</string>
     <string name="feed_payment_card">카드</string>
     <string name="feed_payment_cash">현금</string>
     <string name="format_feed_amount">%s 원</string>

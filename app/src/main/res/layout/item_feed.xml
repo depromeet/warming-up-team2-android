@@ -113,7 +113,7 @@
             android:text="@{feed.date}"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/space_x_small"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textColor="#909090"
             android:lineSpacingExtra="4sp"
             app:layout_constraintHorizontal_bias="0"
