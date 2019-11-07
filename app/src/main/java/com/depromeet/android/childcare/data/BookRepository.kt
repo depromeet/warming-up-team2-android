@@ -123,6 +123,7 @@ class BookRepository(
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
+//        recordTestValue.run(success)
         service.getExpendituresAll().enqueue(retrofitCallback {response, throwable ->
             throwable?.let {
                 failed("Error", throwable.message)
@@ -142,7 +143,7 @@ class BookRepository(
                             it.id,
                             User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
                             RecordType.PAYMENT,
-                            it.createdAt,
+                            it.expendedAt,
                             it.title,
                             it.amountOfMoney,
                             "육아용품",

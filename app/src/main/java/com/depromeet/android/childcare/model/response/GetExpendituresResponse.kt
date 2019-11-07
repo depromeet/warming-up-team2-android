@@ -7,9 +7,11 @@ data class GetExpendituresResponse(
     val message: String,
     val totalCount: Int
 ) {
+
     data class Data(
         val amountOfMoney: Int,
         val createdAt: String,
+        val expendedAt: String,
         val description: String,
         val id: Int,
         val imageUrl: String,
