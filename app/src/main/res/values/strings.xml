@@ -15,6 +15,20 @@
     <string name="book_filter">태그별로 보기</string>
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
 
+    <string name="add_item_title">내역 작성</string>
+    <string name="add_item_where">어느곳에 지출하셨나요?</string>
+    <string name="add_item_amount">얼마를 지출하셨나요?</string>
+    <string name="add_item_date">날짜 (선택)</string>
+    <string name="add_item_category">카테고리 (선택)</string>
+    <string name="add_item_method">결제수단 (선택)</string>
+    <string name="add_item_msg_none">미선택시 미등록으로 분류됩니다</string>
+    <string name="add_item_hint_where">내역</string>
+    <string name="add_item_where_end">에 지출</string>
+    <string name="add_item_hint_amount">미선택시 미등록으로 분류됩니다</string>
+    <string name="add_item_card">카드</string>
+    <string name="add_item_cash">현금</string>
+    <string name="add_item_next">다음</string>
+
     <!-- feed -->
     <string name="feed_payment_card">카드</string>
     <string name="feed_payment_cash">현금</string>
