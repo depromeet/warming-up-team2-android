@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".mypage.MyPageFragment">
+
+    <data>
+
+        <import type="com.depromeet.android.childcare.R"/>
+        <import type="com.depromeet.android.childcare.util.StringUtilKt" />
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.mypage.MyPageViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/space_large"/>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/space_large"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_spouse_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:layout_marginTop="40dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:bind_all_text="@{@string/mypage_spouse_title(viewModel.spouseName)}"
+                app:bind_bold_text="@{viewModel.spouseName}"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_view_my_page"
+                android:layout_width="125dp"
+                android:layout_height="100dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_mypage.json"
+                app:lottie_imageAssetsFolder="images/mypage"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="@+id/tv_spouse_explain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_spouse_explain"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_spouse_explain"
+                app:bind_animation="@{R.anim.mypage_lottie_move}"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_connect_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.spouseName == null ? View.GONE : View.VISIBLE}"
+                app:constraint_referenced_ids="tv_spouse_explain,lottie_view_my_page"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_my_code_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mypage_mycode"
+                android:text="@string/mypage_spouse_mycode"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:textColor="#ffffff"
+                android:lineSpacingExtra="4sp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_my_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.myCode}"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="10sp"
+                android:layout_marginStart="@dimen/space_x_small"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_my_code_tag"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="@+id/tv_my_code_tag"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_my_code_tag"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_spouse_connect_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_spouse_connect_title"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="10sp"
+                android:layout_marginTop="3dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toBottomOf="@+id/tv_my_code"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_spouse_connect_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_spouse_connect_code"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6sp"
+                android:layout_marginTop="@dimen/space_large"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/et_spouse_connect_code"
+                app:layout_constraintTop_toBottomOf="@+id/tv_spouse_connect_title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_spouse_connect_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/mypage_spouse_connect_hint"
+                android:textSize="14sp"
+                android:textColor="#191919"
+                android:textColorHint="#d1d1d1"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:layout_marginStart="@dimen/space_x_small"
+                android:layout_marginEnd="@dimen/space_x_small"
+                android:backgroundTint="@color/colorSky"
+                android:singleLine="true"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_spouse_connect_code"
+                app:layout_constraintEnd_toStartOf="@+id/btn_mypage_spouse_connect"
+                app:layout_constraintTop_toTopOf="@+id/tv_spouse_connect_code"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_spouse_connect_code"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_mypage_spouse_connect"
+                android:layout_width="72dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_login_connect"
+                android:text="@string/mypage_spouse_connect"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="5sp"
+                android:onClick="@{() -> viewModel.onConnectClick()}"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/et_spouse_connect_code"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="@+id/tv_spouse_connect_code"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_spouse_connect_code" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_connect_incomplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.spouseName == null ? View.VISIBLE : View.GONE}"
+                app:constraint_referenced_ids="tv_my_code_tag,tv_my_code,tv_spouse_connect_title,tv_spouse_connect_title,tv_spouse_connect_code,et_spouse_connect_code,btn_mypage_spouse_connect"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_mypage_spouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_spouse_explain,lottie_view_my_page,et_spouse_connect_code,btn_mypage_spouse_connect"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_avg_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_avg_consumption"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:layout_marginTop="40dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_mypage_spouse"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_avg_consumption_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/mypage_amount(StringUtilKt.insertComma(viewModel.totalAvgConsumption))}"
+                android:textSize="24sp"
+                android:textColor="#191919"
+                android:textStyle="bold"
+                android:letterSpacing="-0.03"
+                android:textAlignment="textEnd"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toBottomOf="@+id/tv_avg_consumption"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_avg_consumption_benchmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#aaaaaa"
+                android:text="@string/mypage_6month_benchmark"
+                android:layout_marginStart="5dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0.6"
+                app:layout_constraintStart_toEndOf="@+id/tv_avg_consumption_amount"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="@+id/tv_avg_consumption_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_avg_consumption_amount"/>
+
+            <FrameLayout
+                android:id="@+id/fl_avg_chart_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/space_median"
+                android:layout_marginStart="@dimen/space_x_small"
+                android:layout_marginEnd="@dimen/space_x_small"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_avg_consumption_amount"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <com.depromeet.android.childcare.mypage.AvgBarChartView
+                    android:id="@+id/bar_chart_avg_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bind_month="@{viewModel.monthList}"
+                    app:bind_bar_data="@{viewModel.monthAvgConsumptionList}"/>
+
+                <com.depromeet.android.childcare.mypage.AvgLineChartView
+                    android:id="@+id/line_chart_avg_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bind_month="@{viewModel.monthList}"
+                    app:bind_line_data="@{viewModel.monthAvgConsumptionList}"/>
+
+                <com.depromeet.android.childcare.mypage.AvgLineChartView
+                    android:id="@+id/line_chart_total_avg_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bind_month="@{viewModel.monthList}"
+                    app:bind_line_avg_data="@{viewModel.totalAvgConsumption}"
+                    app:bind_line_data="@{viewModel.monthAvgConsumptionList}"/>
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_mypage_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_most_consumption_category"
+                android:textSize="20sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                android:layout_marginTop="40dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toBottomOf="@+id/fl_avg_chart_content"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_mypage_category_most_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.mostCategoryName}"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="#191919"
+                android:letterSpacing="-0.03"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toStartOf="@+id/gl_end"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mypage_category"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.depromeet.android.childcare.mypage.CategoryChartView
+                android:id="@+id/bar_chart_category_consumption"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="@dimen/space_x_small"
+                android:layout_marginEnd="@dimen/space_x_small"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mypage_category_most_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:bind_category="@{viewModel.categoryList}"
+                app:bind_bar_data="@{viewModel.categoryConsumptionList}"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_category_chart_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/mypage_category_amount(StringUtilKt.insertComma(viewModel.mostCategoryAmount))}"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/bg_category_chart_label"
+                android:paddingBottom="6dp"
+                android:textSize="8sp"
+                android:textColor="#ffffff"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:layout_marginEnd="@dimen/space_median"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="@+id/gl_start"
+                app:layout_constraintEnd_toEndOf="@+id/gl_end"
+                app:layout_constraintTop_toTopOf="@+id/bar_chart_category_consumption"
+                app:bind_animation="@{R.anim.mypage_category_chart_label_alpha}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

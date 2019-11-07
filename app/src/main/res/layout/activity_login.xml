@@ -176,7 +176,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="@dimen/space_large"
-                android:backgroundTint="@color/colorLoginTint"
+                android:backgroundTint="@color/colorSky"
                 app:layout_constraintVertical_bias="0"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@+id/barrier_login_connect_code"

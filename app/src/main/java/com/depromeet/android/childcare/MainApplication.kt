@@ -23,7 +23,8 @@ class MainApplication : Application() {
                 loginModule,
                 feedModule,
                 bookModule,
-                bookDetailModule)
+                bookDetailModule,
+                myPageModule)
             )
         }
 
