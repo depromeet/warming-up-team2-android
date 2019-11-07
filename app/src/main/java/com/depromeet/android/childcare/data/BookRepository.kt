@@ -15,7 +15,7 @@ class BookRepository(
     private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
 
     init {
-        for (i in 5..10) {
+        for (i in 1..12) {
             recordTestValue.add(
                 Record(
                     i,
@@ -123,44 +123,44 @@ class BookRepository(
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
-//        recordTestValue.run(success)
-        service.getExpendituresAll().enqueue(retrofitCallback {response, throwable ->
-            throwable?.let {
-                failed("Error", throwable.message)
-                return@retrofitCallback
-            }
-
-            response?.let { it ->
-                if (response.code() != 200) {
-                    failed("Error", it.message())
-                    return@retrofitCallback
-                }
-
-                it.body()?.let { getExpendituresResponse ->
-
-                    val recordList = getExpendituresResponse.data.map {
-                        Record(
-                            it.id,
-                            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
-                            RecordType.PAYMENT,
-                            it.expendedAt,
-                            it.title,
-                            it.amountOfMoney,
-                            "육아용품",
-                            it.paymentMethod,
-                            it.imageUrl,
-                            it.description
-                        )
-                    }
-
-                    success(recordList)
-
-                    return@retrofitCallback
-                }
-            }
-
-            failed("Unkown Error", "Unkown Error")
-        })
+        recordTestValue.run(success)
+//        service.getExpendituresAll().enqueue(retrofitCallback {response, throwable ->
+//            throwable?.let {
+//                failed("Error", throwable.message)
+//                return@retrofitCallback
+//            }
+//
+//            response?.let { it ->
+//                if (response.code() != 200) {
+//                    failed("Error", it.message())
+//                    return@retrofitCallback
+//                }
+//
+//                it.body()?.let { getExpendituresResponse ->
+//
+//                    val recordList = getExpendituresResponse.data.map {
+//                        Record(
+//                            it.id,
+//                            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
+//                            RecordType.PAYMENT,
+//                            it.expendedAt,
+//                            it.title,
+//                            it.amountOfMoney,
+//                            "육아용품",
+//                            it.paymentMethod,
+//                            it.imageUrl,
+//                            it.description
+//                        )
+//                    }
+//
+//                    success(recordList)
+//
+//                    return@retrofitCallback
+//                }
+//            }
+//
+//            failed("Unkown Error", "Unkown Error")
+//        })
     }
 
     override fun getRecordsByMonth(month: Int, success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
