@@ -4,7 +4,6 @@
     <string name="title_account_book">가계부</string>
 
 
-
     <string name="format_summary_month">%d월</string>
     <string name="format_summary_total">이달에 총 %s원 지출했어요!</string>
     <string name="format_summary_term">%d.%d.%d - %d.%d.%d</string>
@@ -42,7 +41,7 @@
     <string name="login_connect_spouse_hint">코드를 입력해주세요</string>
     <string name="login_connect_later">나중에 할래요</string>
     <string name="login_connect_now">시작하기</string>
-    
+
     <!--  my page  -->
     <string name="mypage_spouse_title">"<b>"%s"</b>"님과\n계정연동 중입니다</string>
     <string name="mypage_spouse_connect_title">계정연동을 해주세요!</string>

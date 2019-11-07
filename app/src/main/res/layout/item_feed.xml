@@ -40,6 +40,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/bg_radius_10dp"
             android:layout_marginTop="@dimen/space_small"
+            android:onClick="@{() -> navigator.goFeedPictureActivity(feed.imgUrl)}"
             app:image_from_url="@{feed.imgUrl}"
             app:bind_clip_to_out_line="@{true}"
             app:layout_constraintDimensionRatio="1:1"

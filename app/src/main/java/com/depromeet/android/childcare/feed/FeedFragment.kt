@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.databinding.FragmentFeedBinding
+import com.depromeet.android.childcare.feed.feedPicture.FeedPictureActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -31,5 +32,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
 
     override fun showOptionDialog(feedId: Int) {
         showToast("show dialog with id $feedId")
+    }
+
+    override fun goFeedPictureActivity(imgUrl: String) {
+        activity?.let {
+            startActivity(FeedPictureActivity.getStartIntent(it, imgUrl))
+        }
     }
 }

@@ -8,6 +8,10 @@
             name="feed"
             type="com.depromeet.android.childcare.model.Record" />
 
+        <variable
+            name="navigator"
+            type="com.depromeet.android.childcare.feed.FeedNavigator" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +25,7 @@
             android:src="@color/colorDarkGray"
             android:scaleType="centerCrop"
             android:background="@drawable/bg_radius_20dp"
+            android:onClick="@{() -> navigator.goFeedPictureActivity(feed.imgUrl)}"
             app:layout_constraintDimensionRatio="W,1:1"
             app:image_from_url="@{feed.imgUrl}"
             app:bind_clip_to_out_line="@{true}"
