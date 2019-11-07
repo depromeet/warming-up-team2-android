@@ -172,6 +172,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_connect_spouse_hint"
+                android:text="@={viewModel.spouseCode}"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="36dp"
@@ -226,5 +227,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isProgressed() ? View.VISIBLE : View.GONE}"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_in"
+            android:indeterminateTint="@color/colorSky"
+            android:layout_gravity="center"/>
     </FrameLayout>
 </layout>
