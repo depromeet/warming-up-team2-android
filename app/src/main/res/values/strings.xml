@@ -3,6 +3,8 @@
     <string name="title_home">홈</string>
     <string name="title_account_book">가계부</string>
 
+
+
     <string name="format_summary_month">%d월</string>
     <string name="format_summary_total">이달에 총 %s원 지출했어요!</string>
     <string name="format_summary_term">%d.%d.%d - %d.%d.%d</string>
@@ -14,6 +16,8 @@
     <string name="msg_network_err">네트워크 오류가 발생했습니다. 다시 시도해주세요.</string>
 
     <!-- feed -->
+    <string name="feed_payment_card">카드</string>
+    <string name="feed_payment_cash">현금</string>
     <string name="format_feed_amount">%s 원</string>
 
     <!--  login  -->

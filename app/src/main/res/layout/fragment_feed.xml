@@ -21,7 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="30dp"
+        android:paddingTop="@dimen/space_small"
         android:paddingStart="@dimen/space_large"
         android:paddingEnd="@dimen/space_large">
 
@@ -44,7 +44,7 @@
             android:id="@+id/rv_feed_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:bind_feed_items="@{viewModel.feeds}"
             app:bind_feed_type="@{viewModel.feedType}"

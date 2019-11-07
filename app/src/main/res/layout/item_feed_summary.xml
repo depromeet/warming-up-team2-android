@@ -20,7 +20,7 @@
             android:padding="4dp"
             android:src="@color/colorDarkGray"
             android:scaleType="centerCrop"
-            android:background="@drawable/bg_radius_10dp"
+            android:background="@drawable/bg_radius_20dp"
             app:image_from_url="@{feed.imgUrl}"
             app:bind_clip_to_out_line="@{true}"/>
 
