@@ -15,13 +15,15 @@ data class ConnectCoupleResponse(
         val id: Int,
         val name: String,
         val profileImageUrl: String,
-        val status: String
+        val status: String,
+        val connectionCode: String
     )
 
     data class Spouse(
         val id: Int,
         val name: String,
         val profileImageUrl: String,
-        val status: String
+        val status: String,
+        val connectionCode: String
     )
 }

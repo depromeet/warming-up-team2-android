@@ -63,10 +63,12 @@ class BookRepository(
                         myInfo = User(connectResponse.data.me.id,
                             connectResponse.data.me.profileImageUrl,
                             connectResponse.data.me.name,
-                            myCode)
+                            connectResponse.data.me.connectionCode)
 
-                        // Todo: 나중에 spouse 도 추가해주도록 하자.
-                        spouseInfo = null
+                        spouseInfo = User(connectResponse.data.spouse.id,
+                            connectResponse.data.spouse.profileImageUrl,
+                            connectResponse.data.spouse.name,
+                            connectResponse.data.spouse.connectionCode)
                     }
 
                     // 저장에 실패해도 다시 불러오면 되므로 여기서 success
