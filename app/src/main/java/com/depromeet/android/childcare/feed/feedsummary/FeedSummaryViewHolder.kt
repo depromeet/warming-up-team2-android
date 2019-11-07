@@ -9,7 +9,6 @@ import com.studyfirstproject.base.BaseViewHolder
 
 class FeedSummaryViewHolder(
     parent: ViewGroup?
-): BaseViewHolder<ItemFeedSummaryBinding, Record>(R.layout.item_feed_summary, parent, BR.feed) {
-
+) : BaseViewHolder<ItemFeedSummaryBinding, Record>(R.layout.item_feed_summary, parent, BR.feed) {
 
 }

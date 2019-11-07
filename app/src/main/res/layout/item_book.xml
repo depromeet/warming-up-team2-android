@@ -11,10 +11,17 @@
             type="com.depromeet.android.childcare.model.Record" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/tv_book_category"
@@ -22,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@{item.category}"
+            android:textSize="10sp"
+            android:textStyle="bold"
             app:category_state_color="@{item.content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,26 +62,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/format_book_amount(StringUtilKt.insertComma(item.amount))}"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_book_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/format_book_info(item.title, item.paymentMethod)}"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_book_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@{item.date}"
-            android:textColor="@android:color/black"
+            android:gravity="end"
+            android:text="13:59"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
