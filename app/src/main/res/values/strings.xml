@@ -33,6 +33,9 @@
     <string name="feed_payment_card">카드</string>
     <string name="feed_payment_cash">현금</string>
     <string name="format_feed_amount">%s 원</string>
+    <string name="feed_edit">수정</string>
+    <string name="feed_delete">삭제</string>
+    <string name="feed_cancel">취소</string>
 
     <!--  login  -->
     <string name="login_connect_title"><b>배우자의 코드</b>를 입력하고\n함께 가계부를 써봐요!</string>

@@ -1,4 +1,4 @@
-package com.depromeet.android.childcare.feed.feedPicture
+package com.depromeet.android.childcare.feed.feedpicture
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import com.depromeet.android.childcare.databinding.ActivityFeedPictureBinding
 import com.depromeet.android.childcare.util.ext.bindImageFromUrl
 import com.studyfirstproject.base.BaseActivity
 
-// 간단해서 일단 viewmodel 을 만들지는 않음
+// 간단해서 일단 viewmodel 을 만들지는 않음 (fragment 나 view 로 바꿔도 될듯)
 class FeedPictureActivity : BaseActivity<ActivityFeedPictureBinding>(R.layout.activity_feed_picture) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
