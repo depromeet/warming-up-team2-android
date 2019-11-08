@@ -22,4 +22,6 @@ fun getBoldText(text: String, name: String): SpannableStringBuilder {
     return str
 }
 
-fun getDateString() = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(Date())
+fun getDateString(): String = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(Date())
+
+fun getDateString(year: Int, month: Int, day: Int) = "$year-$month-$day"
