@@ -4,10 +4,14 @@ import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
+import com.depromeet.android.childcare.util.convertToString
+import com.depromeet.android.childcare.util.toDate
+import java.util.*
 
 class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
+
     private var myInfo: User? = null
     private var spouseInfo: User? = null
     private val recordTestValue = mutableListOf<Record>()
@@ -38,7 +42,7 @@ class BookRepository(
 
     override fun connectSpouse(
         myCode: String,
-        success: () -> Unit,
+        success: (User?) -> Unit,
         failed: (String?) -> Unit
     ) {
         service.connectCouple(ConnectCoupleRequest(myCode)).enqueue(
@@ -71,11 +75,10 @@ class BookRepository(
                             connectResponse.data.spouse.name,
                             connectResponse.data.spouse.connectionCode
                         )
-                    }
 
-                    // 저장에 실패해도 다시 불러오면 되므로 여기서 success
-                    success()
-                    return@retrofitCallback
+                        success(spouseInfo)
+                        return@retrofitCallback
+                    }
                 }
                 failed("Unkown Error")
             })
@@ -111,8 +114,15 @@ class BookRepository(
                         myInfoResponse.data.name,
                         myInfoResponse.data.connectionCode
                     )
-                    // Todo: 나중에 추가 필요
-                    spouseInfo = null
+
+                    myInfoResponse.data.spouseName?.let {
+                        spouseInfo = User(
+                            -1,
+                            null,
+                            myInfoResponse.data.spouseName,
+                            ""
+                        )
+                    }
                     success(myInfo!!, spouseInfo)
                     return@retrofitCallback
                 }
@@ -146,7 +156,7 @@ class BookRepository(
                             it.expendedAt,
                             it.title,
                             it.amountOfMoney,
-                            "육아용품",
+                            it.category,
                             it.paymentMethod,
                             it.imageUrl,
                             it.description
@@ -182,5 +192,125 @@ class BookRepository(
 
     override fun getCategories(success: (List<String>) -> Unit, failed: (String, String?) -> Unit) {
         categoryTextValue.run(success)
+    }
+
+    override fun getExpenditureStatistics(
+        success: (List<String>, List<Float>, Float) -> Unit,
+        failed: (String?) -> Unit
+    ) {
+        service.getExpendituresStatistic().enqueue(retrofitCallback {response, throwable ->
+            throwable?.let {
+                failed(throwable.message)
+                return@retrofitCallback
+            }
+
+            response?.let { it ->
+                if (response.code() != 200) {
+                    failed(it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let {expenditureStatistics ->
+
+                    val months = mutableListOf<String>()
+                    val consumptions = mutableListOf<Float>()
+                    var avgValue = 0f
+                    expenditureStatistics.data.monthlyTotalExpenditures.map {
+                        it.key.toDate("yyyy-mm")?.let { convetedDate ->
+                            months.add(convetedDate.convertToString("mm"))
+                        }
+                        consumptions.add(it.value)
+                        avgValue += it.value
+                    }
+                    avgValue = avgValue.div(months.size)
+
+                    if (months.size in 1..5) {
+                        val needsSize = 6 - months.size
+                        val lastMonth = months[months.size - 1]
+                        for (i in 1 until needsSize + 1) {
+                            var addedMonth: String = (lastMonth.toInt() + i).toString()
+                            if (addedMonth.toInt() > 12) {
+                                addedMonth = (addedMonth.toInt() - 12).toString()
+                                if (addedMonth.toInt() < 10) {
+                                    addedMonth = "0$addedMonth"
+                                }
+                            }
+
+                            months.add(addedMonth)
+                            consumptions.add(0f)
+                        }
+                    } else if (months.size == 0) {
+                        for (i in 0 until 6) {
+                            var addedMonth = (Date().convertToString("mm").toInt() + 1).toString()
+                            if (addedMonth.toInt() > 12) {
+                                addedMonth = (addedMonth.toInt() - 12).toString()
+                                if (addedMonth.toInt() < 10) {
+                                    addedMonth = "0$addedMonth"
+                                }
+                            }
+                            months.add(addedMonth)
+                            consumptions.add(0f)
+                        }
+                    }
+
+                    success(months, consumptions, avgValue)
+
+                    return@retrofitCallback
+                }
+            }
+
+            failed( "Unkown Error")
+        })
+    }
+
+    override fun getCategoriesStatistics(
+        success: (List<String>, List<Float>, String, Float) -> Unit,
+        failed: (String?) -> Unit
+    ) {
+        service.getCategoriesStatistic().enqueue(retrofitCallback {response, throwable ->
+            throwable?.let {
+                failed(throwable.message)
+                return@retrofitCallback
+            }
+
+            response?.let { it ->
+                if (response.code() != 200) {
+                    failed(it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let {categoriesStatistics ->
+
+                    val sortedCategories = categoriesStatistics.data.categoryMap
+                        .toList()
+                        .sortedBy { (_, value) -> value }
+                        .toMap()
+
+                    val categories = mutableListOf<String>()
+                    val consumptions = mutableListOf<Float>()
+                    var mostCategory = ""
+                    var mostConsumption = 0f
+                    sortedCategories.map {
+                        categories.add(it.key)
+                        consumptions.add(it.value)
+                        mostCategory = it.key
+                        mostConsumption = it.value
+                    }
+
+                    // Todo 데이터가 6개로 잘 오면 삭제하도록 하자
+                    if (categories.size < 5) {
+                        for (i in 0 until 5 - categories.size) {
+                            categories.add(0, "미분류 $i")
+                            consumptions.add(0, 0f)
+                        }
+                    }
+
+                    success(categories, consumptions, mostCategory, mostConsumption)
+                    return@retrofitCallback
+                }
+            }
+
+            failed( "Unkown Error")
+        })
     }
 }

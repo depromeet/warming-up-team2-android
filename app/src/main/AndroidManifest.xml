@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".editbook.EditBookActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_sdk_api_key" />
@@ -35,7 +38,8 @@
         <activity
             android:name=".main.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".feed.feedpicture.FeedPictureActivity"
+        <activity
+            android:name=".feed.feedpicture.FeedPictureActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

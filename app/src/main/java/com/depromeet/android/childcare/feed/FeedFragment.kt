@@ -8,6 +8,7 @@ import androidx.appcompat.widget.PopupMenu
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.databinding.FragmentFeedBinding
+import com.depromeet.android.childcare.editbook.EditBookActivity
 import com.depromeet.android.childcare.feed.feedpicture.FeedPictureActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +32,13 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         return binding.root
     }
 
+    private fun goEditBookActivity() {
+        activity?.let {
+            val intent = EditBookActivity.getStartIntent(it)
+            startActivity(intent)
+        }
+    }
+
     override fun showOptionDialog(feedId: Int, anchor: View) {
         activity?.let {
             val popup = PopupMenu(it, anchor)
@@ -38,7 +46,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
 
             popup.setOnMenuItemClickListener {menuItem ->
                 when(menuItem.itemId) {
-                    R.id.menu_feed_edit -> showToast("edit with feedId $feedId")
+                    R.id.menu_feed_edit -> goEditBookActivity()
                     R.id.menu_feed_delete -> showToast("delete with feedId $feedId")
                 }
                 true
@@ -48,9 +56,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         }
     }
 
-    override fun goFeedPictureActivity(imgUrl: String) {
-        activity?.let {
-            startActivity(FeedPictureActivity.getStartIntent(it, imgUrl))
+    override fun goFeedPictureActivity(imgUrl: String?) {
+        activity?.let {activity ->
+            imgUrl?.let {
+                startActivity(FeedPictureActivity.getStartIntent(activity, it))
+            }
         }
     }
 }

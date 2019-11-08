@@ -17,6 +17,7 @@ data class GetExpendituresResponse(
         val imageUrl: String,
         val member: Member,
         val paymentMethod: PaymentType,
+        val category: String,
         val title: String,
         val updatedAt: String
     )

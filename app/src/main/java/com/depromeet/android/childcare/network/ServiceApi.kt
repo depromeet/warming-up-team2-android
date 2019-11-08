@@ -2,10 +2,7 @@ package com.depromeet.android.childcare.network
 
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.LoginRequest
-import com.depromeet.android.childcare.model.response.ConnectCoupleResponse
-import com.depromeet.android.childcare.model.response.GetExpendituresResponse
-import com.depromeet.android.childcare.model.response.LoginResponse
-import com.depromeet.android.childcare.model.response.MyInfoResponse
+import com.depromeet.android.childcare.model.response.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,4 +25,10 @@ interface ServiceApi {
 
     @GET("api/expenditures")
     fun getExpendituresAll(): Call<GetExpendituresResponse>
+
+    @GET("api/expenditures?format=graph&type=monthly")
+    fun getExpendituresStatistic(): Call<GetExpenditureStatistics>
+
+    @GET("api/categories?format=graph")
+    fun getCategoriesStatistic(): Call<GetCategoriesStatistics>
 }
