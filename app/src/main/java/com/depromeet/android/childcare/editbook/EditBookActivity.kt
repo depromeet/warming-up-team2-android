@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityEditBookBinding
-import com.depromeet.android.childcare.main.MainActivity
 import com.studyfirstproject.base.BaseActivity
 
 class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity_edit_book) {
@@ -12,7 +11,7 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
+            return Intent(context, EditBookActivity::class.java)
         }
     }
 }
