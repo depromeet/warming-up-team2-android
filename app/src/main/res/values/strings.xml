@@ -29,10 +29,10 @@
     <string name="add_item_cash">현금</string>
     <string name="add_item_next">다음</string>
     <string name="add_item_finish">완료</string>
-    <string name="add_item_category1">완료</string>
-    <string name="add_item_category2">완료</string>
-    <string name="add_item_category3">완료</string>
-    <string name="add_item_category4">완료</string>
+    <string name="add_item_category1">생활용품</string>
+    <string name="add_item_category2">육아용품</string>
+    <string name="add_item_category3">문화</string>
+    <string name="add_item_category4">건강</string>
     <string name="add_item_category5">미등록</string>
 
     <!-- feed -->

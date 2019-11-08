@@ -3,6 +3,7 @@
 
     <data>
 
+        <import type="com.depromeet.android.childcare.util.StringUtilKt" />
     </data>
 
     <ScrollView
@@ -109,7 +110,9 @@
                         android:focusable="false"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="@{StringUtilKt.dateString}"
+                        android:theme="@style/TextAppearance.App.TextInputLayout" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
