@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.depromeet.android.childcare.EXTRA_RECORD_AMOUNT
 import com.depromeet.android.childcare.EXTRA_RECORD_DATE
 import com.depromeet.android.childcare.EXTRA_RECORD_TITLE
@@ -14,7 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.activity_add_item_first) {
+class AddBookFirstActivity :
+    BaseActivity<ActivityAddItemFirstBinding>(R.layout.activity_add_item_first) {
     private val addItemViewModel: AddItemViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +29,7 @@ class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.
 
         with(binding) {
             viewModel = addItemViewModel
-
-            etAddDate.setOnClickListener {
-                showDatePickerDialog()
-            }
-
+            etAddDate.setOnClickListener { showDatePickerDialog() }
             btnAddNext.setOnClickListener {
                 val where = etAddWhere.text.toString()
                 val amount = etAddAmount.text.toString()
@@ -42,14 +40,21 @@ class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.
                     startIntent.putExtra(EXTRA_RECORD_AMOUNT, amount.toInt())
                     startIntent.putExtra(EXTRA_RECORD_DATE, addItemViewModel.date.value)
                     startActivity(startIntent)
+                } else {
+                    Toast.makeText(context, R.string.add_item_msg_input, Toast.LENGTH_SHORT).show()
                 }
             }
+            btnAddCard.setOnClickListener {
+                addItemViewModel.setPaymentMethod("카드")
+                btnAddCard.setBackgroundResource(R.drawable.btn_bg_round_blue)
+                btnAddCash.setBackgroundResource(R.drawable.btn_bg_round_gray)
+            }
+            btnAddCash.setOnClickListener {
+                addItemViewModel.setPaymentMethod("현금")
+                btnAddCash.setBackgroundResource(R.drawable.btn_bg_round_blue)
+                btnAddCard.setBackgroundResource(R.drawable.btn_bg_round_gray)
+            }
         }
-    }
-
-    companion object {
-
-        fun getStartIntent(context: Context) = Intent(context, AddBookFirstActivity::class.java)
     }
 
     private fun showDatePickerDialog() {
@@ -62,5 +67,10 @@ class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.
             },
             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
         ).show()
+    }
+
+    companion object {
+
+        fun getStartIntent(context: Context) = Intent(context, AddBookFirstActivity::class.java)
     }
 }

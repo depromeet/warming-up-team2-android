@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.depromeet.android.childcare.model.PaymentType" />
+
         <variable
             name="viewModel"
             type="com.depromeet.android.childcare.addbook.AddItemViewModel" />

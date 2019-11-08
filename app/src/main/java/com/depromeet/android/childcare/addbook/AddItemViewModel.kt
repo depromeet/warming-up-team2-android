@@ -12,15 +12,15 @@ class AddItemViewModel(
     val toastProvider: ToastProvider
 ) : ViewModel() {
     private val _title = MutableLiveData<String>()
-    private val _amount = MutableLiveData<Int>()
+    private val _category = MutableLiveData<String>("미등록")
     private val _method = MutableLiveData<String>("카드")
     private val _date = MutableLiveData<String>(getDateString())
 
     val title: LiveData<String>
         get() = _title
 
-    val amount: LiveData<Int>
-        get() = _amount
+    val category: LiveData<String>
+        get() = _category
 
     val method: LiveData<String>
         get() = _method
@@ -33,6 +33,10 @@ class AddItemViewModel(
     }
 
     fun setPaymentMethod(type: String) {
+        _method.value = type
+    }
+
+    fun setCategory(type: String) {
         _method.value = type
     }
 }
