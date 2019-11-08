@@ -3,12 +3,8 @@ package com.depromeet.android.childcare.network
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
 import com.depromeet.android.childcare.model.request.LoginRequest
-import com.depromeet.android.childcare.model.response.ConnectCoupleResponse
-import com.depromeet.android.childcare.model.response.CreateRecordResponse
-import com.depromeet.android.childcare.model.response.LoginResponse
-import com.depromeet.android.childcare.model.response.MyInfoResponse
-import okhttp3.RequestBody
 import com.depromeet.android.childcare.model.response.*
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -28,6 +24,7 @@ interface ServiceApi {
     @GET("api/members/me")
     fun getMyInfo(): Call<MyInfoResponse>
 
+    // 지출 내역 API
     @GET("api/expenditures")
     fun getExpendituresAll(): Call<GetExpendituresResponse>
 
@@ -37,7 +34,6 @@ interface ServiceApi {
     @GET("api/categories?format=graph")
     fun getCategoriesStatistic(): Call<GetCategoriesStatistics>
 
-    // 지출 내역 API
     @POST("api/expenditures")
     fun createNewRecord(@Body data: CreateRecordRequest): Call<CreateRecordResponse>
 
