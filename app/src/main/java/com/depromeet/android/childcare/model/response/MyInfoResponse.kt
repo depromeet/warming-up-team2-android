@@ -10,7 +10,8 @@ data class MyInfoResponse(
         val name: String,
         val profileImageUrl: String,
         val status: Status,
-        val connectionCode: String
+        val connectionCode: String,
+        val spouseName: String?
     )
 
     enum class Status {

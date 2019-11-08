@@ -42,7 +42,7 @@ class BookRepository(
 
     override fun connectSpouse(
         myCode: String,
-        success: () -> Unit,
+        success: (User?) -> Unit,
         failed: (String?) -> Unit
     ) {
         service.connectCouple(ConnectCoupleRequest(myCode)).enqueue(
@@ -75,11 +75,10 @@ class BookRepository(
                             connectResponse.data.spouse.name,
                             connectResponse.data.spouse.connectionCode
                         )
-                    }
 
-                    // 저장에 실패해도 다시 불러오면 되므로 여기서 success
-                    success()
-                    return@retrofitCallback
+                        success(spouseInfo)
+                        return@retrofitCallback
+                    }
                 }
                 failed("Unkown Error")
             })
@@ -115,8 +114,15 @@ class BookRepository(
                         myInfoResponse.data.name,
                         myInfoResponse.data.connectionCode
                     )
-                    // Todo: 나중에 추가 필요
-                    spouseInfo = null
+
+                    myInfoResponse.data.spouseName?.let {
+                        spouseInfo = User(
+                            -1,
+                            null,
+                            myInfoResponse.data.spouseName,
+                            ""
+                        )
+                    }
                     success(myInfo!!, spouseInfo)
                     return@retrofitCallback
                 }
@@ -150,7 +156,7 @@ class BookRepository(
                             it.expendedAt,
                             it.title,
                             it.amountOfMoney,
-                            "육아용품",
+                            it.category,
                             it.paymentMethod,
                             it.imageUrl,
                             it.description
@@ -291,7 +297,7 @@ class BookRepository(
                         mostConsumption = it.value
                     }
 
-                    // Todo 데이터가 6개로 잘 오면 바꿔주도록 하자
+                    // Todo 데이터가 6개로 잘 오면 삭제하도록 하자
                     if (categories.size < 5) {
                         for (i in 0 until 5 - categories.size) {
                             categories.add(0, "미분류 $i")

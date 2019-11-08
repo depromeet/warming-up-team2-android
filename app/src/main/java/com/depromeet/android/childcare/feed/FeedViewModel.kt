@@ -22,7 +22,9 @@ class FeedViewModel(
 
     init {
         bookRepository.getAllRecords({
-            _feeds.value = it
+            _feeds.value = it.filter { record ->
+                record.content != null
+            }
         }, { msg, reason ->
             toastProvider.makeToast(reason.toString())
         })

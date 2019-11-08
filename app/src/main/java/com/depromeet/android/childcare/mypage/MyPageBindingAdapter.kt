@@ -1,6 +1,5 @@
 package com.depromeet.android.childcare.mypage
 
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -49,7 +48,6 @@ fun AvgLineChartView.setLineAvgData(months: List<String>, avgConsumption: Float,
 @BindingAdapter("bind_category", "bind_bar_data", requireAll = true)
 fun CategoryChartView.setBarData(categoryList: List<String>, avgConsumptions: List<Float>) {
     setDataAndStyle(categoryList, avgConsumptions)
-    Log.e("asdfasdfasf", "sadf +++ $avgConsumptions")
     animateY(1500)
     invalidate()
 }

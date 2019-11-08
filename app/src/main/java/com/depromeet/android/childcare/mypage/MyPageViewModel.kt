@@ -12,13 +12,19 @@ class MyPageViewModel(
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
+    private val _isProgressed = MutableLiveData<Boolean>(false)
+    val isProgressed: LiveData<Boolean>
+        get() = _isProgressed
+
     private val _spouseName = MutableLiveData<String>()
     val spouseName: LiveData<String>
         get() = _spouseName
 
-    private val _myCode = MutableLiveData<String>()
+    private val _myCode = MutableLiveData<String>("")
     val myCode: LiveData<String>
         get() = _myCode
+
+    val spouseCode = MutableLiveData<String>()
 
     private val _monthAvgConsumptionList = MutableLiveData<List<Float>>(listOf(0f, 0f, 0f, 0f, 0f, 0f))
     val monthAvgConsumptionList: LiveData<List<Float>>
@@ -50,34 +56,9 @@ class MyPageViewModel(
 
 
     init {
+        getMyInfo()
         getExpenditureStatistics()
         getCategoriesStatistics()
-
-        _spouseName.value = "여해주"
-        _myCode.value = "A123456"
-
-//        _monthAvgConsumptionList.value = mutableListOf(
-//            1000000f,
-//            1200000f,
-//            1300000f,
-//            700000f,
-//            900000f,
-//            800000f
-//        )
-//        _monthList.value = mutableListOf("3","4","5","6","7","8")
-//        _totalAvgConsumption.value = 983333.333f
-
-//        _categoryList.value = listOf("육아용품", "육아용품", "육아용품", "육아용품", "육아용품")
-//        _categoryConsumptionList.value = mutableListOf(
-//            800000f,
-//            900000f,
-//            1000000f,
-//            1200000f,
-//            1300000f
-//        )
-//        _mostCategoryName.value = "육아용품"
-//        _mostCategoryAmount.value = 983333.333f
-
     }
 
     private fun getExpenditureStatistics() {
@@ -103,11 +84,37 @@ class MyPageViewModel(
         }, { reason ->
             Log.e("GetCategoriesError", "error: $reason" )
             toastProvider.makeToast("카테고리별 소비 지출 통계 데이터를 가져오는 데 실패했습니다. 다시 실행해주세요")
+        })
+    }
 
+    private fun getMyInfo() {
+        bookRepository.getMyInfo({myInfo, spouseInfo ->
+            _myCode.value = myInfo.connectCode
+            spouseInfo?.let {
+                _spouseName.value = spouseInfo.name
+            }
+        }, { reason ->
+            Log.e("GetMyInfoError", "error: $reason" )
+            toastProvider.makeToast("내정보를 가져오는 데 실패했습니다. 다시 실행해주세요")
         })
     }
 
     fun onConnectClick() {
-
+        _isProgressed.value = true
+        spouseCode.value?.let {
+            bookRepository.connectSpouse(it, {spouseInfo ->
+                _isProgressed.value = false
+                spouseInfo?.let {
+                    _spouseName.value = spouseInfo.name
+                }
+            }, {reason ->
+                Log.e("LoginError", "error: $reason" )
+                toastProvider.makeToast("연동에 실패했습니다. 다시 시도해주세요")
+                _isProgressed.value = false
+            })
+        } ?: run {
+            toastProvider.makeToast("배우자 코드를 입력해주세요")
+            _isProgressed.value = false
+        }
     }
 }

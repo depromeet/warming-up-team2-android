@@ -8,7 +8,7 @@ interface BookDataSource {
 
     fun connectSpouse(
         myCode: String,
-        success: () -> Unit,
+        success: (User?) -> Unit,
         failed: (String?) -> Unit
     )
 
