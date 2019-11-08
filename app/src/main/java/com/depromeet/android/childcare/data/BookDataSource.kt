@@ -1,12 +1,11 @@
 package com.depromeet.android.childcare.data
 
+import android.net.Uri
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.model.Summary
 import com.depromeet.android.childcare.model.User
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
 import com.depromeet.android.childcare.model.response.CreateRecordResponse
-import com.kakao.network.storage.ImageUploadRequest
-import java.io.File
 
 interface BookDataSource {
 
@@ -65,9 +64,8 @@ interface BookDataSource {
 
     fun uploadImage(
         id: Int,
-        file: File,
-        data: ImageUploadRequest,
-        success: (CreateRecordResponse) -> Unit,
+        imageUri: Uri,
+        success: () -> Unit,
         failed: (String, String?) -> Unit
     )
 
