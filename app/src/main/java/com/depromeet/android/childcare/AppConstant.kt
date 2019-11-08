@@ -14,3 +14,4 @@ const val KEY_AUTH_TOKEN = "auth_token"
 
 const val ADD_ITEM = 1
 const val ADD_ITEM_SUCCESS = 2
+const val PICK_FROM_ALBUM = 3

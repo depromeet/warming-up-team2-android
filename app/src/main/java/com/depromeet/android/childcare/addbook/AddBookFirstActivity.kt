@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.depromeet.android.childcare.EXTRA_RECORD_AMOUNT
 import com.depromeet.android.childcare.EXTRA_RECORD_DATE
 import com.depromeet.android.childcare.EXTRA_RECORD_TITLE
@@ -41,7 +41,7 @@ class AddBookFirstActivity :
                     startIntent.putExtra(EXTRA_RECORD_DATE, addItemViewModel.date.value)
                     startActivity(startIntent)
                 } else {
-                    Toast.makeText(context, R.string.add_item_msg_input, Toast.LENGTH_SHORT).show()
+                    showToast(getString(R.string.add_item_msg_input))
                 }
             }
             btnAddCard.setOnClickListener {
@@ -54,6 +54,9 @@ class AddBookFirstActivity :
                 btnAddCash.setBackgroundResource(R.drawable.btn_bg_round_blue)
                 btnAddCard.setBackgroundResource(R.drawable.btn_bg_round_gray)
             }
+            addItemViewModel.date.observe(this@AddBookFirstActivity, Observer { t ->
+                etAddDate.setText(addItemViewModel.date.value)
+            })
         }
     }
 
