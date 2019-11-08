@@ -16,16 +16,24 @@
     <string name="add_item_title">내역 작성</string>
     <string name="add_item_where">어느곳에 지출하셨나요?</string>
     <string name="add_item_amount">얼마를 지출하셨나요?</string>
-    <string name="add_item_date">날짜 (선택)</string>
+    <string name="add_item_date">날짜</string>
     <string name="add_item_category">카테고리 (선택)</string>
     <string name="add_item_method">결제수단 (선택)</string>
+    <string name="add_item_content">추억을 기록해보세요! (선택)</string>
+    <string name="add_item_msg_no_date">미수정시 오늘 날짜로 등록됩니다</string>
     <string name="add_item_msg_none">미선택시 미등록으로 분류됩니다</string>
     <string name="add_item_hint_where">내역</string>
     <string name="add_item_where_end">에 지출</string>
-    <string name="add_item_hint_amount">미선택시 미등록으로 분류됩니다</string>
+    <string name="add_item_hint_amount">금액</string>
     <string name="add_item_card">카드</string>
     <string name="add_item_cash">현금</string>
     <string name="add_item_next">다음</string>
+    <string name="add_item_finish">완료</string>
+    <string name="add_item_category1">완료</string>
+    <string name="add_item_category2">완료</string>
+    <string name="add_item_category3">완료</string>
+    <string name="add_item_category4">완료</string>
+    <string name="add_item_category5">미등록</string>
 
     <!-- feed -->
     <string name="format_feed_amount">%s 원</string>
@@ -37,7 +45,7 @@
     <string name="login_connect_spouse_hint">코드를 입력해주세요</string>
     <string name="login_connect_later">나중에 할래요</string>
     <string name="login_connect_now">시작하기</string>
-    
+
     <!--  my page  -->
     <string name="mypage_spouse_title">"<b>"%s"</b>"님과\n계정연동 중입니다</string>
     <string name="mypage_spouse_connect_title">계정연동을 해주세요!</string>

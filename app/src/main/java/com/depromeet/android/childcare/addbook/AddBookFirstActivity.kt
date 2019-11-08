@@ -16,7 +16,10 @@ class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.
     }
 
     private fun initView() {
-
+        binding.btnAddNext.setOnClickListener {
+            val startIntent = AddBookSecondActivity.getStartIntent(this)
+            startActivity(startIntent)
+        }
     }
 
     companion object {
