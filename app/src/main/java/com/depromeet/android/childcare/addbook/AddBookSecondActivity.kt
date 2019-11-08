@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.ImageView
-import com.depromeet.android.childcare.PICK_FROM_ALBUM
-import com.depromeet.android.childcare.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.depromeet.android.childcare.*
 import com.depromeet.android.childcare.databinding.ActivityAddItemSecondBinding
 import com.depromeet.android.childcare.util.PermissionUtil.getPermission
 import com.studyfirstproject.base.BaseActivity
@@ -29,7 +30,17 @@ class AddBookSecondActivity :
             viewModel = addItemViewModel
             val categories = arrayOf(btnAddCategory1, btnAddCategory2, btnAddCategory3, btnAddCategory4)
             var selectedIdx = -1
+            toolbar.setOnClickListener { finish() }
             ivAddContent.setOnClickListener { pickImg() }
+            btnAddFinish.setOnClickListener {
+                addItemViewModel.createItem(
+                    intent.getIntExtra(EXTRA_RECORD_AMOUNT, 0),
+                    intent.getStringExtra(EXTRA_RECORD_TITLE),
+                    etAddContent.text.toString()
+                )
+                setResult(ADD_ITEM_SUCCESS)
+                finish()
+            }
             categories.forEachIndexed { index, btn ->
                 btn.setOnClickListener {
                     if (selectedIdx != -1) {
@@ -52,8 +63,10 @@ class AddBookSecondActivity :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
-            binding.ivAddContent.setImageURI(data?.data)
-            binding.ivAddContent.scaleType = ImageView.ScaleType.CENTER_CROP
+            Glide.with(this)
+                .load(data?.data)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+                .into(binding.ivAddContent)
         }
     }
 

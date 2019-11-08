@@ -5,12 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.depromeet.android.childcare.EXTRA_RECORD_AMOUNT
-import com.depromeet.android.childcare.EXTRA_RECORD_DATE
-import com.depromeet.android.childcare.EXTRA_RECORD_TITLE
-import com.depromeet.android.childcare.R
+import com.depromeet.android.childcare.*
 import com.depromeet.android.childcare.databinding.ActivityAddItemFirstBinding
 import com.studyfirstproject.base.BaseActivity
+import kotlinx.android.synthetic.main.toolbar_add_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -29,6 +27,7 @@ class AddBookFirstActivity :
 
         with(binding) {
             viewModel = addItemViewModel
+            toolbar.setOnClickListener { finish() }
             etAddDate.setOnClickListener { showDatePickerDialog() }
             btnAddNext.setOnClickListener {
                 val where = etAddWhere.text.toString()
@@ -38,8 +37,7 @@ class AddBookFirstActivity :
                     val startIntent = AddBookSecondActivity.getStartIntent(context)
                     startIntent.putExtra(EXTRA_RECORD_TITLE, where)
                     startIntent.putExtra(EXTRA_RECORD_AMOUNT, amount.toInt())
-                    startIntent.putExtra(EXTRA_RECORD_DATE, addItemViewModel.date.value)
-                    startActivity(startIntent)
+                    startActivityForResult(startIntent, ADD_ITEM)
                 } else {
                     showToast(getString(R.string.add_item_msg_input))
                 }
@@ -70,6 +68,15 @@ class AddBookFirstActivity :
             },
             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
         ).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_ITEM && resultCode == ADD_ITEM_SUCCESS) {
+            setResult(ADD_ITEM_SUCCESS)
+            finish()
+        }
     }
 
     companion object {
