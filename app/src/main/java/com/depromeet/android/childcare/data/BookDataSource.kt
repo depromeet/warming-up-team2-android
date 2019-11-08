@@ -12,7 +12,7 @@ interface BookDataSource {
 
     fun connectSpouse(
         myCode: String,
-        success: () -> Unit,
+        success: (User?) -> Unit,
         failed: (String?) -> Unit
     )
 
@@ -20,6 +20,7 @@ interface BookDataSource {
         success: (User, User?) -> Unit,
         failed: (String?) -> Unit
     )
+
 
     fun getAllRecords(
         success: (List<Record>) -> Unit,
@@ -68,5 +69,15 @@ interface BookDataSource {
         data: ImageUploadRequest,
         success: (CreateRecordResponse) -> Unit,
         failed: (String, String?) -> Unit
+    )
+
+    fun getExpenditureStatistics(
+        success: (List<String>, List<Float>, Float) -> Unit,
+        failed: (String?) -> Unit
+    )
+
+    fun getCategoriesStatistics(
+        success: (List<String>, List<Float>, String, Float) -> Unit,
+        failed: (String?) -> Unit
     )
 }

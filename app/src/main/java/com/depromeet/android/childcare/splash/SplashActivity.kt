@@ -24,6 +24,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit()
+
         splashViewModel.openAppEvent.observe(this@SplashActivity, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 when(it) {

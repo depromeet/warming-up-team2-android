@@ -230,7 +230,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.isProgressed() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.isProgressed ? View.VISIBLE : View.GONE}"
             android:indeterminate="true"
             android:indeterminateTintMode="src_in"
             android:indeterminateTint="@color/colorSky"

@@ -8,6 +8,7 @@ import com.depromeet.android.childcare.model.response.CreateRecordResponse
 import com.depromeet.android.childcare.model.response.LoginResponse
 import com.depromeet.android.childcare.model.response.MyInfoResponse
 import okhttp3.RequestBody
+import com.depromeet.android.childcare.model.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,6 +27,15 @@ interface ServiceApi {
 
     @GET("api/members/me")
     fun getMyInfo(): Call<MyInfoResponse>
+
+    @GET("api/expenditures")
+    fun getExpendituresAll(): Call<GetExpendituresResponse>
+
+    @GET("api/expenditures?format=graph&type=monthly")
+    fun getExpendituresStatistic(): Call<GetExpenditureStatistics>
+
+    @GET("api/categories?format=graph")
+    fun getCategoriesStatistic(): Call<GetCategoriesStatistics>
 
     // 지출 내역 API
     @POST("api/expenditures")
