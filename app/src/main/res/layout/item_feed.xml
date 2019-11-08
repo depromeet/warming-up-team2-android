@@ -19,19 +19,27 @@
         android:id="@+id/cl_feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp">
+        android:layout_marginBottom="@dimen/space_x_large">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btn_feed_option"
+        <FrameLayout
+            android:id="@+id/btn_feed_option_wrapper"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_median"
             android:gravity="center_vertical"
-            android:onClick="@{() -> navigator.showOptionDialog(feed.id)}"
-            android:src="@drawable/btn_more_12dp"
+            android:onClick="@{(view) -> navigator.showOptionDialog(feed.id, view)}"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_feed_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:src="@drawable/btn_feed_more" />
+
+        </FrameLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_feed_image"
@@ -39,13 +47,14 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:background="@drawable/bg_radius_10dp"
+            android:onClick="@{() -> navigator.goFeedPictureActivity(feed.imgUrl)}"
             app:image_from_url="@{feed.imgUrl}"
             app:bind_clip_to_out_line="@{true}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_feed_option"
+            app:layout_constraintTop_toBottomOf="@+id/btn_feed_option_wrapper"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -69,13 +78,14 @@
             android:id="@+id/tv_feed_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(feed.paymentMethod)}"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/space_median"
             android:layout_marginEnd="@dimen/space_x_small"
             android:textSize="10sp"
-            android:textColor="#00aef2"
+            android:textStyle="bold"
+            android:textColor="@color/colorSky"
             android:lineSpacingExtra="4sp"
+            app:bind_payment_type="@{feed.paymentMethod}"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toStartOf="@+id/tv_feed_amount"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,12 +118,12 @@
             android:id="@+id/tv_feed_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{feed.date}"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/space_x_small"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textColor="#909090"
             android:lineSpacingExtra="4sp"
+            app:bind_feed_date="@{feed.date}"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,5 @@
 package com.depromeet.android.childcare.data
 
-import android.util.Log
 import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
@@ -16,7 +15,7 @@ class BookRepository(
     private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
 
     init {
-        for (i in 5..10) {
+        for (i in 1..12) {
             recordTestValue.add(
                 Record(
                     i,
@@ -27,7 +26,7 @@ class BookRepository(
                     5355534,
                     "용품",
                     PaymentType.CARD,
-                    "https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/03/91.jpg",
+                    "https://raw.githubusercontent.com/filippella/Sample-API-Files/master/images/avatars/avatar_johndoe.png",
                     "유튜브, 인스타그램, 페이스북 그리고 네이버 세상엔 스마트폰으로 볼 것만도 차고 넘치는 그런 시대다."
                 )
             )
@@ -47,7 +46,7 @@ class BookRepository(
                 // Todo: 나중에 헤더보고 에러처리는 필수
                 throwable?.let {
                     failed(it.message)
-                    Log.e("Error!!: ", "sfasdfsaf // " + throwable.message)
+                    return@retrofitCallback
                 }
 
                 response?.let {
@@ -96,6 +95,7 @@ class BookRepository(
         service.getMyInfo().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed(throwable.message)
+                return@retrofitCallback
             }
 
             response?.let { it ->
@@ -124,6 +124,43 @@ class BookRepository(
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
         recordTestValue.run(success)
+//        service.getExpendituresAll().enqueue(retrofitCallback {response, throwable ->
+//            throwable?.let {
+//                failed("Error", throwable.message)
+//                return@retrofitCallback
+//            }
+//
+//            response?.let { it ->
+//                if (response.code() != 200) {
+//                    failed("Error", it.message())
+//                    return@retrofitCallback
+//                }
+//
+//                it.body()?.let { getExpendituresResponse ->
+//
+//                    val recordList = getExpendituresResponse.data.map {
+//                        Record(
+//                            it.id,
+//                            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
+//                            RecordType.PAYMENT,
+//                            it.expendedAt,
+//                            it.title,
+//                            it.amountOfMoney,
+//                            "육아용품",
+//                            it.paymentMethod,
+//                            it.imageUrl,
+//                            it.description
+//                        )
+//                    }
+//
+//                    success(recordList)
+//
+//                    return@retrofitCallback
+//                }
+//            }
+//
+//            failed("Unkown Error", "Unkown Error")
+//        })
     }
 
     override fun getRecordsByMonth(month: Int, success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {

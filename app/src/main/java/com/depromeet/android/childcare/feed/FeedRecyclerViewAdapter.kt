@@ -25,7 +25,7 @@ class FeedRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*, Record> {
         return if (viewType == FeedType.DETAIL.ordinal) FeedDetailViewHolder(parent, feedNavigator)
-        else FeedSummaryViewHolder(parent)
+        else FeedSummaryViewHolder(parent, feedNavigator)
     }
 
     override fun getItemCount(): Int = items.size

@@ -34,6 +34,7 @@ class AuthRepository(
             // Todo: 나중에 헤더보고 에러처리는 필수
             throwable?.let {
                 failed(throwable.message)
+                return@retrofitCallback
             } ?: run {
                 response?.let {
 
