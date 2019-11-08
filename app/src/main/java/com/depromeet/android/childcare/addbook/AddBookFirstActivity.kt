@@ -1,5 +1,7 @@
 package com.depromeet.android.childcare.addbook
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityAddItemFirstBinding
@@ -15,5 +17,10 @@ class AddBookFirstActivity : BaseActivity<ActivityAddItemFirstBinding>(R.layout.
 
     private fun initView() {
 
+    }
+
+    companion object {
+
+        fun getStartIntent(context: Context) = Intent(context, AddBookFirstActivity::class.java)
     }
 }
