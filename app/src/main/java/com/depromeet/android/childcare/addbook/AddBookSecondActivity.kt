@@ -2,6 +2,7 @@ package com.depromeet.android.childcare.addbook
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import com.bumptech.glide.Glide
@@ -10,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.depromeet.android.childcare.*
 import com.depromeet.android.childcare.databinding.ActivityAddItemSecondBinding
 import com.depromeet.android.childcare.util.PermissionUtil.getPermission
+import com.depromeet.android.childcare.util.getGalleryImageFullPath
 import com.studyfirstproject.base.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AddBookSecondActivity :
     BaseActivity<ActivityAddItemSecondBinding>(R.layout.activity_add_item_second) {
     private val addItemViewModel: AddItemViewModel by viewModel()
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,8 @@ class AddBookSecondActivity :
                 addItemViewModel.createItem(
                     intent.getIntExtra(EXTRA_RECORD_AMOUNT, 0),
                     intent.getStringExtra(EXTRA_RECORD_TITLE),
-                    etAddContent.text.toString()
+                    etAddContent.text.toString(),
+                    getGalleryImageFullPath(imageUri, applicationContext)
                 )
                 setResult(ADD_ITEM_SUCCESS)
                 finish()
@@ -63,8 +67,8 @@ class AddBookSecondActivity :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
-            Glide.with(this)
-                .load(data?.data)
+            imageUri = data?.data
+            Glide.with(this).load(imageUri)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
                 .into(binding.ivAddContent)
         }

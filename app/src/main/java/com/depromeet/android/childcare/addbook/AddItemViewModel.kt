@@ -1,5 +1,6 @@
 package com.depromeet.android.childcare.addbook
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
 import com.depromeet.android.childcare.util.ToastProvider
 import com.depromeet.android.childcare.util.getDateString
+
 
 class AddItemViewModel(
     val repository: BookDataSource,
@@ -39,7 +41,7 @@ class AddItemViewModel(
         _method.value = type
     }
 
-    fun createItem(amount: Int, title: String?, disc: String?) {
+    fun createItem(amount: Int, title: String?, disc: String?, uri: Uri?) {
         repository.createNewRecord(
             CreateRecordRequest(
                 amount,
@@ -49,6 +51,15 @@ class AddItemViewModel(
                 _method.value!!,
                 if (title.isNullOrEmpty()) "" else title
             ), {
+                uri?.let { uri ->
+                    repository.uploadImage(
+                        it.data.id,
+                        uri, {
+                        }, { msg, reason ->
+                            onDataNotAvailable(msg, reason)
+                        }
+                    )
+                }
             }, { msg, reason ->
                 onDataNotAvailable(msg, reason)
             }

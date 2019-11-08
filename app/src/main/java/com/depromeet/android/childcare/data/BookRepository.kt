@@ -1,6 +1,6 @@
 package com.depromeet.android.childcare.data
 
-import android.util.Log
+import android.net.Uri
 import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
@@ -9,9 +9,12 @@ import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
 import com.depromeet.android.childcare.util.convertToString
 import com.depromeet.android.childcare.util.toDate
-import java.util.*
-import com.kakao.network.storage.ImageUploadRequest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.util.*
+
 
 class BookRepository(
     private val service: ServiceApi
@@ -139,7 +142,7 @@ class BookRepository(
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
 //        recordTestValue.run(success)
-        service.getExpendituresAll().enqueue(retrofitCallback {response, throwable ->
+        service.getExpendituresAll().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed("Error", throwable.message)
                 return@retrofitCallback
@@ -203,7 +206,7 @@ class BookRepository(
         success: (List<String>, List<Float>, Float) -> Unit,
         failed: (String?) -> Unit
     ) {
-        service.getExpendituresStatistic().enqueue(retrofitCallback {response, throwable ->
+        service.getExpendituresStatistic().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed(throwable.message)
                 return@retrofitCallback
@@ -215,7 +218,7 @@ class BookRepository(
                     return@retrofitCallback
                 }
 
-                it.body()?.let {expenditureStatistics ->
+                it.body()?.let { expenditureStatistics ->
 
                     val months = mutableListOf<String>()
                     val consumptions = mutableListOf<Float>()
@@ -264,7 +267,7 @@ class BookRepository(
                 }
             }
 
-            failed( "Unkown Error")
+            failed("Unkown Error")
         })
     }
 
@@ -272,7 +275,7 @@ class BookRepository(
         success: (List<String>, List<Float>, String, Float) -> Unit,
         failed: (String?) -> Unit
     ) {
-        service.getCategoriesStatistic().enqueue(retrofitCallback {response, throwable ->
+        service.getCategoriesStatistic().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed(throwable.message)
                 return@retrofitCallback
@@ -284,7 +287,7 @@ class BookRepository(
                     return@retrofitCallback
                 }
 
-                it.body()?.let {categoriesStatistics ->
+                it.body()?.let { categoriesStatistics ->
 
                     val sortedCategories = categoriesStatistics.data.categoryMap
                         .toList()
@@ -315,7 +318,7 @@ class BookRepository(
                 }
             }
 
-            failed( "Unkown Error")
+            failed("Unkown Error")
         })
     }
 
@@ -325,8 +328,8 @@ class BookRepository(
         failed: (String, String?) -> Unit
     ) {
         service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
-            response?.let {
-
+            response?.body()?.let {
+                success(it)
             }
 
             throwable?.let {
@@ -342,8 +345,8 @@ class BookRepository(
         failed: (String, String?) -> Unit
     ) {
         service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
-            response?.let {
-
+            response?.body()?.let {
+                success(it)
             }
 
             throwable?.let {
@@ -354,11 +357,23 @@ class BookRepository(
 
     override fun uploadImage(
         id: Int,
-        file: File,
-        data: ImageUploadRequest,
-        success: (CreateRecordResponse) -> Unit,
+        imageUri: Uri,
+        success: () -> Unit,
         failed: (String, String?) -> Unit
     ) {
+        val file = File(imageUri.path!!)
+        val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
+        service.uploadImage(id, body).enqueue(retrofitCallback { response, throwable ->
+            response?.let {
+                success()
+            }
+
+            throwable?.let {
+                throwable.printStackTrace()
+                failed("사진 업로드 오류", throwable.message)
+            }
+        })
     }
 }

@@ -4,7 +4,7 @@ import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
 import com.depromeet.android.childcare.model.request.LoginRequest
 import com.depromeet.android.childcare.model.response.*
-import okhttp3.RequestBody
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -43,9 +43,10 @@ interface ServiceApi {
         @Body data: CreateRecordRequest
     ): Call<CreateRecordResponse>
 
+    @Multipart
     @POST("api/expenditures/{expenditureId}/upload-image")
     fun uploadImage(
         @Path("expenditureId") id: Int,
-        @Part("file\"; filename=\"pp.png\" ") file: RequestBody
+        @Part file: MultipartBody.Part
     ): Call<CreateRecordRequest>
 }
