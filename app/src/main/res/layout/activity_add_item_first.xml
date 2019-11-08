@@ -3,7 +3,9 @@
 
     <data>
 
-        <import type="com.depromeet.android.childcare.util.StringUtilKt" />
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.addbook.AddItemViewModel" />
     </data>
 
     <ScrollView
@@ -111,7 +113,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="@{StringUtilKt.dateString}"
+                        android:text="@{viewModel.date}"
                         android:theme="@style/TextAppearance.App.TextInputLayout" />
 
                 </com.google.android.material.textfield.TextInputLayout>

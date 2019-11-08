@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.addbook.AddItemViewModel" />
     </data>
 
     <ScrollView
@@ -48,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="@string/add_item_msg_no_date"
+                        android:text="@string/add_item_msg_none"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
                 </LinearLayout>

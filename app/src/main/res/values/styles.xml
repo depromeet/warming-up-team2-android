@@ -17,4 +17,8 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>
