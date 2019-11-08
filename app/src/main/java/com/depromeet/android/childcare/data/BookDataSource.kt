@@ -3,6 +3,10 @@ package com.depromeet.android.childcare.data
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.model.Summary
 import com.depromeet.android.childcare.model.User
+import com.depromeet.android.childcare.model.request.CreateRecordRequest
+import com.depromeet.android.childcare.model.response.CreateRecordResponse
+import com.kakao.network.storage.ImageUploadRequest
+import java.io.File
 
 interface BookDataSource {
 
@@ -16,7 +20,6 @@ interface BookDataSource {
         success: (User, User?) -> Unit,
         failed: (String?) -> Unit
     )
-
 
     fun getAllRecords(
         success: (List<Record>) -> Unit,
@@ -43,6 +46,27 @@ interface BookDataSource {
 
     fun getCategories(
         success: (List<String>) -> Unit,
+        failed: (String, String?) -> Unit
+    )
+
+    fun createNewRecord(
+        data: CreateRecordRequest,
+        success: (CreateRecordResponse) -> Unit,
+        failed: (String, String?) -> Unit
+    )
+
+    fun editRecord(
+        id: Int,
+        data: CreateRecordRequest,
+        success: (CreateRecordResponse) -> Unit,
+        failed: (String, String?) -> Unit
+    )
+
+    fun uploadImage(
+        id: Int,
+        file: File,
+        data: ImageUploadRequest,
+        success: (CreateRecordResponse) -> Unit,
         failed: (String, String?) -> Unit
     )
 }
