@@ -17,16 +17,27 @@
     <string name="add_item_title">내역 작성</string>
     <string name="add_item_where">어느곳에 지출하셨나요?</string>
     <string name="add_item_amount">얼마를 지출하셨나요?</string>
-    <string name="add_item_date">날짜 (선택)</string>
+    <string name="add_item_date">날짜</string>
     <string name="add_item_category">카테고리 (선택)</string>
     <string name="add_item_method">결제수단 (선택)</string>
+    <string name="add_item_content">추억을 기록해보세요! (선택)</string>
+    <string name="add_item_msg_input">지출 내역과 금액을 입력해주세요!</string>
+    <string name="add_item_msg_no_pms">사용자 권한이 없으면 사진을 등록할 수 없습니다</string>
+    <string name="add_item_msg_no_date">미수정시 오늘 날짜로 등록됩니다</string>
     <string name="add_item_msg_none">미선택시 미등록으로 분류됩니다</string>
+    <string name="add_item_msg_max">최대 200자까지 작성가능합니다</string>
     <string name="add_item_hint_where">내역</string>
     <string name="add_item_where_end">에 지출</string>
-    <string name="add_item_hint_amount">미선택시 미등록으로 분류됩니다</string>
+    <string name="add_item_hint_amount">금액</string>
     <string name="add_item_card">카드</string>
     <string name="add_item_cash">현금</string>
     <string name="add_item_next">다음</string>
+    <string name="add_item_finish">완료</string>
+    <string name="add_item_category1">생활용품</string>
+    <string name="add_item_category2">육아용품</string>
+    <string name="add_item_category3">문화</string>
+    <string name="add_item_category4">건강</string>
+    <string name="add_item_category5">미등록</string>
 
     <!-- feed -->
     <string name="feed_no_data">아직 기록된 추억이 없군요 :-(\n가계부에서 작성해보세요!</string>

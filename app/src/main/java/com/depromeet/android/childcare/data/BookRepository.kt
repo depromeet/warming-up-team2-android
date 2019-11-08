@@ -1,12 +1,17 @@
 package com.depromeet.android.childcare.data
 
+import android.util.Log
 import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
+import com.depromeet.android.childcare.model.request.CreateRecordRequest
+import com.depromeet.android.childcare.model.response.CreateRecordResponse
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
 import com.depromeet.android.childcare.util.convertToString
 import com.depromeet.android.childcare.util.toDate
 import java.util.*
+import com.kakao.network.storage.ImageUploadRequest
+import java.io.File
 
 class BookRepository(
     private val service: ServiceApi
@@ -312,5 +317,48 @@ class BookRepository(
 
             failed( "Unkown Error")
         })
+    }
+
+    override fun createNewRecord(
+        data: CreateRecordRequest,
+        success: (CreateRecordResponse) -> Unit,
+        failed: (String, String?) -> Unit
+    ) {
+        service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
+            response?.let {
+
+            }
+
+            throwable?.let {
+                failed("레코드 추가 오류 발생", throwable.message)
+            }
+        })
+    }
+
+    override fun editRecord(
+        id: Int,
+        data: CreateRecordRequest,
+        success: (CreateRecordResponse) -> Unit,
+        failed: (String, String?) -> Unit
+    ) {
+        service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
+            response?.let {
+
+            }
+
+            throwable?.let {
+                failed("레코드 수정 오류 발생", throwable.message)
+            }
+        })
+    }
+
+    override fun uploadImage(
+        id: Int,
+        file: File,
+        data: ImageUploadRequest,
+        success: (CreateRecordResponse) -> Unit,
+        failed: (String, String?) -> Unit
+    ) {
+
     }
 }

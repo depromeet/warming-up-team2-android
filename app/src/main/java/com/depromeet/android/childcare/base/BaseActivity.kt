@@ -1,6 +1,7 @@
 package com.studyfirstproject.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,4 +16,6 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes val layoutId: Int) :
 
         binding = DataBindingUtil.setContentView(this, layoutId)
     }
+
+    protected fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

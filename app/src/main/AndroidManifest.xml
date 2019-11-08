@@ -3,6 +3,7 @@
     package="com.depromeet.android.childcare">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MainApplication"
@@ -13,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".editbook.EditBookActivity"
+        <activity
+            android:name=".editbook.EditBookActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
@@ -22,7 +24,7 @@
 
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -40,6 +42,12 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".feed.feedpicture.FeedPictureActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".addbook.AddBookFirstActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".addbook.AddBookSecondActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

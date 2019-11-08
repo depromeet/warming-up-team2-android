@@ -24,7 +24,9 @@ class MainApplication : Application() {
                 feedModule,
                 bookModule,
                 bookDetailModule,
-                myPageModule)
+                myPageModule,
+                addItemModule
+            )
             )
         }
 
