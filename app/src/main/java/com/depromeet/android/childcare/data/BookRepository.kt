@@ -4,10 +4,14 @@ import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
+import com.depromeet.android.childcare.util.convertToString
+import com.depromeet.android.childcare.util.toDate
+import java.util.*
 
 class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
+
     private var myInfo: User? = null
     private var spouseInfo: User? = null
     private val recordTestValue = mutableListOf<Record>()
@@ -182,5 +186,74 @@ class BookRepository(
 
     override fun getCategories(success: (List<String>) -> Unit, failed: (String, String?) -> Unit) {
         categoryTextValue.run(success)
+    }
+
+    override fun getExpenditureStatistics(
+        success: (List<String>, List<Float>, Float) -> Unit,
+        failed: (String?) -> Unit
+    ) {
+        service.getExpendituresStatistic().enqueue(retrofitCallback {response, throwable ->
+            throwable?.let {
+                failed(throwable.message)
+                return@retrofitCallback
+            }
+
+            response?.let { it ->
+                if (response.code() != 200) {
+                    failed(it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let {expenditureStatistics ->
+
+                    val months = mutableListOf<String>()
+                    val consumptions = mutableListOf<Float>()
+                    var avgValue = 0f
+                    expenditureStatistics.data.monthlyTotalExpenditures.map {
+                        it.key.toDate("yyyy-mm")?.let { convetedDate ->
+                            months.add(convetedDate.convertToString("mm"))
+                        }
+                        consumptions.add(it.value)
+                        avgValue += it.value
+                    }
+                    avgValue = avgValue.div(months.size)
+
+                    if (months.size in 1..5) {
+                        val needsSize = 6 - months.size
+                        val lastMonth = months[months.size - 1]
+                        for (i in 1 until needsSize + 1) {
+                            var addedMonth: String = (lastMonth.toInt() + i).toString()
+                            if (addedMonth.toInt() > 12) {
+                                addedMonth = (addedMonth.toInt() - 12).toString()
+                                if (addedMonth.toInt() < 10) {
+                                    addedMonth = "0$addedMonth"
+                                }
+                            }
+
+                            months.add(addedMonth)
+                            consumptions.add(0f)
+                        }
+                    } else if (months.size == 0) {
+                        for (i in 0 until 6) {
+                            var addedMonth = (Date().convertToString("mm").toInt() + 1).toString()
+                            if (addedMonth.toInt() > 12) {
+                                addedMonth = (addedMonth.toInt() - 12).toString()
+                                if (addedMonth.toInt() < 10) {
+                                    addedMonth = "0$addedMonth"
+                                }
+                            }
+                            months.add(addedMonth)
+                            consumptions.add(0f)
+                        }
+                    }
+
+                    success(months, consumptions, avgValue)
+
+                    return@retrofitCallback
+                }
+            }
+
+            failed( "Unkown Error")
+        })
     }
 }

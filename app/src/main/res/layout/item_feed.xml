@@ -4,6 +4,7 @@
     
     <data>
         <import type="com.depromeet.android.childcare.util.StringUtilKt" />
+        <import type="android.view.View"/>
 
         <variable
             name="feed"
@@ -48,6 +49,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/bg_radius_10dp"
             android:onClick="@{() -> navigator.goFeedPictureActivity(feed.imgUrl)}"
+            android:visibility="@{feed.imgUrl != null ? View.VISIBLE : View.GONE}"
             app:image_from_url="@{feed.imgUrl}"
             app:bind_clip_to_out_line="@{true}"
             app:layout_constraintDimensionRatio="1:1"
@@ -57,6 +59,13 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_feed_option_wrapper"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_feed_image,btn_feed_option_wrapper"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_feed_title"
@@ -72,7 +81,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image" />
+            app:layout_constraintTop_toBottomOf="@+id/barrier_image" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_feed_payment"
@@ -89,7 +98,7 @@
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toStartOf="@+id/tv_feed_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+            app:layout_constraintTop_toBottomOf="@+id/barrier_image"  />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_feed_amount"
@@ -105,7 +114,7 @@
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_image"  />
+            app:layout_constraintTop_toBottomOf="@+id/barrier_image"  />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier_feed_content"
@@ -131,7 +140,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_feed_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{feed.content}"
             android:gravity="center_vertical"
@@ -140,7 +149,6 @@
             android:textColor="#191919"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="4sp"
-            app:layout_constraintHorizontal_bias="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_feed_date"  />

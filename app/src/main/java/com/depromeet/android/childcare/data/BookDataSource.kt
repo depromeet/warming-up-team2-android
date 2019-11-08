@@ -45,4 +45,9 @@ interface BookDataSource {
         success: (List<String>) -> Unit,
         failed: (String, String?) -> Unit
     )
+
+    fun getExpenditureStatistics(
+        success: (List<String>, List<Float>, Float) -> Unit,
+        failed: (String?) -> Unit
+    )
 }

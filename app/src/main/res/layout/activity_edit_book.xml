@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".editbook.EditBookActivity">
+
+    <data></data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back_to_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="@dimen/space_median"
+            android:layout_marginStart="@dimen/space_small"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_edit_book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small"
+            android:text="@string/editbook_title"
+            android:textSize="14sp"
+            android:textColor="#0a0a0a"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="5sp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_to_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_back_to_main"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back_to_main"/>
+
+        <TextView
+            android:id="@+id/tv_edit_book_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small"
+            android:text="@string/editbook_confirm"
+            android:textSize="14sp"
+            android:textColor="@color/colorOrange"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="5sp"
+            android:layout_marginEnd="@dimen/space_large"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_to_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_back_to_main"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back_to_main"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_edit_book_tool_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_back_to_main,tv_edit_book_title,tv_edit_book_confirm"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
