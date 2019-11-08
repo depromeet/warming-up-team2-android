@@ -50,4 +50,9 @@ interface BookDataSource {
         success: (List<String>, List<Float>, Float) -> Unit,
         failed: (String?) -> Unit
     )
+
+    fun getCategoriesStatistics(
+        success: (List<String>, List<Float>, String, Float) -> Unit,
+        failed: (String?) -> Unit
+    )
 }

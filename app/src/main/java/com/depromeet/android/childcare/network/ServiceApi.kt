@@ -28,4 +28,7 @@ interface ServiceApi {
 
     @GET("api/expenditures?format=graph&type=monthly")
     fun getExpendituresStatistic(): Call<GetExpenditureStatistics>
+
+    @GET("api/categories?format=graph")
+    fun getCategoriesStatistic(): Call<GetCategoriesStatistics>
 }

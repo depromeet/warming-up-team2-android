@@ -256,4 +256,55 @@ class BookRepository(
             failed( "Unkown Error")
         })
     }
+
+    override fun getCategoriesStatistics(
+        success: (List<String>, List<Float>, String, Float) -> Unit,
+        failed: (String?) -> Unit
+    ) {
+        service.getCategoriesStatistic().enqueue(retrofitCallback {response, throwable ->
+            throwable?.let {
+                failed(throwable.message)
+                return@retrofitCallback
+            }
+
+            response?.let { it ->
+                if (response.code() != 200) {
+                    failed(it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let {categoriesStatistics ->
+
+                    val sortedCategories = categoriesStatistics.data.categoryMap
+                        .toList()
+                        .sortedBy { (_, value) -> value }
+                        .toMap()
+
+                    val categories = mutableListOf<String>()
+                    val consumptions = mutableListOf<Float>()
+                    var mostCategory = ""
+                    var mostConsumption = 0f
+                    sortedCategories.map {
+                        categories.add(it.key)
+                        consumptions.add(it.value)
+                        mostCategory = it.key
+                        mostConsumption = it.value
+                    }
+
+                    // Todo 데이터가 6개로 잘 오면 바꿔주도록 하자
+                    if (categories.size < 5) {
+                        for (i in 0 until 5 - categories.size) {
+                            categories.add(0, "미분류 $i")
+                            consumptions.add(0, 0f)
+                        }
+                    }
+
+                    success(categories, consumptions, mostCategory, mostConsumption)
+                    return@retrofitCallback
+                }
+            }
+
+            failed( "Unkown Error")
+        })
+    }
 }

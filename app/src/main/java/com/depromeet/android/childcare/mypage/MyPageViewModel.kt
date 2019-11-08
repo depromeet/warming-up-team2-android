@@ -32,25 +32,27 @@ class MyPageViewModel(
     val totalAvgConsumption: LiveData<Float>
         get() = _totalAvgConsumption
 
-    private val _categoryList = MutableLiveData<List<String>>()
+    private val _categoryList = MutableLiveData<List<String>>(listOf("생활용품", "육아용품", "문화", "건강", "미등록"))
     val categoryList: LiveData<List<String>>
         get() = _categoryList
 
-    private val _categoryConsumptionList = MutableLiveData<List<Float>>()
+    private val _categoryConsumptionList = MutableLiveData<List<Float>>(listOf(0f, 0f, 0f, 0f, 0f, 0f))
     val categoryConsumptionList: LiveData<List<Float>>
         get() = _categoryConsumptionList
 
-    private val _mostCategoryName = MutableLiveData<String>()
+    private val _mostCategoryName = MutableLiveData<String>("")
     val mostCategoryName: LiveData<String>
         get() = _mostCategoryName
 
-    private val _mostCategoryAmount = MutableLiveData<Float>()
+    private val _mostCategoryAmount = MutableLiveData<Float>(0f)
     val mostCategoryAmount: LiveData<Float>
         get() = _mostCategoryAmount
 
 
     init {
         getExpenditureStatistics()
+        getCategoriesStatistics()
+
         _spouseName.value = "여해주"
         _myCode.value = "A123456"
 
@@ -65,16 +67,16 @@ class MyPageViewModel(
 //        _monthList.value = mutableListOf("3","4","5","6","7","8")
 //        _totalAvgConsumption.value = 983333.333f
 
-        _categoryList.value = listOf("육아용품", "육아용품", "육아용품", "육아용품", "육아용품")
-        _categoryConsumptionList.value = mutableListOf(
-            800000f,
-            900000f,
-            1000000f,
-            1200000f,
-            1300000f
-        )
-        _mostCategoryName.value = "육아용품"
-        _mostCategoryAmount.value = 983333.333f
+//        _categoryList.value = listOf("육아용품", "육아용품", "육아용품", "육아용품", "육아용품")
+//        _categoryConsumptionList.value = mutableListOf(
+//            800000f,
+//            900000f,
+//            1000000f,
+//            1200000f,
+//            1300000f
+//        )
+//        _mostCategoryName.value = "육아용품"
+//        _mostCategoryAmount.value = 983333.333f
 
     }
 
@@ -86,7 +88,21 @@ class MyPageViewModel(
 
         }, { reason ->
             Log.e("GetExpenditureError", "error: $reason" )
-            toastProvider.makeToast("소비 지출 통계 데이터를 가져오는 데 실패했습니다. 다시 실행해주세요")
+            toastProvider.makeToast("월별 소비 지출 통계 데이터를 가져오는 데 실패했습니다. 다시 실행해주세요")
+
+        })
+    }
+
+    private fun getCategoriesStatistics() {
+        bookRepository.getCategoriesStatistics({ categories, consumptions, mostCategory, mostConsumption ->
+            _categoryList.value = categories
+            _categoryConsumptionList.value = consumptions
+            _mostCategoryName.value = mostCategory
+            _mostCategoryAmount.value = mostConsumption
+
+        }, { reason ->
+            Log.e("GetCategoriesError", "error: $reason" )
+            toastProvider.makeToast("카테고리별 소비 지출 통계 데이터를 가져오는 데 실패했습니다. 다시 실행해주세요")
 
         })
     }
