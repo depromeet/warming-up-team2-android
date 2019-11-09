@@ -1,10 +1,6 @@
 package com.depromeet.android.childcare.book.adapter
 
 import android.graphics.Color
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.StyleSpan
 import android.view.View
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -35,16 +31,16 @@ fun setBookItemColor(view: View, content: String) {
 
 @BindingAdapter("main_text", "sequence")
 fun setBoldString(textView: TextView, mainText: String, sequence: String) {
-    val result = SpannableStringBuilder(mainText)
+    /*val result = SpannableStringBuilder(mainText)
     val startIndex = mainText.indexOf(sequence)
     result.setSpan(
         StyleSpan(Typeface.BOLD),
         startIndex,
         startIndex + sequence.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
+    )*/
 
-    textView.text = result
+    textView.text = mainText
 }
 
 @BindingAdapter("card_view_state_color", "selected_month")

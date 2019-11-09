@@ -28,20 +28,22 @@ class BookRepository(
 
     init {
         for (i in 1..12) {
-            recordTestValue.add(
-                Record(
-                    i,
-                    User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만", "A123456"),
-                    RecordType.PAYMENT,
-                    "2019-$i-4",
-                    "라꾸라꾸 유모차",
-                    5355534,
-                    "용품",
-                    PaymentType.CARD,
-                    "https://raw.githubusercontent.com/filippella/Sample-API-Files/master/images/avatars/avatar_johndoe.png",
-                    "유튜브, 인스타그램, 페이스북 그리고 네이버 세상엔 스마트폰으로 볼 것만도 차고 넘치는 그런 시대다."
+            for (j in 1..10) {
+                recordTestValue.add(
+                    Record(
+                        i,
+                        User(999, "https://avatars3.githubusercontent.com/u/18240792?s=200&v=4", "디프만", "A123456"),
+                        RecordType.PAYMENT,
+                        "2019-$i-$j",
+                        "라꾸라꾸 유모차",
+                        5355534,
+                        "용품",
+                        PaymentType.CARD,
+                        "https://raw.githubusercontent.com/filippella/Sample-API-Files/master/images/avatars/avatar_johndoe.png",
+                        "유튜브, 인스타그램, 페이스북 그리고 네이버 세상엔 스마트폰으로 볼 것만도 차고 넘치는 그런 시대다."
+                    )
                 )
-            )
+            }
         }
         for (i in 5..10) {
             summaryTestValue.add(Summary(2019, i, 10000 * i, 1, 7))
@@ -141,7 +143,6 @@ class BookRepository(
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
-//        recordTestValue.run(success)
         service.getExpendituresAll().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed("Error", throwable.message)

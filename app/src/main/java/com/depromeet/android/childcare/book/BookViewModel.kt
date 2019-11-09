@@ -9,6 +9,7 @@ import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.model.Summary
 import com.depromeet.android.childcare.util.ResourcesProvider
+import java.util.*
 
 class BookViewModel(
     private val resourcesProvider: ResourcesProvider,
@@ -18,7 +19,7 @@ class BookViewModel(
     private val _summaries = MutableLiveData<List<Summary>>()
     private val _categories = MutableLiveData<List<String>>()
     private val _errorMsg = MutableLiveData<String>()
-    private val _selectedMonth = MutableLiveData(0)
+    private val _selectedMonth = MutableLiveData<Int>()
 
     val records: LiveData<List<Record>>
         get() = _records
@@ -36,11 +37,12 @@ class BookViewModel(
         get() = _selectedMonth
 
     init {
+        _selectedMonth.value = Calendar.getInstance().get(Calendar.MONTH)
         _records.value = mutableListOf()
         _summaries.value = mutableListOf()
 
         getSummaries()
-        getRecordsByMonth(summaries.value!![0].month)
+        getRecordsByMonth(_selectedMonth.value!!)
     }
 
     private fun getAllRecords() {
