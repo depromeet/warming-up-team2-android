@@ -9,10 +9,6 @@
         <variable
             name="item"
             type="com.depromeet.android.childcare.model.Summary" />
-
-        <variable
-            name="selectedMonth"
-            type="Integer" />
     </data>
 
     <androidx.cardview.widget.CardView
