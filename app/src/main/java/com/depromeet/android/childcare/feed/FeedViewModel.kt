@@ -8,7 +8,7 @@ import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.util.ToastProvider
 
 class FeedViewModel(
-    bookRepository: BookDataSource,
+    private val bookRepository: BookDataSource,
     private val toastProvider: ToastProvider
 ) : ViewModel() {
 
@@ -28,6 +28,10 @@ class FeedViewModel(
         }, { msg, reason ->
             toastProvider.makeToast(reason.toString())
         })
+    }
+
+    fun onEditBookClick(record: Record) {
+        bookRepository.bookModel = record
     }
 
     fun changeFeedType() {

@@ -20,8 +20,16 @@ class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
 
+    private var editBookModel: Record? = null
+    override var bookModel: Record?
+        get() = this.editBookModel
+        set(record) {
+            this.editBookModel = record
+        }
+
     private var myInfo: User? = null
     private var spouseInfo: User? = null
+    private var recordList= mutableListOf<Record>()
     private val recordTestValue = mutableListOf<Record>()
     private val summaryTestValue = mutableListOf<Summary>()
     private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
@@ -118,6 +126,11 @@ class BookRepository(
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
+        if (recordList.size != 0) {
+            success(recordList)
+            return
+        }
+
         service.getExpendituresAll().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed("Error", throwable.message)
@@ -131,7 +144,8 @@ class BookRepository(
                 }
 
                 it.body()?.let { getExpendituresResponse ->
-                    success(getExpendituresResponse.toRecords())
+                    recordList.addAll(getExpendituresResponse.toRecords())
+                    success(recordList)
                     return@retrofitCallback
                 }
             }

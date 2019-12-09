@@ -5,7 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".editbook.EditBookActivity">
 
-    <data></data>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.depromeet.android.childcare.editbook.EditBookViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,6 +22,7 @@
             android:src="@drawable/ic_back"
             android:layout_marginTop="@dimen/space_median"
             android:layout_marginStart="@dimen/space_small"
+            android:onClick="@{() -> viewModel.onBackButtonClick()}"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"

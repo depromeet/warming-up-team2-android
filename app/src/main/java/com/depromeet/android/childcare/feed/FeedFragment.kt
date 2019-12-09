@@ -10,6 +10,7 @@ import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.databinding.FragmentFeedBinding
 import com.depromeet.android.childcare.editbook.EditBookActivity
 import com.depromeet.android.childcare.feed.feedpicture.FeedPictureActivity
+import com.depromeet.android.childcare.model.Record
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -39,15 +40,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
         }
     }
 
-    override fun showOptionDialog(feedId: Int, anchor: View) {
+    override fun showOptionDialog(feed: Record, anchor: View) {
         activity?.let {
             val popup = PopupMenu(it, anchor)
             popup.menuInflater.inflate(R.menu.menu_feed_option, popup.menu)
 
             popup.setOnMenuItemClickListener {menuItem ->
                 when(menuItem.itemId) {
-                    R.id.menu_feed_edit -> goEditBookActivity()
-                    R.id.menu_feed_delete -> showToast("delete with feedId $feedId")
+                    R.id.menu_feed_edit -> {
+                        feedViewModel.onEditBookClick(feed)
+                        goEditBookActivity()
+                    }
+                    R.id.menu_feed_delete -> showToast("delete with feedId ${feed.id}")
                 }
                 true
             }

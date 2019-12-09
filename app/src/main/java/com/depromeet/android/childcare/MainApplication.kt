@@ -25,9 +25,9 @@ class MainApplication : Application() {
                 bookModule,
                 bookDetailModule,
                 myPageModule,
-                addItemModule
-            )
-            )
+                addItemModule,
+                editBookModule
+            ))
         }
 
         KakaoSDK.init(KakaoSDKAdapter(this))

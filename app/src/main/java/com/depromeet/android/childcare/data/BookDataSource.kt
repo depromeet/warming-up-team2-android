@@ -9,6 +9,8 @@ import com.depromeet.android.childcare.model.response.CreateRecordResponse
 
 interface BookDataSource {
 
+    var bookModel: Record?
+
     fun connectSpouse(
         myCode: String,
         success: (User?) -> Unit,
