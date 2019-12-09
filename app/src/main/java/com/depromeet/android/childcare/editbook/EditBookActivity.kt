@@ -5,8 +5,11 @@ import android.content.Intent
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityEditBookBinding
 import com.studyfirstproject.base.BaseActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity_edit_book) {
+
+    private val editBookViewModel: EditBookViewModel by viewModel()
 
 
     companion object {
