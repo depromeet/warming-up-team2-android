@@ -72,20 +72,8 @@ class BookRepository(
                     it.body()?.let { connectResponse ->
 
                         // 현재 myinfo 는 딱히 다른데서 안쓰므로 미리 저장해도 될 듯 싶다.
-                        myInfo = User(
-                            connectResponse.data.me.id,
-                            connectResponse.data.me.profileImageUrl,
-                            connectResponse.data.me.name,
-                            connectResponse.data.me.connectionCode
-                        )
-
-                        spouseInfo = User(
-                            connectResponse.data.spouse.id,
-                            connectResponse.data.spouse.profileImageUrl,
-                            connectResponse.data.spouse.name,
-                            connectResponse.data.spouse.connectionCode
-                        )
-
+                        myInfo = connectResponse.meToUser()
+                        spouseInfo = connectResponse.spouseToUser()
                         success(spouseInfo)
                         return@retrofitCallback
                     }
@@ -118,21 +106,8 @@ class BookRepository(
                 }
 
                 it.body()?.let { myInfoResponse ->
-                    myInfo = User(
-                        myInfoResponse.data.id,
-                        myInfoResponse.data.profileImageUrl,
-                        myInfoResponse.data.name,
-                        myInfoResponse.data.connectionCode
-                    )
-
-                    myInfoResponse.data.spouseName?.let {
-                        spouseInfo = User(
-                            -1,
-                            null,
-                            myInfoResponse.data.spouseName,
-                            ""
-                        )
-                    }
+                    myInfo = myInfoResponse.meToUser()
+                    spouseInfo = myInfoResponse.spouseToUser()
                     success(myInfo!!, spouseInfo)
                     return@retrofitCallback
                 }
@@ -156,24 +131,7 @@ class BookRepository(
                 }
 
                 it.body()?.let { getExpendituresResponse ->
-
-                    val recordList = getExpendituresResponse.data.map {
-                        Record(
-                            it.id,
-                            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
-                            RecordType.PAYMENT,
-                            it.expendedAt,
-                            it.title,
-                            it.amountOfMoney,
-                            it.category,
-                            it.paymentMethod,
-                            it.imageUrl,
-                            it.description
-                        )
-                    }
-
-                    success(recordList)
-
+                    success(getExpendituresResponse.toRecords())
                     return@retrofitCallback
                 }
             }
@@ -225,8 +183,8 @@ class BookRepository(
                     val consumptions = mutableListOf<Float>()
                     var avgValue = 0f
                     expenditureStatistics.data.monthlyTotalExpenditures.map {
-                        it.key.toDate("yyyy-mm")?.let { convetedDate ->
-                            months.add(convetedDate.convertToString("mm"))
+                        it.key.toDate("yyyy-mm")?.let { convertedDate ->
+                            months.add(convertedDate.convertToString("mm"))
                         }
                         consumptions.add(it.value)
                         avgValue += it.value
@@ -289,32 +247,8 @@ class BookRepository(
                 }
 
                 it.body()?.let { categoriesStatistics ->
-
-                    val sortedCategories = categoriesStatistics.data.categoryMap
-                        .toList()
-                        .sortedBy { (_, value) -> value }
-                        .toMap()
-
-                    val categories = mutableListOf<String>()
-                    val consumptions = mutableListOf<Float>()
-                    var mostCategory = ""
-                    var mostConsumption = 0f
-                    sortedCategories.map {
-                        categories.add(it.key)
-                        consumptions.add(it.value)
-                        mostCategory = it.key
-                        mostConsumption = it.value
-                    }
-
-                    // Todo 데이터가 6개로 잘 오면 삭제하도록 하자
-                    if (categories.size < 5) {
-                        for (i in 0 until 5 - categories.size) {
-                            categories.add(0, "미분류 $i")
-                            consumptions.add(0, 0f)
-                        }
-                    }
-
-                    success(categories, consumptions, mostCategory, mostConsumption)
+                    val (categories, consumptions, mostCategoryData) = categoriesStatistics.toStatisticsData()
+                    success(categories, consumptions, mostCategoryData.first, mostCategoryData.second)
                     return@retrofitCallback
                 }
             }

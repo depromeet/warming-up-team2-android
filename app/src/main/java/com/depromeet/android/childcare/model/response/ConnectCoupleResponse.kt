@@ -1,5 +1,7 @@
 package com.depromeet.android.childcare.model.response
 
+import com.depromeet.android.childcare.model.User
+
 data class ConnectCoupleResponse(
     val `data`: Data,
     val message: String,
@@ -25,5 +27,19 @@ data class ConnectCoupleResponse(
         val profileImageUrl: String,
         val status: String,
         val connectionCode: String
+    )
+
+    fun meToUser() = User(
+        data.me.id,
+        data.me.profileImageUrl,
+        data.me.name,
+        data.me.connectionCode
+    )
+
+    fun spouseToUser() = User(
+        data.spouse.id,
+        data.spouse.profileImageUrl,
+        data.spouse.name,
+        data.spouse.connectionCode
     )
 }

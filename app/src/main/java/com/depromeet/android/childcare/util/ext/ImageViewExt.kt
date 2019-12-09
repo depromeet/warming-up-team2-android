@@ -2,7 +2,6 @@ package com.depromeet.android.childcare.util.ext
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
@@ -13,9 +12,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 
 @BindingAdapter("image_from_url")
 fun ImageView.bindImageFromUrl(imageUrl: String?) {
-    Log.e("imageUrl1", "url: $imageUrl")
     if (!imageUrl.isNullOrEmpty()) {
-        Log.e("imageUrl2", "url: $imageUrl")
         GlideApp.with(this.context)
             .load(imageUrl)
             .placeholder(ColorDrawable(Color.GRAY))
