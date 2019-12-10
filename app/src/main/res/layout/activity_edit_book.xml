@@ -6,6 +6,8 @@
     tools:context=".editbook.EditBookActivity">
 
     <data>
+        <import type="com.depromeet.android.childcare.model.PaymentType" />
+
         <variable
             name="viewModel"
             type="com.depromeet.android.childcare.editbook.EditBookViewModel" />
@@ -71,6 +73,325 @@
             android:layout_height="0dp"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="iv_back_to_main,tv_edit_book_title,tv_edit_book_confirm"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barrier_edit_book_tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:text="@string/add_item_where"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_edit_where"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.title}"
+                        android:hint="@string/add_item_hint_where"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:theme="@style/TextAppearance.App.TextInputLayout" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/add_item_amount"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_edit_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.amount}"
+                        android:hint="@string/add_item_hint_amount"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:theme="@style/TextAppearance.App.TextInputLayout" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_item_date"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/add_item_msg_no_date"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_edit_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.recordDate}"
+                        android:onClick="@{() -> viewModel.onDateClick()}"
+                        android:focusable="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:theme="@style/TextAppearance.App.TextInputLayout" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/add_item_method"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_edit_card"
+                        android:layout_width="80dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@{viewModel.paymentType == PaymentType.CARD ? @drawable/btn_bg_round_blue : @drawable/btn_bg_round_gray}"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@null"
+                        android:text="@string/add_item_card"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onPaymentTypeClick(PaymentType.CARD)}"/>
+
+                    <Button
+                        android:id="@+id/btn_edit_cash"
+                        android:layout_width="80dp"
+                        android:layout_height="32dp"
+                        android:background="@{viewModel.paymentType == PaymentType.CASH ? @drawable/btn_bg_round_blue : @drawable/btn_bg_round_gray}"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@null"
+                        android:text="@string/add_item_cash"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onPaymentTypeClick(PaymentType.CASH)}" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/layout_edit_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_edit_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/add_item_category"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/add_item_msg_none"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_edit_category_btns"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_edit_category">
+
+                        <Button
+                            android:id="@+id/btn_edit_category1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_bg_round_gray"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:stateListAnimator="@null"
+                            android:text="@string/add_item_category1"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category1)}"
+                            app:bind_editbook_category_background="@{viewModel.category}"/>
+
+                        <Button
+                            android:id="@+id/btn_edit_category2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_bg_round_gray"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:stateListAnimator="@null"
+                            android:text="@string/add_item_category2"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category2)}"
+                            app:bind_editbook_category_background="@{viewModel.category}" />
+
+                        <Button
+                            android:id="@+id/btn_edit_category3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_bg_round_gray"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:stateListAnimator="@null"
+                            android:text="@string/add_item_category3"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category3)}"
+                            app:bind_editbook_category_background="@{viewModel.category}" />
+
+                        <Button
+                            android:id="@+id/btn_edit_category4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_bg_round_gray"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:stateListAnimator="@null"
+                            android:text="@string/add_item_category4"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category4)}"
+                            app:bind_editbook_category_background="@{viewModel.category}" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_edit_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/add_item_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_edit_category_btns" />
+
+                    <ImageView
+                        android:id="@+id/iv_edit_content"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/btn_et_round_gray"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_camera"
+                        app:image_from_url="@{viewModel.imgUrl}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_edit_content" />
+
+                    <EditText
+                        android:id="@+id/et_edit_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="70dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@={viewModel.content}"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/btn_et_round_blue"
+                        android:gravity="top"
+                        android:hint="@string/add_item_msg_max"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_edit_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_edit_content" />
+
+                    <View
+                        android:id="@+id/btn_edit_finish"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/et_edit_content" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
