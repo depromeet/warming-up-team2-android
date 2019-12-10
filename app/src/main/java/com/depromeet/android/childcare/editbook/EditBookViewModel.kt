@@ -35,6 +35,10 @@ class EditBookViewModel(
     val openDatePickerEvent: LiveData<Event<String>>
         get() = _openDatePickerEvent
 
+    private val _openGalleryEvent = MutableLiveData<Event<Boolean>>()
+    val openGalleryEvent: LiveData<Event<Boolean>>
+        get() = _openGalleryEvent
+
     init {
         bookRepository.bookModel?.let {
             Log.e("SAfsdf", "$it")
@@ -75,5 +79,17 @@ class EditBookViewModel(
         } else {
             category.value = type
         }
+    }
+
+    fun onGalleryClick() {
+        _openGalleryEvent.value = Event(true)
+    }
+
+    fun changeImgUrl(url: String) {
+        imgUrl.value = url
+    }
+
+    fun onEditClick() {
+
     }
 }

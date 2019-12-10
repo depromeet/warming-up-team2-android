@@ -353,8 +353,9 @@
                         android:layout_height="70dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/btn_et_round_gray"
-                        android:scaleType="centerInside"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_camera"
+                        android:onClick="@{() -> viewModel.onGalleryClick()}"
                         app:image_from_url="@{viewModel.imgUrl}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_edit_content" />

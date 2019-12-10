@@ -4,9 +4,12 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.lifecycle.Observer
+import com.depromeet.android.childcare.PICK_FROM_ALBUM
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityEditBookBinding
+import com.depromeet.android.childcare.util.PermissionUtil
 import com.depromeet.android.childcare.util.toDate
 import com.studyfirstproject.base.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +43,18 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
                 showDatePickerDialog(it)
             }
         })
+
+        editBookViewModel.openGalleryEvent.observe(this@EditBookActivity, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                if (it) {
+                    // 퍼미션 체크
+                    PermissionUtil.getPermission(this, failed = { finish() })
+
+                    // 갤러리 호출
+                    pickImg()
+                }
+            }
+        })
     }
 
     private fun showDatePickerDialog(dateString: String) {
@@ -55,6 +70,21 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
             },
             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
         ).show()
+    }
+
+    private fun pickImg() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        startActivityForResult(intent, PICK_FROM_ALBUM)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
+            data?.let {
+                editBookViewModel.changeImgUrl(it.data.toString())
+            }
+        }
     }
 
     companion object {
