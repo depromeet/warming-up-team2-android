@@ -20,11 +20,11 @@ class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
 
-    private var editBookModel: Record? = null
-    override var bookModel: Record?
-        get() = this.editBookModel
+    private var _editBookModel: Record? = null
+    override var editBookModel: Record?
+        get() = this._editBookModel
         set(record) {
-            this.editBookModel = record
+            this._editBookModel = record
         }
 
     private var myInfo: User? = null
@@ -72,7 +72,7 @@ class BookRepository(
                 }
 
                 response?.let {
-                    if (response.code() != 200) {
+                    if (!response.isSuccessful) {
                         failed(it.message())
                         return@retrofitCallback
                     }
@@ -108,7 +108,7 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
@@ -138,7 +138,7 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed("Error", it.message())
                     return@retrofitCallback
                 }
@@ -186,7 +186,7 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
@@ -255,7 +255,7 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
@@ -288,19 +288,47 @@ class BookRepository(
     }
 
     override fun editRecord(
-        id: Int,
-        data: CreateRecordRequest,
-        success: (CreateRecordResponse) -> Unit,
+        record: Record,
+        success: () -> Unit,
         failed: (String, String?) -> Unit
     ) {
-        service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
-            response?.body()?.let {
-                success(it)
+        service.editRecord(
+            record.id,
+            CreateRecordRequest(record.amount,
+                record.category,
+                record.content ?: "",
+                record.date,
+                record.paymentMethod.name,
+                record.title)
+        ).enqueue(retrofitCallback { response, throwable ->
+            throwable?.let {
+                failed("수정에 실패했습니다.", throwable.message)
+                return@retrofitCallback
             }
 
-            throwable?.let {
-                failed("레코드 수정 오류 발생", throwable.message)
+            response?.let { it ->
+                if (!response.isSuccessful) {
+                    failed("수정에 실패했습니다.", it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let { editRecordResponse ->
+                    // 저장되어 있는 record list 변경
+                    recordList = recordList.map {  instance ->
+                        if (instance.id == record.id) {
+                          return@map editRecordResponse.toRecord()
+                        }
+                        instance
+                    }.toMutableList()
+                    _editBookModel = null
+                    success()
+
+                    return@retrofitCallback
+                }
             }
+
+            failed("수정에 실패했습니다.", "Unkown Error")
+
         })
     }
 

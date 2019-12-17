@@ -2,6 +2,7 @@ package com.depromeet.android.childcare.util.ext
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
@@ -15,6 +16,17 @@ fun ImageView.bindImageFromUrl(imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         GlideApp.with(this.context)
             .load(imageUrl)
+            .placeholder(ColorDrawable(Color.GRAY))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(this)
+    }
+}
+
+@BindingAdapter("image_from_uri")
+fun ImageView.bindImageFromUri(imageUri: Uri?) {
+    if (imageUri != null && imageUri.toString().isNotEmpty()) {
+        GlideApp.with(this.context)
+            .load(imageUri)
             .placeholder(ColorDrawable(Color.GRAY))
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(this)

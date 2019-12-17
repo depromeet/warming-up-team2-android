@@ -1,5 +1,6 @@
 package com.depromeet.android.childcare.editbook
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -26,7 +27,7 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
             lifecycleOwner = this@EditBookActivity
         }
 
-        initObserve();
+        initObserve()
     }
 
     private fun initObserve() {
@@ -53,6 +54,16 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
                     // 갤러리 호출
                     pickImg()
                 }
+            }
+        })
+
+        editBookViewModel.successEditBookEvent.observe(this@EditBookActivity, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                Intent().apply {
+                    // putExtra(EXTRA_BOOK_POSITION, it)
+                    setResult(Activity.RESULT_OK, this)
+                }
+                finish()
             }
         })
     }
@@ -82,7 +93,7 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
             data?.let {
-                editBookViewModel.changeImgUrl(it.data.toString())
+                editBookViewModel.changeImgUrl(it.data)
             }
         }
     }

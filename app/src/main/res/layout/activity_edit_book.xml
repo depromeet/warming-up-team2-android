@@ -60,6 +60,7 @@
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="5sp"
             android:layout_marginEnd="@dimen/space_large"
+            android:onClick="@{() -> viewModel.onEditClick()}"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iv_back_to_main"
@@ -353,10 +354,10 @@
                         android:layout_height="70dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/btn_et_round_gray"
-                        android:scaleType="centerCrop"
+                        android:scaleType="centerInside"
                         android:src="@drawable/ic_camera"
                         android:onClick="@{() -> viewModel.onGalleryClick()}"
-                        app:image_from_url="@{viewModel.imgUrl}"
+                        app:image_from_uri="@{viewModel.imgUri}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_edit_content" />
 

@@ -1,42 +1,42 @@
 package com.depromeet.android.childcare.feed
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.Observer
+import com.depromeet.android.childcare.EDIT_ITEM
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.base.BaseFragment
 import com.depromeet.android.childcare.databinding.FragmentFeedBinding
 import com.depromeet.android.childcare.editbook.EditBookActivity
 import com.depromeet.android.childcare.feed.feedpicture.FeedPictureActivity
+import com.depromeet.android.childcare.main.ChangeRecordsEventBus
 import com.depromeet.android.childcare.model.Record
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), FeedNavigator {
 
     private val feedViewModel: FeedViewModel by viewModel()
+    private val changeRecordsEventBus: ChangeRecordsEventBus by sharedViewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding.apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
             viewModel = feedViewModel
             rvFeedList.adapter =
                 FeedRecyclerViewAdapter(this@FeedFragment)
         }
 
-        return binding.root
+        changeRecordsEventBus.changeRecordsEvent.observe(this, Observer {
+            feedViewModel.refreshFeeds()
+        })
     }
 
     private fun goEditBookActivity() {
         activity?.let {
             val intent = EditBookActivity.getStartIntent(it)
-            startActivity(intent)
+            it.startActivityForResult(intent, EDIT_ITEM)
         }
     }
 
@@ -63,7 +63,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed), 
     override fun goFeedPictureActivity(imgUrl: String?) {
         activity?.let {activity ->
             imgUrl?.let {
-                startActivity(FeedPictureActivity.getStartIntent(activity, it))
+                activity.startActivity(FeedPictureActivity.getStartIntent(activity, it))
             }
         }
     }

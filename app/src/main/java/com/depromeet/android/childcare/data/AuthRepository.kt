@@ -38,7 +38,7 @@ class AuthRepository(
             } ?: run {
                 response?.let {
 
-                    if(response.code() != 200) {
+                    if(!response.isSuccessful) {
                         failed(it.message())
                         return@retrofitCallback
                     }

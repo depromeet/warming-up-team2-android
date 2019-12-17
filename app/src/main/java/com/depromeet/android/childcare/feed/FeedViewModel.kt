@@ -21,6 +21,10 @@ class FeedViewModel(
         get() = _feedType
 
     init {
+        refreshFeeds()
+    }
+
+    fun refreshFeeds() {
         bookRepository.getAllRecords({
             _feeds.value = it.filter { record ->
                 record.content != null
@@ -31,7 +35,7 @@ class FeedViewModel(
     }
 
     fun onEditBookClick(record: Record) {
-        bookRepository.bookModel = record
+        bookRepository.editBookModel = record
     }
 
     fun changeFeedType() {

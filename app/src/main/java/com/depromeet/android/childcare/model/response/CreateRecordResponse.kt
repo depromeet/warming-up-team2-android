@@ -1,6 +1,10 @@
 package com.depromeet.android.childcare.model.response
 
 
+import com.depromeet.android.childcare.model.PaymentType
+import com.depromeet.android.childcare.model.Record
+import com.depromeet.android.childcare.model.RecordType
+import com.depromeet.android.childcare.model.User
 import com.google.gson.annotations.SerializedName
 
 data class CreateRecordResponse(
@@ -50,4 +54,19 @@ data class CreateRecordResponse(
         @SerializedName("status")
         val status: String
     )
+
+    fun toRecord() = data.let {
+        Record(
+            it.id,
+            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
+            RecordType.PAYMENT,
+            it.expendedAt,
+            it.title,
+            it.amountOfMoney,
+            it.category,
+            PaymentType.valueOf(it.paymentMethod),
+            it.imageUrl,
+            it.description
+        )
+    }
 }
