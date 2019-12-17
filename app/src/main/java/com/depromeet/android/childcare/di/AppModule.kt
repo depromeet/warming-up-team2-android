@@ -4,10 +4,12 @@ import com.depromeet.android.childcare.data.AuthDataSource
 import com.depromeet.android.childcare.data.AuthRepository
 import com.depromeet.android.childcare.data.BookDataSource
 import com.depromeet.android.childcare.data.BookRepository
+import com.depromeet.android.childcare.main.ChangeRecordsEventBus
 import com.depromeet.android.childcare.util.ResourcesProvider
 import com.depromeet.android.childcare.util.ResourcesProviderImpl
 import com.depromeet.android.childcare.util.ToastProvider
 import com.depromeet.android.childcare.util.ToastProviderImpl
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -19,4 +21,6 @@ val appModule = module {
     single<BookDataSource> { BookRepository(get())}
 
     single<AuthDataSource> { AuthRepository(get(), get()) }
+
+    viewModel { ChangeRecordsEventBus() }
 }

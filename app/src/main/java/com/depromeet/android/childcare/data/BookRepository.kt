@@ -20,8 +20,16 @@ class BookRepository(
     private val service: ServiceApi
 ) : BookDataSource {
 
+    private var _editBookModel: Record? = null
+    override var editBookModel: Record?
+        get() = this._editBookModel
+        set(record) {
+            this._editBookModel = record
+        }
+
     private var myInfo: User? = null
     private var spouseInfo: User? = null
+    private var recordList= mutableListOf<Record>()
     private val recordTestValue = mutableListOf<Record>()
     private val summaryTestValue = mutableListOf<Summary>()
     private val categoryTextValue = mutableListOf<String>("미등록", "육아용품", "유흥")
@@ -64,7 +72,7 @@ class BookRepository(
                 }
 
                 response?.let {
-                    if (response.code() != 200) {
+                    if (!response.isSuccessful) {
                         failed(it.message())
                         return@retrofitCallback
                     }
@@ -72,20 +80,8 @@ class BookRepository(
                     it.body()?.let { connectResponse ->
 
                         // 현재 myinfo 는 딱히 다른데서 안쓰므로 미리 저장해도 될 듯 싶다.
-                        myInfo = User(
-                            connectResponse.data.me.id,
-                            connectResponse.data.me.profileImageUrl,
-                            connectResponse.data.me.name,
-                            connectResponse.data.me.connectionCode
-                        )
-
-                        spouseInfo = User(
-                            connectResponse.data.spouse.id,
-                            connectResponse.data.spouse.profileImageUrl,
-                            connectResponse.data.spouse.name,
-                            connectResponse.data.spouse.connectionCode
-                        )
-
+                        myInfo = connectResponse.meToUser()
+                        spouseInfo = connectResponse.spouseToUser()
                         success(spouseInfo)
                         return@retrofitCallback
                     }
@@ -112,27 +108,14 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
 
                 it.body()?.let { myInfoResponse ->
-                    myInfo = User(
-                        myInfoResponse.data.id,
-                        myInfoResponse.data.profileImageUrl,
-                        myInfoResponse.data.name,
-                        myInfoResponse.data.connectionCode
-                    )
-
-                    myInfoResponse.data.spouseName?.let {
-                        spouseInfo = User(
-                            -1,
-                            null,
-                            myInfoResponse.data.spouseName,
-                            ""
-                        )
-                    }
+                    myInfo = myInfoResponse.meToUser()
+                    spouseInfo = myInfoResponse.spouseToUser()
                     success(myInfo!!, spouseInfo)
                     return@retrofitCallback
                 }
@@ -143,6 +126,11 @@ class BookRepository(
     }
 
     override fun getAllRecords(success: (List<Record>) -> Unit, failed: (String, String?) -> Unit) {
+        if (recordList.size != 0) {
+            success(recordList)
+            return
+        }
+
         service.getExpendituresAll().enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed("Error", throwable.message)
@@ -150,30 +138,14 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed("Error", it.message())
                     return@retrofitCallback
                 }
 
                 it.body()?.let { getExpendituresResponse ->
-
-                    val recordList = getExpendituresResponse.data.map {
-                        Record(
-                            it.id,
-                            User(it.member.id, it.member.profileImageUrl, it.member.name, it.member.connectionCode),
-                            RecordType.PAYMENT,
-                            it.expendedAt,
-                            it.title,
-                            it.amountOfMoney,
-                            it.category,
-                            it.paymentMethod,
-                            it.imageUrl,
-                            it.description
-                        )
-                    }
-
+                    recordList.addAll(getExpendituresResponse.toRecords())
                     success(recordList)
-
                     return@retrofitCallback
                 }
             }
@@ -214,7 +186,7 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
@@ -225,8 +197,8 @@ class BookRepository(
                     val consumptions = mutableListOf<Float>()
                     var avgValue = 0f
                     expenditureStatistics.data.monthlyTotalExpenditures.map {
-                        it.key.toDate("yyyy-mm")?.let { convetedDate ->
-                            months.add(convetedDate.convertToString("mm"))
+                        it.key.toDate("yyyy-mm")?.let { convertedDate ->
+                            months.add(convertedDate.convertToString("mm"))
                         }
                         consumptions.add(it.value)
                         avgValue += it.value
@@ -283,38 +255,14 @@ class BookRepository(
             }
 
             response?.let { it ->
-                if (response.code() != 200) {
+                if (!response.isSuccessful) {
                     failed(it.message())
                     return@retrofitCallback
                 }
 
                 it.body()?.let { categoriesStatistics ->
-
-                    val sortedCategories = categoriesStatistics.data.categoryMap
-                        .toList()
-                        .sortedBy { (_, value) -> value }
-                        .toMap()
-
-                    val categories = mutableListOf<String>()
-                    val consumptions = mutableListOf<Float>()
-                    var mostCategory = ""
-                    var mostConsumption = 0f
-                    sortedCategories.map {
-                        categories.add(it.key)
-                        consumptions.add(it.value)
-                        mostCategory = it.key
-                        mostConsumption = it.value
-                    }
-
-                    // Todo 데이터가 6개로 잘 오면 삭제하도록 하자
-                    if (categories.size < 5) {
-                        for (i in 0 until 5 - categories.size) {
-                            categories.add(0, "미분류 $i")
-                            consumptions.add(0, 0f)
-                        }
-                    }
-
-                    success(categories, consumptions, mostCategory, mostConsumption)
+                    val (categories, consumptions, mostCategoryData) = categoriesStatistics.toStatisticsData()
+                    success(categories, consumptions, mostCategoryData.first, mostCategoryData.second)
                     return@retrofitCallback
                 }
             }
@@ -340,19 +288,47 @@ class BookRepository(
     }
 
     override fun editRecord(
-        id: Int,
-        data: CreateRecordRequest,
-        success: (CreateRecordResponse) -> Unit,
+        record: Record,
+        success: () -> Unit,
         failed: (String, String?) -> Unit
     ) {
-        service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
-            response?.body()?.let {
-                success(it)
+        service.editRecord(
+            record.id,
+            CreateRecordRequest(record.amount,
+                record.category,
+                record.content ?: "",
+                record.date,
+                record.paymentMethod.name,
+                record.title)
+        ).enqueue(retrofitCallback { response, throwable ->
+            throwable?.let {
+                failed("수정에 실패했습니다.", throwable.message)
+                return@retrofitCallback
             }
 
-            throwable?.let {
-                failed("레코드 수정 오류 발생", throwable.message)
+            response?.let { it ->
+                if (!response.isSuccessful) {
+                    failed("수정에 실패했습니다.", it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let { editRecordResponse ->
+                    // 저장되어 있는 record list 변경
+                    recordList = recordList.map {  instance ->
+                        if (instance.id == record.id) {
+                          return@map editRecordResponse.toRecord()
+                        }
+                        instance
+                    }.toMutableList()
+                    _editBookModel = null
+                    success()
+
+                    return@retrofitCallback
+                }
             }
+
+            failed("수정에 실패했습니다.", "Unkown Error")
+
         })
     }
 

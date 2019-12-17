@@ -1,20 +1,25 @@
 package com.depromeet.android.childcare.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.depromeet.android.childcare.ADD_ITEM_SUCCESS
+import com.depromeet.android.childcare.EDIT_ITEM
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.addbook.AddBookFirstActivity
 import com.depromeet.android.childcare.databinding.ActivityMainBinding
 import com.depromeet.android.childcare.mypage.MyPageFragment
 import com.studyfirstproject.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewPagerAdapter = MainViewPagerAdapter(supportFragmentManager)
     private var myPageFragment: MyPageFragment? = null
+
+    val changeRecordsEventBus: ChangeRecordsEventBus by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +58,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == EDIT_ITEM && resultCode == Activity.RESULT_OK) {
+            changeRecordsEventBus.triggerEvent()
         }
     }
 

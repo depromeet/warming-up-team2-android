@@ -9,6 +9,8 @@ import com.depromeet.android.childcare.model.response.CreateRecordResponse
 
 interface BookDataSource {
 
+    var editBookModel: Record?
+
     fun connectSpouse(
         myCode: String,
         success: (User?) -> Unit,
@@ -56,9 +58,8 @@ interface BookDataSource {
     )
 
     fun editRecord(
-        id: Int,
-        data: CreateRecordRequest,
-        success: (CreateRecordResponse) -> Unit,
+        record: Record,
+        success: () -> Unit,
         failed: (String, String?) -> Unit
     )
 
