@@ -42,7 +42,6 @@ class EditBookViewModel(
     val openGalleryEvent: LiveData<Event<Boolean>>
         get() = _openGalleryEvent
 
-    // Event 에 position 을 반환
     private val _successEditBookEvent = MutableLiveData<Event<Boolean>>()
     val successEditBookEvent: LiveData<Event<Boolean>>
         get() = _successEditBookEvent

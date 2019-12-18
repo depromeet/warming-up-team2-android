@@ -20,8 +20,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/toolbar_add_item" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +44,7 @@
                         android:id="@+id/et_add_where"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.title}"
                         android:hint="@string/add_item_hint_where"
                         android:inputType="text"
                         android:maxLines="1"
@@ -71,6 +70,7 @@
                         android:id="@+id/et_add_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.amount}"
                         android:hint="@string/add_item_hint_amount"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
@@ -116,6 +116,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text="@{viewModel.date}"
+                        android:onClick="@{() -> viewModel.onDateClick()}"
                         android:theme="@style/TextAppearance.App.TextInputLayout" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -140,25 +141,27 @@
                         android:layout_width="80dp"
                         android:layout_height="32dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/btn_bg_round_blue"
+                        android:background="@{viewModel.method == PaymentType.CARD ? @drawable/btn_bg_round_blue : @drawable/btn_bg_round_gray}"
                         android:clickable="true"
                         android:focusable="true"
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_card"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onPaymentMethodClick(PaymentType.CARD)}"/>
 
                     <Button
                         android:id="@+id/btn_add_cash"
                         android:layout_width="80dp"
                         android:layout_height="32dp"
-                        android:background="@drawable/btn_bg_round_gray"
+                        android:background="@{viewModel.method == PaymentType.CASH ? @drawable/btn_bg_round_blue : @drawable/btn_bg_round_gray}"
                         android:clickable="true"
                         android:focusable="true"
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_cash"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onPaymentMethodClick(PaymentType.CASH)}"/>
                 </LinearLayout>
 
                 <Button
@@ -172,7 +175,8 @@
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:padding="17dp"
                     android:text="@string/add_item_next"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:onClick="@{() -> viewModel.onNextClick()}"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
