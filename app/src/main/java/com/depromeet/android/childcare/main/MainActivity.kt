@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.depromeet.android.childcare.ADD_ITEM_SUCCESS
+import com.depromeet.android.childcare.ADD_ITEM
 import com.depromeet.android.childcare.EDIT_ITEM
 import com.depromeet.android.childcare.R
-import com.depromeet.android.childcare.addbook.AddBookFirstActivity
+import com.depromeet.android.childcare.addbook.AddBookActivity
 import com.depromeet.android.childcare.databinding.ActivityMainBinding
 import com.depromeet.android.childcare.mypage.MyPageFragment
 import com.studyfirstproject.base.BaseActivity
@@ -43,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 .commit()
         }
         binding.fab.setOnClickListener {
-            startActivityForResult(AddBookFirstActivity.getStartIntent(this), ADD_ITEM_SUCCESS)
+            startActivityForResult(AddBookActivity.getStartIntent(this), ADD_ITEM)
         }
     }
 
@@ -65,6 +65,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == EDIT_ITEM && resultCode == Activity.RESULT_OK) {
+            changeRecordsEventBus.triggerEvent()
+        }
+
+        if (requestCode == ADD_ITEM && resultCode == Activity.RESULT_OK) {
             changeRecordsEventBus.triggerEvent()
         }
     }

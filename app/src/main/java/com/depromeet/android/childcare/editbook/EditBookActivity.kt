@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.depromeet.android.childcare.PICK_FROM_ALBUM
 import com.depromeet.android.childcare.R
@@ -49,10 +50,10 @@ class EditBookActivity : BaseActivity<ActivityEditBookBinding>(R.layout.activity
             event.getContentIfNotHandled()?.let {
                 if (it) {
                     // 퍼미션 체크
-                    PermissionUtil.getPermission(this, failed = { finish() })
-
-                    // 갤러리 호출
-                    pickImg()
+                    PermissionUtil.getPermission(this,
+                        success = { pickImg() },
+                        failed = { Toast.makeText(this, "권한을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show() }
+                    )
                 }
             }
         })

@@ -4,8 +4,6 @@ import android.net.Uri
 import com.depromeet.android.childcare.model.Record
 import com.depromeet.android.childcare.model.Summary
 import com.depromeet.android.childcare.model.User
-import com.depromeet.android.childcare.model.request.CreateRecordRequest
-import com.depromeet.android.childcare.model.response.CreateRecordResponse
 
 interface BookDataSource {
 
@@ -52,8 +50,8 @@ interface BookDataSource {
     )
 
     fun createNewRecord(
-        data: CreateRecordRequest,
-        success: (CreateRecordResponse) -> Unit,
+        record: Record,
+        success: (Int) -> Unit,
         failed: (String, String?) -> Unit
     )
 

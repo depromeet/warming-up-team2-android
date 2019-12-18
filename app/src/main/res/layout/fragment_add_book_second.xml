@@ -11,16 +11,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_add_item" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -78,7 +75,9 @@
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_category1"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category1)}"
+                        app:bind_addbook_category_background="@{viewModel.category}" />
 
                     <Button
                         android:id="@+id/btn_add_category2"
@@ -93,7 +92,9 @@
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_category2"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category2)}"
+                        app:bind_addbook_category_background="@{viewModel.category}" />
 
                     <Button
                         android:id="@+id/btn_add_category3"
@@ -108,7 +109,9 @@
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_category3"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category3)}"
+                        app:bind_addbook_category_background="@{viewModel.category}" />
 
                     <Button
                         android:id="@+id/btn_add_category4"
@@ -122,7 +125,9 @@
                         android:stateListAnimator="@null"
                         android:text="@string/add_item_category4"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.onCategoryClick(@string/add_item_category4)}"
+                        app:bind_addbook_category_background="@{viewModel.category}" />
                 </LinearLayout>
 
                 <TextView
@@ -145,15 +150,19 @@
                     android:background="@drawable/btn_et_round_gray"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_camera"
+                    android:onClick="@{() -> viewModel.onGalleryClick()}"
+                    app:image_from_uri="@{viewModel.imgUri}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_add_content" />
 
                 <EditText
                     android:id="@+id/et_add_content"
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="70dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
+                    android:text="@={viewModel.content}"
                     android:background="@drawable/btn_et_round_blue"
                     android:gravity="top"
                     android:hint="@string/add_item_msg_max"
@@ -175,6 +184,7 @@
                     android:padding="17dp"
                     android:text="@string/add_item_finish"
                     android:textColor="@android:color/white"
+                    android:onClick="@{() -> viewModel.onCreateItemClick()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

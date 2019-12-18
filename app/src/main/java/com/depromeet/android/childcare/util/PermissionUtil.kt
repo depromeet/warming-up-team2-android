@@ -10,10 +10,11 @@ import com.gun0912.tedpermission.TedPermission
 
 object PermissionUtil {
 
-    fun getPermission(context: Context, failed: () -> Unit) {
+    fun getPermission(context: Context, success: () -> Unit,failed: () -> Unit) {
         TedPermission.with(context)
             .setPermissionListener(object : PermissionListener {
                 override fun onPermissionGranted() {
+                    run(success)
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
