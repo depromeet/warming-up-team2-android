@@ -113,31 +113,24 @@ class AddItemViewModel(
             content.value
         )
 
-        Log.e("click!!", "record: $record")
+        repository.createNewRecord(record, {recordId ->
 
-
-//        repository.createNewRecord(
-//            CreateRecordRequest(
-//                amount,
-//                _category.value!!,
-//                if (disc.isNullOrEmpty()) "" else disc,
-//                _date.value!!,
-//                _method.value!!,
-//                if (title.isNullOrEmpty()) "" else title
-//            ), {
-//                uri?.let { uri ->
-//                    repository.uploadImage(
-//                        it.data.id,
-//                        uri, {
-//                        }, { msg, reason ->
-//                            onDataNotAvailable(msg, reason)
-//                        }
-//                    )
-//                }
-//            }, { msg, reason ->
-//                onDataNotAvailable(msg, reason)
-//            }
-//        )
+            // img 업로드
+            imgUri.value?.let {
+                repository.uploadImage(recordId, it, {
+                    _successAddBookEvent.value = Event(Unit)
+                }, { msg, reason ->
+                    // 이미지는 업로드 안되어도 추가이 되도록 설정
+                    Log.e("AddBookError", "upload Image Error: $reason" )
+                    toastProvider.makeToast(msg)
+                    _successAddBookEvent.value = Event(Unit)
+                })
+            } ?: kotlin.run {
+                _successAddBookEvent.value = Event(Unit)
+            }
+        },{msg, reason ->
+            onDataNotAvailable(msg, reason)
+        })
     }
 
     private fun onDataNotAvailable(msg: String, reason: String?) {

@@ -4,7 +4,6 @@ import android.net.Uri
 import com.depromeet.android.childcare.model.*
 import com.depromeet.android.childcare.model.request.ConnectCoupleRequest
 import com.depromeet.android.childcare.model.request.CreateRecordRequest
-import com.depromeet.android.childcare.model.response.CreateRecordResponse
 import com.depromeet.android.childcare.network.ServiceApi
 import com.depromeet.android.childcare.network.retrofitCallback
 import com.depromeet.android.childcare.util.convertToString
@@ -272,18 +271,45 @@ class BookRepository(
     }
 
     override fun createNewRecord(
-        data: CreateRecordRequest,
-        success: (CreateRecordResponse) -> Unit,
+        record: Record,
+        success: (Int) -> Unit,
         failed: (String, String?) -> Unit
     ) {
-        service.createNewRecord(data).enqueue(retrofitCallback { response, throwable ->
-            response?.body()?.let {
-                success(it)
-            }
-
+        service.createNewRecord(
+            CreateRecordRequest(record.amount,
+                record.category,
+            record.content ?: "",
+                record.date,
+                record.paymentMethod.name,
+                record.title)
+        ).enqueue(retrofitCallback { response, throwable ->
             throwable?.let {
                 failed("레코드 추가 오류 발생", throwable.message)
+                return@retrofitCallback
             }
+
+            response?.let {
+                if (!response.isSuccessful) {
+                    failed("레코드 추가 오류 발생", it.message())
+                    return@retrofitCallback
+                }
+            }
+
+            response?.let { it ->
+                if (!response.isSuccessful) {
+                    failed("수정에 실패했습니다.", it.message())
+                    return@retrofitCallback
+                }
+
+                it.body()?.let { editRecordResponse ->
+                    // 저장되어 있는 record list 변경
+                    recordList.add(0, editRecordResponse.toRecord())
+                    success(editRecordResponse.data.id)
+                    return@retrofitCallback
+                }
+            }
+
+            failed("레코드 추가 오류 발생", "Unknown Error")
         })
     }
 
@@ -327,7 +353,7 @@ class BookRepository(
                 }
             }
 
-            failed("수정에 실패했습니다.", "Unkown Error")
+            failed("수정에 실패했습니다.", "Unknown Error")
 
         })
     }

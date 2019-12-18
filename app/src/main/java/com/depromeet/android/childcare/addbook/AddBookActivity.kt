@@ -1,12 +1,11 @@
 package com.depromeet.android.childcare.addbook
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.depromeet.android.childcare.ADD_ITEM
-import com.depromeet.android.childcare.ADD_ITEM_SUCCESS
 import com.depromeet.android.childcare.R
 import com.depromeet.android.childcare.databinding.ActivityAddBookBinding
 import com.studyfirstproject.base.BaseActivity
@@ -53,6 +52,15 @@ class AddBookActivity :
                 onBackPressed()
             }
         })
+
+        addItemViewModel.successAddBookEvent.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                Intent().apply {
+                    setResult(Activity.RESULT_OK, this)
+                }
+                finish()
+            }
+        })
     }
 
     private fun addSecondFragment() {
@@ -61,15 +69,6 @@ class AddBookActivity :
             .beginTransaction()
             .add(R.id.fl_add_book_content, addBookSecondFragment)
             .commit()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ADD_ITEM && resultCode == ADD_ITEM_SUCCESS) {
-            setResult(ADD_ITEM_SUCCESS)
-            finish()
-        }
     }
 
     override fun onBackPressed() {
